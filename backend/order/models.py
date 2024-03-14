@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
-class CustomUser(AbstractUser):
+class Customer(AbstractUser):
     name = models.CharField(_('Name'), max_length=150)
     email = models.EmailField(_('Email address'), unique=True)
     location = models.CharField(_('Location'), max_length=255)
@@ -16,3 +16,18 @@ class CustomUser(AbstractUser):
         ('paypal', 'PayPal'),
     )
     payment_method = models.CharField(_('Payment Method'), max_length=20, choices=PAYMENT_METHOD_CHOICES)
+    
+    def __str__(self):
+        return self.username
+    
+class Category(models.Model):
+    CATEGORY_CHOICES = [
+        ('suits', 'Suits'),
+        ('shirts', 'Shirts'),
+        ('neckwear', 'Neckwear & Accessories'),
+        ('shoes', 'Shoes')
+    ]
+    name = models.CharField(max_lenght=100, choices=CATEGORY_CHOICES)
+    def __str__(self):
+        return self.get_name_display()
+
