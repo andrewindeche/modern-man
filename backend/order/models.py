@@ -9,6 +9,7 @@ class Customer(AbstractUser):
     location = models.CharField(_('Location'), max_length=255)
     city = models.CharField(_('City'), max_length=100)
     country = models.CharField(_('Country'), max_length=100)
+    favorites = models.ManyToManyField('Product', related_name='favorited_by', blank=True)
     
     PAYMENT_METHOD_CHOICES = (
         ('visa', 'Visa'),
@@ -62,7 +63,9 @@ class Product(models.Model):
     added_by_admin = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - ${self.price}"
+    def is_favorited_by(self, user):
+        return self.favorited_by.filter(id=user.id).exists()
 
 class Order(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
