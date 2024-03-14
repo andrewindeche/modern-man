@@ -9,6 +9,7 @@
   "author": "Andrew Indeche",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.57.0"
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0"
   }
 }
