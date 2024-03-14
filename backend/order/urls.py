@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import ProductListView, ProductDetailView, AddToCartView, CheckoutView
+from .views import ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView
 
 urlpatterns = [
-    path('products/', ProductListView.as_view(), name='product-list'),
-    path('products/<int:pk>/', ProductDetailView.as_view(), name='product-detail'),
-    path('cart/add/', AddToCartView.as_view(), name='add-to-cart'),
-    path('cart/checkout/', CheckoutView.as_view(), name='checkout'),
+    path('products/', ProductListCreateAPIView.as_view(), name='product-list-create'),
+    path('products/<int:pk>/', ProductDetailAPIView.as_view(), name='product-detail'),
+    path('cart/add/', CartCreateAPIView.as_view(), name='cart-create'),
+    path('cart/checkout/', OrderCreateAPIView.as_view(), name='order-create'),
 ]
