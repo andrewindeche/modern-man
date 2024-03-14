@@ -31,3 +31,13 @@ class Category(models.Model):
     def __str__(self):
         return self.get_name_display()
 
+class Order(models.Model):
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, through='OrderItem')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_ordered = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"Order #{self.pk}"
+    
