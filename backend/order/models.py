@@ -55,6 +55,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     added_by_admin = models.BooleanField(default=False)
+    average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
 
     def __str__(self):
         return f"{self.name} - ${self.price}"
@@ -104,3 +105,11 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"CartItem for {self.product.name} in {self.cart}"
+    
+class Rating(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='ratings')
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)])
+
+    def __str__(self):
+        return f"Rating {self.rating} by {self.user.username} for {self.product.name}"
