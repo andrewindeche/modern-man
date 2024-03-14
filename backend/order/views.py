@@ -1,33 +1,22 @@
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import path
+from rest_framework import generics
 from .models import Product, Order, Cart
+from .serializers import ProductSerializer, CartSerializer, OrderSerializer
 
 # Create your views here.
-class ProductListView(ListView):
-    model = Product
-    template_name = 'product_list.html'
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = 'product_detail.html'
+class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
-class AddToCartView(CreateView):
-    model = Cart
-    fields = ['products']
-    template_name = 'add_to_cart.html'
-    success_url = '/cart/'
+class CartCreateAPIView(generics.CreateAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-class CheckoutView(CreateView):
-    model = Order
-    fields = ['products']
-    template_name = 'checkout.html'
-    success_url = '/thank-you/'
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.is_ordered = True
-        return super().form_valid(form)
+class OrderCreateAPIView(generics.CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
