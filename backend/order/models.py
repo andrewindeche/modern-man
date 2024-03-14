@@ -30,12 +30,6 @@ class Customer(AbstractUser):
         blank=True,
         related_name='customers'
     )
-    
-    def __init__(self, username, is_admin=False):
-        self.username = username
-        self.is_admin = is_admin
-        self.orders = []  # Initialize empty list for orders
-        self.cart = []    # Initialize empty list for cart
 
     def add_order(self, order):
         self.orders.append(order)
@@ -87,20 +81,20 @@ class OrderItem(models.Model):
         return f"Order Item #{self.pk} for {self.order}"
     
 class Cart(models.Model):
-    def __init__(self, user):
-        self.user = user
-        self.products = []
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, through='CartItem')
 
     def add_product(self, product):
-        self.products.append(product)
+        self.products.add(product)
 
     def remove_product(self, product):
         self.products.remove(product)
-    
+
     def checkout(self):
-        order = Order(self.user, self.products)  # Create an order
-        self.user.add_order(order)  # Add the order to the user's orders
-        self.products = []  # Clear the cart after checkout
+        order = Order.objects.create(user=self.user)
+        for product in self.products.all():
+            OrderItem.objects.create(order=order, product=product, quantity=1, subtotal=product.price)
+        self.products.clear()
     
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
