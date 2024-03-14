@@ -1,14 +1,11 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "React Framework for Modernman",
+  "description": "A React App for modernman",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andrew Indeche",
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "^8.57.0"
-  }
+  "license": "MIT"
 }
