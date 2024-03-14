@@ -14,6 +14,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 from pathlib import Path
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'order'
+    'order',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -89,6 +92,23 @@ DATABASES = {
     }
 }
 
+#Rest_framework settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Set token expiration time
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Set refresh token expiration time
+    'ROTATE_REFRESH_TOKENS': True,
+}
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
