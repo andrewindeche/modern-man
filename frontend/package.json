@@ -9,8 +9,10 @@
   "author": "Andrew Indeche",
   "license": "MIT",
   "devDependencies": {
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.0"
+    "eslint-plugin-react": "^7.34.0",
+    "react-refresh": "^0.14.0"
   },
   "dependencies": {
     "@babel/cli": "^7.23.9",
