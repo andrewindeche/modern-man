@@ -4,15 +4,20 @@
   "description": "A React App for modernman",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack serve --open --config  webpack.dev.js",
+    "lint": "eslint",
+    "build": "webpack --config webpack.prod.js",
+    "clean": "rm -rf dist/"
   },
   "author": "Andrew Indeche",
   "license": "MIT",
   "devDependencies": {
+    "css-loader": "^6.10.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.0",
-    "react-refresh": "^0.14.0"
+    "react-refresh": "^0.14.0",
+    "style-loader": "^3.3.4"
   },
   "dependencies": {
     "@babel/cli": "^7.23.9",
