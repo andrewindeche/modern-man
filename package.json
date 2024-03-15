@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0",
+    "loader-utils": "^3.2.1"
   }
 }

@@ -1,4 +1,55 @@
 body {
     font-family: 'Josefin Sans', sans-serif;
+    box-sizing: border-box;
   }
-  
+  .notificationbar {
+    width: 1200px;
+    height: 70px;
+    margin: 2em;
+    background-color: #BC2B2B;
+    border: black solid 5px;
+    display: flex; 
+    align-items: center;
+    justify-content: space-around;
+}
+.notificationbar p {
+    color:white;
+    font-weight:bolder; 
+    font-size: large;
+    transform: translateY(20%);
+    margin: 0 auto;
+}
+.notificationbar button {
+    padding: 0.4em;
+    background-color:black;
+    color: white;
+    border: white solid 1px;
+    border-radius:5px;
+    transform: translateX(-20em);
+    padding:-2em
+}
+
+.shoes{
+    width:90px;
+    height:60px;
+    transform: translateX(20em);
+}
+
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+    .notificationbar {
+        width:80%;
+        height: 50%;
+    }
+    .notificationbar p {
+        font-size: x-small; 
+    }
+    .shoes{
+        display: none;
+    }
+    .notificationbar button {
+        transform: translateX(1%);
+        width: 30%;
+        height:80%;
+        font-size: 10px
+    }
+ }
