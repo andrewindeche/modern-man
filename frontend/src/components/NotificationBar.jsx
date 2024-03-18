@@ -5,7 +5,7 @@ const NotificationBar  = () => {
         <div className="notificationbar">
             <img src={shoes} alt="My Shoes" className='shoes' />
             <p>Get 50% off Selected Shoes</p>
-            <button>Learn More</button>
+            <button id="notificationbutton">Learn More</button>
         </div>
     )
 }

@@ -4,8 +4,8 @@ body {
   }
   .notificationbar {
     width: 1200px;
-    height: 70px;
-    margin: 2em;
+    height: 50px;
+    margin: 0.5em;
     background-color: #BC2B2B;
     border: black solid 5px;
     display: flex; 
@@ -26,13 +26,96 @@ body {
     border: white solid 1px;
     border-radius:5px;
     transform: translateX(-20em);
-    padding:-2em
+}
+
+ #notificationbutton:hover {
+    cursor: pointer;
+    background: linear-gradient(45deg, #774439, #366823, #FFFFFF);
+    color: #ADD8E6;
+    animation: glowing 20s linear infinite;
+    font-weight:bolder;
 }
 
 .shoes{
-    width:90px;
-    height:60px;
+    width:60px;
+    height:40px;
     transform: translateX(20em);
+}
+.searchbar{
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    margin: 0.8em 2em;
+    gap: 40px;
+}
+.user-icons {
+    position:relative;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 8em;
+    gap: 2em;  
+}
+.user .heart .shopping {
+    margin-left: 10px; 
+}
+
+.search-icon svg {
+    width: 40%; /* Increase the width of the icons */
+    height: 40%; /* Increase the height of the icons */
+}
+.user-icons svg {
+    width: 8%; /* Increase the width of the icons */
+    height: 8%; /* Increase the height of the icons */
+}
+.search-input{
+    width: 500px;
+    height: 50px;
+    border: black solid 3px;
+    background-color: #D3D3D3;
+    padding-left: 40px;
+}
+
+.search-input:hover{
+    background: linear-gradient(45deg, #964B00, #FFFFFF);
+    color: white;
+    cursor: pointer;
+    animation: glowing 20s linear infinite;
+}
+.search-input::placeholder{
+    color: black;
+    font-weight: bolder;
+}
+
+  .search-form {
+    position: relative;
+    flex-grow: 1;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 10px; /* Adjust the left position as needed */
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+.searchbar h3{
+    font-weight: bolder;
+    margin: 0;
+    width:60%;
+    font-size:30px
+}
+.categories button{
+    flex-direction: column;
+    width: 250px;
+    height: 60px;
+     color: white;
+}
+
+.categories {
+    display: flex;
+    justify-content: space-between; 
+    padding: 1em;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
@@ -51,5 +134,20 @@ body {
         width: 30%;
         height:80%;
         font-size: 10px
+    }
+    .searchbar h4{
+        font-weight: bolder;
+        margin: 0;
+        width:60%;
+        font-size:small
+    }
+    .search-input{
+        width: 200px;
+        height: 20px;
+        padding-left: 40px;
+    }
+    .search-input::placeholder{
+        font-size:xx-small;
+        font-weight: bolder;
     }
  }
