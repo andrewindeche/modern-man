@@ -41,6 +41,7 @@ body {
 .shoes{
     width:60px;
     height:40px;
+    border: brown solid 2px;
     transform: translateX(20em);
 }
 .searchbar{
@@ -72,17 +73,20 @@ body {
 }
 .search-input{
     width: 500px;
-    height: 50px;
-    border: black solid 3px;
+    height: 40px;
+    border: black solid 4px;
     background-color: #D3D3D3;
     padding-left: 40px;
 }
 
 .search-input:hover{
-    background: linear-gradient(45deg, #964B00, #FFFFFF);
     color: white;
+    border: brown solid 5px;
     cursor: pointer;
-    animation: glowing 20s linear infinite;
+}
+input::placeholder:hover{
+    color: white;
+    font-weight: bolder;
 }
 .search-input::placeholder{
     color: black;
