@@ -64,12 +64,15 @@ body {
 }
 
 .search-icon svg {
-    width: 40%; /* Increase the width of the icons */
-    height: 40%; /* Increase the height of the icons */
+    width: 40%; 
+    height: 40%; 
 }
 .user-icons svg {
-    width: 8%; /* Increase the width of the icons */
-    height: 8%; /* Increase the height of the icons */
+    width: 8%; 
+    height: 8%;
+    text-shadow: 0 0 3px #000; 
+    padding: 1em;
+    border: 2px solid #000;
 }
 .search-input{
     width: 500px;
@@ -79,6 +82,11 @@ body {
     padding-left: 40px;
 }
 
+.user-icons svg:hover{
+    background: linear-gradient(45deg, #774439, #366823, #0000FF);
+    border: red solid 2px;
+    color: white;
+}
 .search-input:hover{
     color: white;
     border: brown solid 5px;

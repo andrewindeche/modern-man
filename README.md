@@ -9,7 +9,7 @@
 | 4.ESLint| Linting Framework| [Lint]; [syntax];|
 | 5.Figma | Interface Design| [Prototype]; [Wireframe];|
 | 6.PostgreSQL | Relational Database| [Relational Integrity]; [Database];|
-| 7.Jest | Interface Design| [Prototype]; [Wireframe];|
+| 7.Jest | Javascript Testing Framework| [Testing Framework]; [Javascript];|
 
 <p>The README documents details for the Implementation of a ReactJs and Django Application</p>
 
