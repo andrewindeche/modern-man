@@ -14,7 +14,7 @@
 <p>The README documents details for the Implementation of a ReactJs and Django Application</p>
 
 ## <h1> Description</h1>
-<p>The Aim of the project is to build a React.js/Next.js web application that uses the Rick and Morty API and is based on the Rick and Morty cartoon series. The project displays Rick and Morty characters on the basis of character name, location name, and episode name</p>
+<p>The Aim of the project is to build a React.js and Python Django web project for an Ecommerce site for a mens wear with searchable categories of men's attire including: Suits, Shirts, NeckWear & Accessories   </p>
 
 ## Tool Implementation Choices/Decisions
 <p><b>Github</b></p>
