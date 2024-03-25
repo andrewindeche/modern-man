@@ -1,11 +1,12 @@
 import React from 'react';
+import Poster from '../images/poster';
 
-const carousel = () => {
+const Carousel = () => {
     return(
         <div className='carousel'>
-            Carousel
+            <img style={{ backgroundImage: `url(${Poster})` }} />
         </div>
     )
 }
 
-export default carousel;
+export default Carousel;

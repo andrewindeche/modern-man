@@ -1,4 +1,3 @@
-[![GitHub Views](https://github.com/andrewindechemain/modern-man)]
 # Modern Man Fashion Website
 
 |Tool                | Description                    | Tags for tools used                                                                                               |
