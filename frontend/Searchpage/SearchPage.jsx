@@ -10,7 +10,7 @@ const Searchpage = () => {
         <NavButtons />
         <SearchBar />
         <div className="searchresults">
-        <h3>Suits and Tuxedos</h3>
+        <h4>Suits and Tuxedos</h4>
         </div>
         </>
     )         

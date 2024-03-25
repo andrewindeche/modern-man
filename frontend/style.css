@@ -135,6 +135,12 @@ input::placeholder:hover{
     width:60%;
     font-size:24px
 }
+
+.searchresults h4{
+    margin: 1.5em 40%;
+    font-size:20px;
+    font-weight: bolder;
+}
 .categories button{
     flex-direction: column;
     width: 230px;
