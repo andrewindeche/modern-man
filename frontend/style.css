@@ -1,21 +1,29 @@
 body {
     font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
+    overflow: hidden;
   }
   .carousel {
     border: black solid 5px;
-    margin: 1em;
-    height:270px;
+    margin: 0.6em;
+    height:320px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  #posterImage {
+    width:100%;
+    height:100%;
   }
   .notificationbar {
-    width: 1275px;
+    width: 1270px;
     height: 50px;
-    margin: 0.2em;
     background-color: #BC2B2B;
     border: black solid 5px;
     display: flex; 
     align-items: center;
     justify-content: space-around;
+    margin-left: 0.2em;
 }
 .notificationbar p {
     color:white;
@@ -114,7 +122,7 @@ input::placeholder:hover{
   
 .search-icon {
     position: absolute;
-    left: 10px; /* Adjust the left position as needed */
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -146,7 +154,7 @@ input::placeholder:hover{
 .categories {
     display: flex;
     justify-content: space-between; 
-    padding: 0.5em;
+    padding: 1em;
 }
 .tooltip-text {
     visibility: hidden;
@@ -181,10 +189,7 @@ input::placeholder:hover{
     visibility: visible;
     opacity: 1;
   }
-.suits-image {
-    background-image: url('./src/images/suits.jpg');
-    background-size: cover;
-}
+
 @media only screen and (min-width: 320px) and (max-width: 768px) {
     .notificationbar {
         width:70%;
