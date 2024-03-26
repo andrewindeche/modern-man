@@ -135,6 +135,35 @@ input::placeholder:hover{
     width:60%;
     font-size:24px
 }
+
+.searchresultstitle {
+    margin: 1.5em 40%;
+    font-size:20px;
+    font-weight: bolder;
+}
+.searchresultsimages {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.searchresultsimages img{
+    border: black solid 2px;
+    border-radius: 1em;
+    height:16em;
+    width:14em;
+    padding:4em;
+}
+.searchresultsimages .image {
+    text-align: center; 
+    margin-bottom: 1em; 
+}
+.searchresultsimages p {
+    margin-top: -6em; 
+    color:#BC2B2B;
+    font-size:10px;
+    font-weight: bolder;
+}
 .categories button{
     flex-direction: column;
     width: 230px;
@@ -165,14 +194,12 @@ input::placeholder:hover{
     border-radius: 6px;
     padding: 5px 0;
     
-    /* Position the tooltip text */
     position: absolute;
     z-index: 1;
     bottom: 100%;
     left: 50%;
     margin-left: -60px;
     
-    /* Fade in tooltip */
     opacity: 0;
     transition: opacity 0.3s;
   }
