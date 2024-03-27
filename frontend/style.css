@@ -25,6 +25,10 @@ body {
     justify-content: space-around;
     margin-left: 0.2em;
 }
+.image a {
+    font-weight: bolder;
+    font-size: 11px;
+}
 .notificationbar p {
     color:white;
     font-weight:bolder; 
