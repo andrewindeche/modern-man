@@ -151,8 +151,14 @@ input::placeholder:hover{
     border: black solid 2px;
     border-radius: 1em;
     height:16em;
-    width:14em;
-    padding:4em;
+    width:17em;
+    padding:3em;
+}
+.cart {
+    border: #BC2B2B 3px solid;
+    padding: 4px;
+    background-color: black;
+    color: white
 }
 .searchresultsimages .image {
     text-align: center; 
