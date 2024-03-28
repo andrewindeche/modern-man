@@ -185,6 +185,9 @@ input::placeholder:hover{
     width:80%;
     height:60%
 }
+.image:hover {
+    border: #BC2B2B 3px solid;
+}
 .cart {
     border: #BC2B2B 3px solid;
     padding: 4px;

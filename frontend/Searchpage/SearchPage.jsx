@@ -12,13 +12,14 @@ import { faStar} from '@fortawesome/free-solid-svg-icons';
 const Searchpage = () => {
     return (
     <>
-        <NotificationBar />
-        <NavButtons />
-        <SearchBar />
-        <h4 className="searchresultstitle">Suits and Tuxedos</h4>
-        <div className="searchresultsimages">
-        <span className="image">
-        <div className="container"><span class="ondiscount">-18%</span>
+    <NotificationBar />
+    <NavButtons />
+    <SearchBar />
+    <h4 className="searchresultstitle">Suits and Tuxedos</h4>
+    <div className="searchresultsimages">
+    <span className="image">
+    <div className="container">
+        <span class="ondiscount">-18%</span>
         <img src={tuxedo4} alt="Italian Suits" />
         <p>Black Italian Tuxedo</p>
         {[...Array(4)].map((_, index) => (
