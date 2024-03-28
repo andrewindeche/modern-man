@@ -1,5 +1,4 @@
 /backend/.env
 /backend/db.sqlite
 /frontend/node_modules
-node_modules
 /backend/Pipfile.lock
