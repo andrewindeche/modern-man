@@ -7,7 +7,7 @@ import tuxedo2 from '../src/images/white tux stripes.jpg'
 import tuxedo3 from '../src/images/Blue Tux.jpg'
 import tuxedo4 from '../src/images/white tux.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faShoppingCart} from '@fortawesome/free-solid-svg-icons'; 
+import { faStar} from '@fortawesome/free-solid-svg-icons'; 
 
 const Searchpage = () => {
     return (
