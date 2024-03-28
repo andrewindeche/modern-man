@@ -156,12 +156,31 @@ input::placeholder:hover{
     justify-content: space-around;
     flex-wrap: wrap;
 }
-
-.searchresultsimages img{
+.ondiscount {
+    position: relative;
+    border-radius: 5px;
+    background-color: #BC2B2B; 
+    padding: 7px; 
+    color: white;
+    font-size:10px;
+    font-weight: bolder;
+}
+.onsale{
+    color: white;
+    font-size:10px;
+    background-color: #2E2BBC;
+    padding: 7px;
+}
+ .image {
     border: black solid 2px;
     border-radius: 1em;
-    height:10em;
-    width:10em;
+    height:16em;
+    width:14em;
+    padding:3em;
+}
+.image img {
+    width:80%;
+    height:40%
 }
 .cart {
     border: #BC2B2B 3px solid;
