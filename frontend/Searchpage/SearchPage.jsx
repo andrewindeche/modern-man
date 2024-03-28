@@ -2,9 +2,6 @@ import React from "react";
 import NotificationBar from '../src/components/NotificationBar';
 import SearchBar from '../src/components/SearchBar';
 import NavButtons from '../src/components/NavButtons';
-import tuxedo1 from '../src/images/tuxedo1.jpg'
-import tuxedo2 from '../src/images/white tux stripes.jpg'
-import tuxedo3 from '../src/images/Blue Tux.jpg'
 import tuxedo4 from '../src/images/tuxedo4.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar} from '@fortawesome/free-solid-svg-icons'; 
