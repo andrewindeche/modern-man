@@ -25,6 +25,13 @@ body {
     justify-content: space-around;
     margin-left: 0.2em;
 }
+.image a {
+    font-weight: bolder;
+    font-size: 11px;
+}
+.image {
+    display: grid; 
+}
 .notificationbar p {
     color:white;
     font-weight:bolder; 
@@ -50,7 +57,9 @@ body {
     animation: glowing 20s linear infinite;
     font-weight:bolder;
 }
-
+#price {
+    color:black;
+}
 .shoes{
     width:60px;
     height:40px;
@@ -147,22 +156,55 @@ input::placeholder:hover{
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.searchresultsimages img{
+.ondiscount {
+    position: absolute;
+    margin: -3em -6em;
+    border-radius: 5px;
+    background-color: #BC2B2B; 
+    padding: 7px; 
+    color: white;
+    font-size:10px;
+    font-weight: bolder;
+}
+.onsale {
+    position: absolute;
+    margin: -3em -6em;
+    color: white;
+    font-size:10px;
+    background-color: #2E2BBC;
+    padding: 7px;
+}
+ .image {
     border: black solid 2px;
     border-radius: 1em;
     height:16em;
     width:14em;
-    padding:4em;
+    padding:3em;
+}
+.image img {
+    width:80%;
+    height:60%
+}
+.cart {
+    border: #BC2B2B 3px solid;
+    padding: 4px;
+    margin-left: 8px;
+    border-radius: 2px;
+    width: 2em;
+    background-color: black;
+    color: white
 }
 .searchresultsimages .image {
     text-align: center; 
     margin-bottom: 1em; 
 }
 .searchresultsimages p {
-    margin-top: -6em; 
     color:#BC2B2B;
     font-size:10px;
     font-weight: bolder;
+}
+.searchresultsimages .image > div {
+    margin-top: -1em; 
 }
 .categories button{
     flex-direction: column;
@@ -193,13 +235,11 @@ input::placeholder:hover{
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-    
     position: absolute;
     z-index: 1;
     bottom: 100%;
     left: 50%;
     margin-left: -60px;
-    
     opacity: 0;
     transition: opacity 0.3s;
   }
