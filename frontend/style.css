@@ -29,6 +29,10 @@ body {
     font-weight: bolder;
     font-size: 11px;
 }
+.image {
+    display: grid;
+    
+}
 .notificationbar p {
     color:white;
     font-weight:bolder; 
@@ -54,7 +58,9 @@ body {
     animation: glowing 20s linear infinite;
     font-weight:bolder;
 }
-
+#price {
+    color:black;
+}
 .shoes{
     width:60px;
     height:40px;
@@ -151,16 +157,21 @@ input::placeholder:hover{
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.shopping {
+    color:#BC2B2B
+}
 .searchresultsimages img{
     border: black solid 2px;
     border-radius: 1em;
-    height:16em;
-    width:17em;
-    padding:3em;
+    height:10em;
+    width:10em;
 }
 .cart {
     border: #BC2B2B 3px solid;
     padding: 4px;
+    margin-left: 8px;
+    border-radius: 2px;
+    width: 2em;
     background-color: black;
     color: white
 }
@@ -169,10 +180,12 @@ input::placeholder:hover{
     margin-bottom: 1em; 
 }
 .searchresultsimages p {
-    margin-top: -6em; 
     color:#BC2B2B;
     font-size:10px;
     font-weight: bolder;
+}
+.searchresultsimages .image > div {
+    margin-top: -1em; 
 }
 .categories button{
     flex-direction: column;

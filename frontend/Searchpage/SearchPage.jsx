@@ -19,38 +19,42 @@ const Searchpage = () => {
         <div className="searchresultsimages">
         <span className="image">
         <img src={tuxedo1} alt="My Shoes" />
-        <p>Text below image 1</p>
+        <p>Black Full Italian Men's Tuxedo</p>
         <div>{[...Array(4)].map((_, index) => (
         <FontAwesomeIcon key={index} icon={faStar} className="shopping" />
-    ))}</div>
-    <a>$1000<FontAwesomeIcon icon={faShoppingCart} className="cart" /></a>
+    ))}
+        <p id="price">$1000</p>
+    </div>
     </span>
     <span className="image">
         <img src={tuxedo2} alt="My Shoes" />
-        <p>Text below image 2</p>
+        <p>Grey full Official Men's Suit</p>
         <div>{[...Array(4)].map((_, index) => (
         <FontAwesomeIcon key={index} icon={faStar} className="shopping" />
-    ))}</div>
-    <a>$1000<FontAwesomeIcon icon={faShoppingCart} className="cart" /></a>
+    ))}
+    <p id="price">$700</p>
+    </div>
     </span>
     <span className="image">
         <img src={tuxedo3} alt="My Shoes" />
-        <p>Text below image 3</p>
+        <p>Blue Full Men's Tuxedo</p>
         <div>{[...Array(4)].map((_, index) => (
         <FontAwesomeIcon key={index} icon={faStar} className="shopping" />
-    ))}</div>
-    <a>$1000<FontAwesomeIcon icon={faShoppingCart} className="cart" /></a>
+    ))}
+    <p id="price">$1000</p>
+    </div>
     </span>
     <span className="image">
         <img src={tuxedo4} alt="My Shoes" />
-        <p>Text below image 4</p>
+        <p>White full Official Men's Suit</p>
         <div>{[...Array(4)].map((_, index) => (
         <FontAwesomeIcon key={index} icon={faStar} className="shopping" />
-    ))}</div>
-    <a>$1000<FontAwesomeIcon icon={faShoppingCart} className="cart" /></a>
+    ))}
+    <p id="price">$700</p>
+    </div>
     </span>
 </div>
-        </>
+    </>
     )         
 }
 
