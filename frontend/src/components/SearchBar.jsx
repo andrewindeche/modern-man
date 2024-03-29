@@ -16,9 +16,9 @@ const SearchBar  = () => {
       <div className="user-icons">
       <FontAwesomeIcon icon={faUser} className="user" />
       <span className="tooltip-text">User Profile</span>
-      <FontAwesomeIcon icon={faShoppingCart} className="shopping" />
+      <FontAwesomeIcon icon={faShoppingCart} className="shoppingcarticon" />
       <span className="tooltip-text">Checkout</span>
-      <FontAwesomeIcon icon={faHeart} className="heart" />
+      <FontAwesomeIcon icon={faHeart} className="favorite" />
       <span className="tooltip-text">Favorite</span>
       </div>
     </div>
