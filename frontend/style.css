@@ -110,7 +110,7 @@ body {
     grid-auto-flow: column;
     grid-template-columns: repeat 4(1fr);
 }
-.shoppingcarticon, .windowclose {
+.shoppingcarticon, .windowclose, .favorite {
     width:3em;
     gap: 10px;
     border-radius: 5px;
@@ -118,7 +118,7 @@ body {
     padding: 10px;
     cursor: pointer;
 }
-.shoppingcarticon:hover, .windowclose:hover{
+.shoppingcarticon:hover, .windowclose:hover, .favorite:hover{
     border: #BC2B2B solid 3px;
     background-color: #000;
     color:#FFFFFF
@@ -135,7 +135,7 @@ body {
     width: 30%
 }
 .Modal {
-    border: black solid 4px;
+    border: black solid 2px;
     width: 50%;
     position: absolute;
     right:4em;
@@ -153,6 +153,9 @@ body {
 .modalbody {
     display: flex;
     flex-direction: row
+}
+.modalbody p {
+    font-size: 11px;
 }
 .user-icons svg:hover{
     background: linear-gradient(45deg, #774439, #366823, #0000FF);
