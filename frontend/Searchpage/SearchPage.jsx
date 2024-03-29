@@ -14,9 +14,9 @@ const Searchpage = () => {
     <SearchBar />
     <h4 className="searchresultstitle">Suits and Tuxedos</h4>
     <div className="searchresultsimages">
-    <span className="image">
+    <div className="image">
     <div className="container">
-        <span class="ondiscount">-18%</span>
+        <span className="ondiscount">-18%</span>
         <img src={tuxedo4} alt="Italian Suits" />
         <p>Black Italian Tuxedo</p>
         {[...Array(4)].map((_, index) => (
@@ -24,10 +24,11 @@ const Searchpage = () => {
     ))}
         <p id="price">$1000</p>
     </div>
-    </span>
-    <span className="image">
+    </div>
+    <span className="tooltip-text">View More</span>
+    <div className="image">
     <div className="container">
-    <span class="onsale">New</span>
+    <span className="onsale">New</span>
         <img src={tuxedo4} alt="Grey Suit" />
         <p>Grey Official Suit</p>
         {[...Array(4)].map((_, index) => (
@@ -35,10 +36,11 @@ const Searchpage = () => {
     ))}
         <p id="price">$700</p>
         </div>
-        </span>
-    <span className="image">
+        </div>
+        <span className="tooltip-text">View More</span>
+    <div className="image">
         <div className="container">
-        <span class="ondiscount">-18%</span>
+        <span className="ondiscount">-18%</span>
             <img src={tuxedo4} alt="Blue Tuxedo" />
         <p>Blue Official Tuxedo</p>
         {[...Array(4)].map((_, index) => (
@@ -46,10 +48,11 @@ const Searchpage = () => {
     ))}
     <p id="price">$1000</p>
     </div>
-    </span>
-    <span className="image">
+    </div>
+    <span className="tooltip-text">View More</span>
+    <div className="image">
     <div className="container">
-      <span class="onsale">New</span>
+      <span className="onsale">New</span>
         <img src={tuxedo4} alt="White Suit" />
         <p>White Official Suit</p>
         {[...Array(4)].map((_, index) => (
@@ -57,7 +60,8 @@ const Searchpage = () => {
     ))}
     <p id="price">$700</p>
     </div>
-    </span>
+    </div>
+    <span className="tooltip-text">View More</span>
 </div>
     </>
     )         

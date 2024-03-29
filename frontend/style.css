@@ -11,6 +11,9 @@ body {
     background-position: center;
     overflow: hidden;
   }
+  .topheadericon star, .topheadericon favorite{
+    border: black solid  2px;
+  }
   #posterImage {
     width:100%;
     height:100%;
@@ -28,9 +31,6 @@ body {
 .image a {
     font-weight: bolder;
     font-size: 11px;
-}
-.image {
-    display: grid; 
 }
 .notificationbar p {
     color:white;
@@ -104,7 +104,56 @@ body {
     background-color: #D3D3D3;
     padding-left: 40px;
 }
-
+.modalheader {
+    color:#BC2B2B;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat 4(1fr);
+}
+.shoppingcarticon, .windowclose {
+    width:3em;
+    gap: 10px;
+    border-radius: 5px;
+    border:#000 solid 3px;
+    padding: 10px;
+    cursor: pointer;
+}
+.shoppingcarticon:hover, .windowclose:hover{
+    border: #BC2B2B solid 3px;
+    background-color: #000;
+    color:#FFFFFF
+}
+.modalicons {
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+}
+.modalheader h2{
+    font-size: 20px;
+}
+#posterImage{
+    width: 30%
+}
+.Modal {
+    border: black solid 4px;
+    width: 50%;
+    position: absolute;
+    right:4em;
+    bottom:4em;
+    padding: 30px
+}
+.productdescription{
+    border: black solid 2px;
+}
+.title {
+    font-size: 15px;
+    font-weight: bolder;
+    color:#BC2B2B;
+}
+.modalbody {
+    display: flex;
+    flex-direction: row
+}
 .user-icons svg:hover{
     background: linear-gradient(45deg, #774439, #366823, #0000FF);
     border: red solid 2px;
@@ -188,6 +237,9 @@ input::placeholder:hover{
 .image:hover {
     border: #BC2B2B 3px solid;
 }
+.image:hover .tooltip-text {
+    visibility: visible;
+  }
 .cart {
     border: #BC2B2B 3px solid;
     padding: 4px;
@@ -231,9 +283,8 @@ input::placeholder:hover{
     padding: 1em;
 }
 .tooltip-text {
-    visibility: hidden;
     width: 120px;
-    background-color: black;
+    background-color: #BC2B2B;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -246,18 +297,24 @@ input::placeholder:hover{
     opacity: 0;
     transition: opacity 0.3s;
   }
-  
   .user:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
+    border: black solid 2px;
   }
   .shopping:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
+    border: black solid 2px;
   }
   .heart:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
+    border: black solid 2px;
+  }
+  .image:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1; 
   }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {

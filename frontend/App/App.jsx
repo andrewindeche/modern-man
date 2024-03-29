@@ -1,6 +1,6 @@
 import React from 'react';
-import Searchpage from '../Searchpage/SearchPage';
+import Modal from '../src/components/Modal';
 import "../style.css";
 
-const App = () => <div>< Searchpage /></div>;
+const App = () => <div><Modal /></div>;
 export default App;
