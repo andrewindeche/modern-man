@@ -8,14 +8,14 @@ const Modal = () => {
         <>
         <div className="Modal">
             <div className="modalheader">
-                <h2>Price: $1000</h2>
+                <h2>Black Full Italian Men's Tuxedo</h2>
                 <div className="topheaderstar">{[...Array(4)].map((_, index) => (
                 <FontAwesomeIcon key={index} icon={faStar} className="star" size="2x" /> ))}</div>
             </div>
             <div className="modalbody">
             <img src={Suit} id="posterImage" alt="suitimage" />
                     <div>
-                    <p className="title">Black Full Italian Men's Tuxedo</p>
+                    <p className="title">Price: $1000</p>
                     <p>
                         <ol className="productdescription">
                         <li> White XL sized long sleeved shirt.</li>
