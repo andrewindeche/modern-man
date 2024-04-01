@@ -21,8 +21,8 @@ const Modal = () => {
             <div className="modalbody">
             <img src={Suit} id="posterImage" alt="suitimage" />
                     <div>
-                    <p className="title">Price: $1000</p>
                         <ol className="productdescription">
+                        <p className="title">Price: $1000</p>
                         <li> White XL sized long sleeved shirt.</li>
                         <li>Long black neck tie</li>
                         <li>Black long sleeved coat with a pocket on the left side.</li>
