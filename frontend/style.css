@@ -11,6 +11,17 @@ body {
     background-position: center;
     overflow: hidden;
   }
+  .checkout {
+    font-size: 12px;
+  }
+  .checkout h4 {
+    color: #BC2B2B;
+    font-weight: bolder;
+  }
+  .checkout ul {
+    list-style-type: none;
+
+  }
   .previews{
     position: absolute;
     left:6px;
@@ -331,9 +342,27 @@ input::placeholder:hover{
     justify-content: space-between; 
     padding: 1em;
 }
+.checkout-header{
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    padding:1.5em
+}
+.personaldetails {
+    display: grid;
+    grid-template-columns: repeat(2,1fr) ;
+}
+.personaldetails h4{
+    font-size: 16px;
+    font-weight: bolder;
+}
+.payments img{
+    width: 10%;
+    height:30%;
+}
 .tooltip-text {
     width: 120px;
-    background-color: #BC2B2B;
+    background-color: #00008B;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -366,17 +395,17 @@ input::placeholder:hover{
   .user:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
-    border: black solid 2px;
+    border: white solid 2px;
   }
   .shopping:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
-    border: black solid 2px;
+    border: white solid 2px;
   }
   .heart:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
-    border: black solid 2px;
+    border: white solid 2px;
   }
   .image:hover + .tooltip-text {
     visibility: visible;
