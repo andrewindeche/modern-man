@@ -11,9 +11,21 @@ body {
     background-position: center;
     overflow: hidden;
   }
+  .previews{
+    position: absolute;
+    left:6px;
+    display:flex;
+    flex-direction: row;
+    gap:4px;
+    width:11%;
+    height:11%
+  }
+  .previews img{
+    border: black solid 1px;
+  }
   #posterImage {
     width:100%;
-    height:100%;
+    height:80%;
   }
   .topheaderstar {
     position:absolute;
@@ -128,10 +140,17 @@ body {
     background-color: #000;
     color:#FFFFFF
 }
+.productdescription{
+    font-size: 10px;
+}
 .modalicons {
     display: flex;
     flex-direction: row;
     gap:10px;
+}
+.modalbody {
+    display: grid;
+    grid-gap:4em
 }
 .modalheader h2{
     font-size: 20px;
@@ -143,12 +162,14 @@ body {
     border: black solid 2px;
     width: 50%;
     position: absolute;
+    display: grid;
     right:4em;
     bottom:4em;
     padding: 30px
 }
 .productdescription{
-    border: black solid 2px;
+    border: black solid 1px;
+    font-weight: bolder;
 }
 .title {
     font-size: 15px;
