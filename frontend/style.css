@@ -143,6 +143,22 @@ body {
     background-color: #000;
     color:#FFFFFF
 }
+.shoppingcarticon:hover + .tooltip-text-modal {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+  }
+
+.windowclose:hover + .tooltip-text-modal {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+  }
+.favorite:hover + .tooltip-text-modal {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+  }
 .productdescription{
     font-size: 10px;
 }
@@ -327,6 +343,21 @@ input::placeholder:hover{
     bottom: 100%;
     left: 50%;
     margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .tooltip-text-modal {
+    width: 120px;
+    background-color: #BC2B2B;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 20%;
+    left: 50%;
+    
     opacity: 0;
     transition: opacity 0.3s;
   }

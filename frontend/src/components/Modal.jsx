@@ -42,9 +42,12 @@ const Modal = () => {
                         </div>
                         <div className="modalicons">
                         <FontAwesomeIcon icon={faShoppingCart} className="shoppingcarticon" size="1x" />
+                        <span className="tooltip-text-modal">Checkout</span>
                         <FontAwesomeIcon icon={faWindowClose} className="windowclose"  size="1x"/>
+                        <span className="tooltip-text-modal">Close Window</span>
                         <FontAwesomeIcon icon={faHeart} className="favorite" size="1x" />
-                        </div>
+                        <span className="tooltip-text-modal">Like</span>
+                    </div>
                 </div>
             </div>
         </div>
