@@ -347,7 +347,9 @@ input::placeholder:hover{
     transition: opacity 0.3s;
   }
   .tooltip-text-modal {
-    width: 120px;
+    width: 80px;
+    font-size: 10px;
+    font-weight:bolder;
     background-color: #BC2B2B;
     color: #fff;
     text-align: center;
@@ -355,8 +357,8 @@ input::placeholder:hover{
     padding: 5px 0;
     position: absolute;
     z-index: 1;
-    bottom: 20%;
-    left: 50%;
+    bottom: 25%;
+    left: 55%;
     
     opacity: 0;
     transition: opacity 0.3s;
