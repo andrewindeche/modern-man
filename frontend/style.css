@@ -173,6 +173,7 @@ body {
 .productdescription{
     border: black solid 1px;
     font-weight: bolder;
+    padding-right: 50px;
 }
 .title {
     font-size: 15px;
