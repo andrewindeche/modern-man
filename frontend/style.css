@@ -23,6 +23,9 @@ body {
   .previews img{
     border: black solid 1px;
   }
+  .previews img:hover{
+    border: #BC2B2B solid 2px;
+  }
   #posterImage {
     width:100%;
     height:80%;
