@@ -376,15 +376,18 @@ input::placeholder:hover{
     font-weight: bolder;
 }
 .payments {
-    border:#000 3px solid;
-    border: black solid 2px;
+    border:#000 2px solid;
     width:30%;
     height: 10em;
     padding: 10px
 }
-.payments img{
-    width: 45%;
-    height:30%;
+.payments img {
+    border:#000 1px solid;
+    width: 48%;
+    height:33%;
+}
+.payments img:hover {
+    border:#BC2B2B solid;
 }
 .tooltip-text {
     width: 120px;
