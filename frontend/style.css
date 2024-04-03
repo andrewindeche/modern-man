@@ -379,7 +379,8 @@ input::placeholder:hover{
     border:#000 3px solid;
     border: black solid 2px;
     width:30%;
-    height: 10em
+    height: 10em;
+    padding: 10px
 }
 .payments img{
     width: 45%;
