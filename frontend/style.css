@@ -9,10 +9,10 @@ body {
     margin:10px;
     padding: 1px
 }
-.aboutuser p{
+.aboutuser p, .payments p{
     color:#BC2B2B;
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
 }
 .aboutuser li{
     font-weight: bolder;
@@ -375,8 +375,14 @@ input::placeholder:hover{
     font-size: 16px;
     font-weight: bolder;
 }
+.payments {
+    border:#000 3px solid;
+    border: black solid 2px;
+    width:30%;
+    height: 10em
+}
 .payments img{
-    width: 10%;
+    width: 45%;
     height:30%;
 }
 .tooltip-text {
