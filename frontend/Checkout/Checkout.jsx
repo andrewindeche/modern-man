@@ -34,7 +34,7 @@ const Checkout = () => {
           <div className='paymentselected'>
           <h4 className='checkouttitle'>Payment Selected</h4>
           <img src={Mpesa} alt="Blue Tuxedo" />
-          </div>
+            </div>
           </div>
         </div>
         </>

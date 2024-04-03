@@ -213,9 +213,10 @@ input::placeholder:hover{
 }
 .paymentselected {
     text-align: center;
+    padding: 2em
   }
 .paymentselected img {
-    width: 10%
+    width: 30%
 }
 .payments {
     border:#000 2px solid;
