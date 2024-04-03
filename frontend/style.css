@@ -45,6 +45,14 @@ body {
     background-color: black;
     color: white
 }
+.cartdetails {
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+}
+.cartdetails img {
+    width: 50%;
+}
 .categories {
     display: flex;
     justify-content: space-between; 
@@ -65,9 +73,15 @@ body {
     border: red solid 2px;
 }
 .checkout {
-    padding:30px;
+    padding:10px;
     font-size: 12px;
     width: 30%;
+}
+.checkoutitem {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    font-weight: bolder;
 }
 .checkout h1 {
     font-size: 30px;
@@ -83,6 +97,9 @@ body {
 }
 .checkout ul {
     list-style-type: none;
+}
+#email {
+    font-size: 9px;
 }
 .favorite:hover + .tooltip-text-modal {
     visibility: visible;
@@ -216,7 +233,7 @@ input::placeholder:hover{
     padding: 2em
   }
 .paymentselected img {
-    width: 30%
+    width: 20%
 }
 .payments {
     border:#000 2px solid;
