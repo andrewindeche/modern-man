@@ -14,7 +14,7 @@ const Checkout = () => {
           <SearchBar />
           <NavButtons />
           <div className='checkout'>
-          <h1>Check Out</h1>
+          <h1 id="Checkout">Check Out</h1>
           <div className='personaldetails'>
           <h4 className='checkouttitle'>Personal Information</h4>
             <ul className='aboutuser'>
@@ -36,7 +36,7 @@ const Checkout = () => {
           <img src={Mpesa} alt="Blue Tuxedo" />
           </div>
           </div>
-      </div>
+        </div>
         </>
     )
 }

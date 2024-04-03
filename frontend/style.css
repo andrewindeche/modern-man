@@ -1,10 +1,8 @@
-body {
-    font-family: 'Josefin Sans', sans-serif;
-    box-sizing: border-box;
-}
-.aboutuser{
+
+.aboutuser {
     border: black solid 2px;
-    width:30%;
+    width:40%;
+    height:90%;
     font-size:10px;
     margin:10px;
     padding: 1px
@@ -21,6 +19,15 @@ body {
     font-weight: normal;
     padding: 8px 0;
 }
+.aboutuser,
+.payments {
+  display: inline-block !important;
+  vertical-align: top; 
+}
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    box-sizing: border-box;
+}
 .carousel {
     border: black solid 5px;
     margin: 0.6em;
@@ -29,22 +36,44 @@ body {
     background-position: center;
     overflow: hidden;
 }
-.paymentselected {
-    text-align: center;
-  }
+.cart {
+    border: #BC2B2B 3px solid;
+    padding: 4px;
+    margin-left: 8px;
+    border-radius: 2px;
+    width: 2em;
+    background-color: black;
+    color: white
+}
+.categories {
+    display: flex;
+    justify-content: space-between; 
+    padding: 1em;
+}
+.categories button{
+    flex-direction: column;
+    width: 230px;
+    height: 50px;
+    color: white;
+    padding: 15px;
+    background-size: cover;
+    background-position: center;
+    align-items: center; 
+    justify-content: center;
+}
+.categories button:hover{
+    border: red solid 2px;
+}
 .checkout {
     padding:30px;
     font-size: 12px;
-    width: 40%;
+    width: 30%;
 }
 .checkout h1 {
     font-size: 30px;
     font-weight: bolder;
     text-align: center;
-    padding:1.5em
-}
-.paymentselected img {
-    width: 10%
+    padding:1.5em;
 }
 .checkout h4 {
     color: #BC2B2B;
@@ -55,29 +84,80 @@ body {
 .checkout ul {
     list-style-type: none;
 }
-.previews{
-    position: absolute;
-    left:6px;
-    display:flex;
+.favorite:hover + .tooltip-text-modal {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+}
+.heart:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    border: white solid 2px;
+}
+.image {
+    border: black solid 2px;
+    border-radius: 1em;
+    height:16em;
+    width:14em;
+    padding:3em;
+}
+.image a {
+    font-weight: bolder;
+    font-size: 11px;
+}
+
+.image img {
+    width:80%;
+    height:60%
+}
+.image:hover {
+    border: #BC2B2B 3px solid;
+}
+.image:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1; 
+}
+input::placeholder:hover{
+    color: white;
+    font-weight: bolder;
+}
+.modalbody {
+    display: flex;
+    flex-direction: row
+}
+.modalbody {
+    display: grid;
+    grid-gap:4em
+}
+.modalbody p {
+    font-size: 11px;
+}
+.modalheader {
+    color:#BC2B2B;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat 4(1fr);
+}
+.modalheader h2{
+    font-weight:bolder;
+}
+.modalicons {
+    display: flex;
     flex-direction: row;
-    gap:4px;
-    width:11%;
-    height:11%
+    gap:10px;
 }
-.previews img{
-    border: black solid 1px;
+
+.modalheader h2{
+    font-size: 20px;
 }
-.previews img:hover{
-    border: #BC2B2B solid 2px;
-}
-#posterImage {
-    width:100%;
-    height:80%;
-}
-.topheaderstar {
-    position:absolute;
-    right: 50px;
-    top:20px;
+.Modal {
+    border: black solid 2px;
+    width: 50%;
+    position: absolute;
+    display: grid;
+    right:4em;
+    bottom:4em;
+    padding: 30px
 }
 .notificationbar {
     width: 1270px;
@@ -88,10 +168,6 @@ body {
     align-items: center;
     justify-content: space-around;
     margin-left: 0.2em;
-}
-.image a {
-    font-weight: bolder;
-    font-size: 11px;
 }
 .notificationbar p {
     color:white;
@@ -117,14 +193,90 @@ body {
     animation: glowing 20s linear infinite;
     font-weight:bolder;
 }
+.ondiscount {
+    position: absolute;
+    margin: -3em -6em;
+    border-radius: 5px;
+    background-color: #BC2B2B; 
+    padding: 7px; 
+    color: white;
+    font-size:10px;
+    font-weight: bolder;
+}
+.onsale {
+    position: absolute;
+    margin: -3em -6em;
+    color: white;
+    font-size:10px;
+    background-color: #2E2BBC;
+    padding: 7px;
+}
+.paymentselected {
+    text-align: center;
+  }
+.paymentselected img {
+    width: 10%
+}
+.payments {
+    border:#000 2px solid;
+    width:40%;
+    position: absolute;
+    right: 1em;
+    top: 57px;
+    height: 10em;
+    padding: 10px;
+}
+.payments img {
+    border:#000 1px solid;
+    width: 48%;
+    height:33%;
+}
+.payments img:hover {
+    border:#BC2B2B solid;
+}
+.personaldetails {
+    display: grid;
+    border:#000 3px solid;
+    gap: 20px;
+    position: relative;
+}
+.personaldetails h4{
+    font-size: 16px;
+    font-weight: bolder;
+}
+.productdescription{
+    font-size: 10px;
+}
+
+#posterImage{
+    width: 30%
+}
+.productdescription{
+    border: black solid 1px;
+    font-weight: bolder;
+    padding-right: 50px;
+}
+.previews{
+    position: absolute;
+    left:6px;
+    display:flex;
+    flex-direction: row;
+    gap:4px;
+    width:11%;
+    height:11%
+}
+.previews img{
+    border: black solid 1px;
+}
+.previews img:hover{
+    border: #BC2B2B solid 2px;
+}
+#posterImage {
+    width:100%;
+    height:80%;
+}
 #price {
     color:black;
-}
-.shoes{
-    width:60px;
-    height:40px;
-    border: brown solid 2px;
-    transform: translateX(20em);
 }
 .searchbar{
     display: flex; 
@@ -133,28 +285,11 @@ body {
     margin: 0.8em 2em;
     gap: 40px;
 }
-.user-icons {
-    position:relative;
-    display: flex;
-    align-items: center;
-    padding-right: 10px;
-    padding-left: 8em;
-    gap: 2em;  
-}
-.user .heart .shopping {
-    margin-left: 10px; 
-}
 .search-icon svg {
     width: 40%; 
     height: 40%;
     padding: 0.5em;
     border: 2px solid #FFFFFF; 
-}
-.user-icons svg {
-    width: 8%; 
-    height: 8%;
-    padding: 0.5em;
-    border: 2px solid #000;
 }
 .search-input{
     width: 500px;
@@ -162,101 +297,6 @@ body {
     border: black solid 4px;
     background-color: #D3D3D3;
     padding-left: 40px;
-}
-.modalheader {
-    color:#BC2B2B;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat 4(1fr);
-}
-.modalheader h2{
-    font-weight:bolder;
-}
-.shoppingcarticon, .windowclose, .favorite {
-    width:3em;
-    gap: 10px;
-    border-radius: 5px;
-    border:#000 solid 3px;
-    padding: 10px;
-    cursor: pointer;
-}
-.shoppingcarticon:hover, .windowclose:hover, .favorite:hover{
-    border: #BC2B2B solid 3px;
-    background-color: #000;
-    color:#FFFFFF
-}
-.shoppingcarticon:hover + .tooltip-text-modal {
-    visibility: visible;
-    opacity: 1;
-    border: black solid 2px;
-}
-.windowclose:hover + .tooltip-text-modal {
-    visibility: visible;
-    opacity: 1;
-    border: black solid 2px;
-}
-.favorite:hover + .tooltip-text-modal {
-    visibility: visible;
-    opacity: 1;
-    border: black solid 2px;
-}
-.productdescription{
-    font-size: 10px;
-}
-.modalicons {
-    display: flex;
-    flex-direction: row;
-    gap:10px;
-}
-.modalbody {
-    display: grid;
-    grid-gap:4em
-}
-.modalheader h2{
-    font-size: 20px;
-}
-#posterImage{
-    width: 30%
-}
-.Modal {
-    border: black solid 2px;
-    width: 50%;
-    position: absolute;
-    display: grid;
-    right:4em;
-    bottom:4em;
-    padding: 30px
-}
-.productdescription{
-    border: black solid 1px;
-    font-weight: bolder;
-    padding-right: 50px;
-}
-.title {
-    font-size: 15px;
-    font-weight: bolder;
-    color:#BC2B2B;
-}
-.modalbody {
-    display: flex;
-    flex-direction: row
-}
-.modalbody p {
-    font-size: 11px;
-}
-.user-icons svg:hover{
-    background: linear-gradient(45deg, #774439, #366823, #0000FF);
-    border: red solid 2px;
-    color: white;
-}
-.search-input:hover{
-    color: white;
-    border: brown solid 5px;
-    cursor: pointer;
-}
-input::placeholder:hover{
-    color: white;
-    font-weight: bolder;
 }
 .search-input::placeholder{
     color: black;
@@ -291,50 +331,71 @@ input::placeholder:hover{
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.ondiscount {
-    position: absolute;
-    margin: -3em -6em;
+.shoes{
+    width:60px;
+    height:40px;
+    border: brown solid 2px;
+    transform: translateX(20em);
+}
+.shoppingcarticon, .windowclose, .favorite {
+    width:3em;
+    gap: 10px;
     border-radius: 5px;
-    background-color: #BC2B2B; 
-    padding: 7px; 
-    color: white;
-    font-size:10px;
-    font-weight: bolder;
+    border:#000 solid 3px;
+    padding: 10px;
+    cursor: pointer;
 }
-.onsale {
-    position: absolute;
-    margin: -3em -6em;
-    color: white;
-    font-size:10px;
-    background-color: #2E2BBC;
-    padding: 7px;
+.shoppingcarticon:hover, .windowclose:hover, .favorite:hover{
+    border: #BC2B2B solid 3px;
+    background-color: #000;
+    color:#FFFFFF
 }
-.image {
-    border: black solid 2px;
-    border-radius: 1em;
-    height:16em;
-    width:14em;
-    padding:3em;
-}
-.image img {
-    width:80%;
-    height:60%
-}
-.image:hover {
-    border: #BC2B2B 3px solid;
-}
-.image:hover .tooltip-text {
+.shoppingcarticon:hover + .tooltip-text-modal {
     visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
 }
-.cart {
-    border: #BC2B2B 3px solid;
-    padding: 4px;
-    margin-left: 8px;
-    border-radius: 2px;
-    width: 2em;
-    background-color: black;
-    color: white
+
+.topheaderstar {
+    position:absolute;
+    right: 50px;
+    top:20px;
 }
+.user .heart .shopping {
+    margin-left: 10px; 
+}
+.user-icons {
+    position:relative;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 8em;
+    gap: 2em;  
+}
+.user-icons svg {
+    width: 8%; 
+    height: 8%;
+    padding: 0.5em;
+    border: 2px solid #000;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: bolder;
+    color:#BC2B2B;
+}
+
+.user-icons svg:hover{
+    background: linear-gradient(45deg, #774439, #366823, #0000FF);
+    border: red solid 2px;
+    color: white;
+}
+.search-input:hover{
+    color: white;
+    border: brown solid 5px;
+    cursor: pointer;
+}
+
 .searchresultsimages .image {
     text-align: center; 
     margin-bottom: 1em; 
@@ -347,47 +408,10 @@ input::placeholder:hover{
 .searchresultsimages .image > div {
     margin-top: -1em; 
 }
-.categories button{
-    flex-direction: column;
-    width: 230px;
-    height: 50px;
-    color: white;
-    padding: 15px;
-    background-size: cover;
-    background-position: center;
-    align-items: center; 
-    justify-content: center;
-}
-.categories button:hover{
-    border: red solid 2px;
-}
-.categories {
-    display: flex;
-    justify-content: space-between; 
-    padding: 1em;
-}
-.personaldetails {
-    display: grid;
-    border:#000 3px solid;
-    gap: 20px;
-}
-.personaldetails h4{
-    font-size: 16px;
-    font-weight: bolder;
-}
-.payments {
-    border:#000 2px solid;
-    width:30%;
-    height: 10em;
-    padding: 10px
-}
-.payments img {
-    border:#000 1px solid;
-    width: 48%;
-    height:33%;
-}
-.payments img:hover {
-    border:#BC2B2B solid;
+.shopping:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    border: white solid 2px;
 }
 .tooltip-text {
     width: 120px;
@@ -426,20 +450,12 @@ input::placeholder:hover{
     opacity: 1;
     border: white solid 2px;
 }
-.shopping:hover + .tooltip-text {
+.windowclose:hover + .tooltip-text-modal {
     visibility: visible;
     opacity: 1;
-    border: white solid 2px;
+    border: black solid 2px;
 }
-.heart:hover + .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-    border: white solid 2px;
-}
-.image:hover + .tooltip-text {
-    visibility: visible;
-    opacity: 1; 
-}
+
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
     .notificationbar {
