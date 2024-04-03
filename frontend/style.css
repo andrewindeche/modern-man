@@ -83,6 +83,12 @@ body {
     justify-content: space-between;
     font-weight: bolder;
 }
+.checkoutamount {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    font-weight: bolder;
+}
 .checkout h1 {
     font-size: 30px;
     font-weight: bolder;
