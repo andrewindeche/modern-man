@@ -1,7 +1,7 @@
 import React from 'react';
-import Modal from '../src/components/Modal';
+import Checkout from '../Checkout/Checkout';
 
 import "../style.css";
 
-const App = () => <div><Modal /></div>;
+const App = () => <div><Checkout /></div>;
 export default App;
