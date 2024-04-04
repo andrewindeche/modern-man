@@ -17,6 +17,7 @@ const Checkout = () => {
       <NavButtons />
       <div className='checkout'>
         <h1 id="Checkout">Check Out</h1>
+        <div className='checkout-container'>
         <div className='personaldetails'>
         <h4 className='checkouttitle'>Personal Information</h4>
           <ul className='aboutuser'>
@@ -63,6 +64,7 @@ const Checkout = () => {
             </div>
           </div>
         </div>
+      </div>
         </>
     )
 }
