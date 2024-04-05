@@ -216,7 +216,7 @@ html, body {
     border: grey 2px solid;
 }
 .input-group input:hover{
-    border:#BC2B2B 2px solid;
+    border:#412bbc 2px solid;
 }
 input::placeholder:hover{
     color: white;
@@ -404,6 +404,7 @@ input::placeholder:hover{
     width: 30%;
     padding: 10px;
     font-weight: bolder;
+    border:#000 3px solid;
     margin: 2em 38%;
     color:#fff;
     border-radius: 6px;
