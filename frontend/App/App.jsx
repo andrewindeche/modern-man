@@ -1,6 +1,6 @@
 import React from 'react';
-import Registration from '../Registration/Registration';
+import Login from '../Login/Login';
 import "../style.css";
 
-const App = () => <div><Registration /></div>;
+const App = () => <div><Login /></div>;
 export default App;
