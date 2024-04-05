@@ -1,6 +1,6 @@
 import React from 'react';
-import Modal from '../src/components/Modal';
+import Homepage from '../Homepage/HomePage';
 import "../style.css";
 
-const App = () => <div><Modal /></div>;
+const App = () => <div><Homepage /></div>;
 export default App;
