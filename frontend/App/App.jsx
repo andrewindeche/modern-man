@@ -1,6 +1,6 @@
 import React from 'react';
-import Forgot from '../Forgot/Forgot';
+import Modal from '../src/components/Modal';
 import "../style.css";
 
-const App = () => <div><Forgot /></div>;
+const App = () => <div><Modal /></div>;
 export default App;
