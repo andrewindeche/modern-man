@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from '../Login/Login';
+import Forgot from '../Forgot/Forgot';
 import "../style.css";
 
-const App = () => <div><Login /></div>;
+const App = () => <div><Forgot /></div>;
 export default App;
