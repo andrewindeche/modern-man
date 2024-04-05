@@ -1,7 +1,6 @@
 import React from 'react';
-import Checkout from '../Checkout/Checkout';
-
+import Registration from '../Registration/Registration';
 import "../style.css";
 
-const App = () => <div><Checkout /></div>;
+const App = () => <div><Registration /></div>;
 export default App;
