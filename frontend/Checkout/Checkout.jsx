@@ -1,4 +1,3 @@
-import React from 'react';
 import NotificationBar from '../src/components/NotificationBar';
 import SearchBar from '../src/components/SearchBar';
 import NavButtons from '../src/components/NavButtons';

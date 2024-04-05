@@ -1,4 +1,3 @@
-import React from 'react';
 import Poster from '../images/poster';
 
 const Carousel = () => {

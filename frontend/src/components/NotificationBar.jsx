@@ -1,4 +1,3 @@
-import React from 'react';
 import shoes from '../images/shoes.jpg';
 const NotificationBar  = () => {
     return(

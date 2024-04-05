@@ -1,4 +1,3 @@
-import React from 'react';
 import suitsImage from '../images/suits.jpg'; 
 import shirtsImage from '../images/shirts.jpg';
 import neckwearImage from '../images/neckwear.jpg';

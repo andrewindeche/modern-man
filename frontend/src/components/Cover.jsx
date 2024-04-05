@@ -1,4 +1,3 @@
-import React from 'react';
 import posterImage from '../images/poster.jpg';
 
 const cover = () => {
