@@ -1,6 +1,6 @@
 import React from 'react';
-import Forgot from '../Forgot/Forgot';
+import Homepage from '../Homepage/HomePage';
 import "../style.css";
 
-const App = () => <div><Forgot /></div>;
+const App = () => <div><Homepage /></div>;
 export default App;
