@@ -212,7 +212,8 @@ html, body {
     padding: 10px 8em;
 }
 .input-group input {
-    width:100%
+    width:100%;
+    border: grey 2px solid;
 }
 .input-group input:hover{
     border:#BC2B2B 2px solid;

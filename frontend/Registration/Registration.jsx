@@ -2,7 +2,7 @@ const Registration = () => {
     return(
         <div className="registrationForm">
             <form>
-            <p>Registration</p>
+            <p>Registration: Create User Account</p>
                 <span className="nameLabel">
                     <div className="input-group">
                         <label>Full Name</label>
