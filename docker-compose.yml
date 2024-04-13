@@ -2,9 +2,7 @@ version: '3.7'
 
 services:
   db:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: Emuhaya24#
+    image: postgres:latest
     env_file:
       - ./backend/.env 
     ports:
@@ -17,12 +15,23 @@ services:
       timeout: 5s
       retries: 5
 
+  create_table:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    command: python manage.py createcachetable
+    depends_on:
+      db:
+        condition: service_healthy
+
   migrate:
     build: ./backend
     container_name: migrate
     env_file:
       - ./backend/.env
     command: python3 manage.py migrate
+    depends_on:
+      - create_table
 
   django: 
     build: ./backend
