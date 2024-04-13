@@ -1,43 +1,47 @@
-const webpack = require('webpack');
-
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
-module.exports = { 
-  entry: ['./src/index.js'],
+module.exports = {
+  entry: {
+    main: './src/index.js',
+  },
   output: {
-      path: path.resolve(__dirname,'dist'),
-      filename: '[name].bundle.js',
-      publicPath: '/',
-      clean: true,
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js', // Use contenthash to cache bust
+    publicPath: '/',
+    clean: true,
   },
   resolve: {
-      extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/, 
+        test: /\.(js|jsx)$/,
         use: ['babel-loader'],
         exclude: [/node_modules/, /__tests__/],
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|webp)$/i,
-        use: ["file-loader"],
+        use: ['file-loader'],
       },
       {
         test: /\.(woff|ttf)$/i,
-        type: 'asset/resource'
-      }
-    ]
+        type: 'asset/resource',
+      },
+    ],
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   devServer: {
-    allowedHosts:['localhost'],
+    allowedHosts: ['localhost'],
   },
   plugins: [
     new HtmlWebpackPlugin({
