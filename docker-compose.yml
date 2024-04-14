@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:latest
     env_file:
-      - ./backend/.env 
+      - ./backend/.env
     ports:
       - "5432:5432"
     volumes:
@@ -26,21 +26,19 @@ services:
 
   migrate:
     build: ./backend
-    container_name: migrate
     env_file:
       - ./backend/.env
-    command: python3 manage.py migrate
+    command: python manage.py migrate
     depends_on:
       - create_table
 
-  django: 
+  django:
     build: ./backend
-    container_name: django
     env_file:
-      - ./backend/.env 
-    command: python3 manage.py runserver 0.0.0.0:8000
+      - ./backend/.env
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
-      - "8000:8000"             
+      - "8000:8000"
     volumes:
       - ./backend:/app/backend
     depends_on:
@@ -49,7 +47,6 @@ services:
 
   react:
     build: ./frontend
-    container_name: react
     command: npm start
     ports:
       - "3000:3000"
