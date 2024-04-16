@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -7,7 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js', // Use contenthash to cache bust
+    filename: '[name].[contenthash].js',
     publicPath: '/',
     clean: true,
   },
@@ -35,18 +36,17 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
   devServer: {
+    port: 3000,
     allowedHosts: ['localhost'],
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Production',
       template: path.join(__dirname, 'src', 'index.html'),
+    }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /dev\.js$/,
     }),
   ],
 };

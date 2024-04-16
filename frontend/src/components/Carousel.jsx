@@ -1,4 +1,4 @@
-import Poster from '../images/poster';
+import Poster from '../images/poster.webp';
 
 const Carousel = () => {
     return(

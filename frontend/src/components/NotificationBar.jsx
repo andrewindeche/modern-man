@@ -1,4 +1,4 @@
-import shoes from '../images/shoes.jpg';
+import shoes from '../images/shoes.webp';
 const NotificationBar  = () => {
     return(
         <div className="notificationbar">

@@ -2,7 +2,7 @@ import React from "react";
 import NotificationBar from '../src/components/NotificationBar';
 import SearchBar from '../src/components/SearchBar';
 import NavButtons from '../src/components/NavButtons';
-import tuxedo4 from '../src/images/tuxedo4.jpg'
+import tuxedo4 from '../src/images/tuxedo4.webp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar} from '@fortawesome/free-solid-svg-icons'; 
 
