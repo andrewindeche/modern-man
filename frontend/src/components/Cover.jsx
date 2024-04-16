@@ -1,4 +1,4 @@
-import posterImage from '../images/poster.jpg';
+import posterImage from '../images/poster.webp';
 
 const cover = () => {
     return(

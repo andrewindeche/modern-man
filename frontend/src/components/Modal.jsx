@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faStar, faWindowClose, faShoppingCart } from '@fortawesome/free-solid-svg-icons'; 
 import Suit from '../images/tuxedo1.jpg';
-import Preview1 from '../images/black lapel coat.jpg';
-import Preview2 from '../images/black tie.jpg';
-import Preview3 from '../images/white shirt.jpg';
-import Preview4 from '../images/halfcoat.jpg';
-import Preview5 from '../images/tuxedo trouser.jpg';
-import Preview6 from '../images/pocket square.jpg';
+import Preview1 from '../images/black lapel coat.webp';
+import Preview2 from '../images/black tie.webp';
+import Preview3 from '../images/white shirt.webp';
+import Preview4 from '../images/halfcoat.webp';
+import Preview5 from '../images/tuxedo trouser.webp';
+import Preview6 from '../images/pocket square.webp';
 
 const Modal = () => {
     return (
