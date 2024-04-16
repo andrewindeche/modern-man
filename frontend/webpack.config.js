@@ -1,9 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: {
     main: './src/index.js',
+  },
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -35,12 +43,8 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
   devServer: {
+    port: 3000,
     allowedHosts: ['localhost'],
   },
   plugins: [
@@ -48,5 +52,9 @@ module.exports = {
       title: 'Production',
       template: path.join(__dirname, 'src', 'index.html'),
     }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /dev\.js$/,
+    }),
+    new BundleAnalyzerPlugin(),
   ],
 };
