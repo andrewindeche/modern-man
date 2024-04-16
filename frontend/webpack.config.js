@@ -1,21 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: {
     main: './src/index.js',
   },
-  optimization: {
-    minimize: true,
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js', // Use contenthash to cache bust
+    filename: '[name].[contenthash].js',
     publicPath: '/',
     clean: true,
   },
@@ -55,6 +48,5 @@ module.exports = {
     new webpack.IgnorePlugin({
       resourceRegExp: /dev\.js$/,
     }),
-    new BundleAnalyzerPlugin(),
   ],
 };

@@ -23,13 +23,6 @@ COPY . /app/backend
 # Copy the Django project files
 COPY . .
 
-# Copy the entrypoint script from the backend directory
-COPY backend/entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# Set entrypoint
-ENTRYPOINT ["entrypoint.sh"]
-
 # Expose port
 EXPOSE 8000
 
