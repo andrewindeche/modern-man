@@ -180,7 +180,7 @@ body {
 .heart:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
-    border: white solid 2px;
+    border: black solid 2px;
 }
 html, body {
     height: 100%;
@@ -301,12 +301,13 @@ input::placeholder:hover{
     margin: 0 auto;
 }
 .notificationbar button {
-    padding: 0.4em;
+    padding: 0.3em;
     background-color:black;
     color: white;
     border: white solid 1.5px;
-    width:10%;
-    border-radius:10px;
+    font-size: small;
+    width:8%;
+    border-radius:4px;
     transform: translateX(-20em);
 }
  #notificationbutton:hover {
@@ -516,7 +517,6 @@ input::placeholder:hover{
     opacity: 1;
     border: black solid 2px;
 }
-
 .topheaderstar {
     position:absolute;
     right: 50px;
@@ -572,11 +572,11 @@ input::placeholder:hover{
 .shopping:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
-    border: white solid 2px;
+    border: #000 solid 2px;
 }
 .tooltip-text {
     width: 120px;
-    background-color: #0000FF;
+    background-color: #0A2472;
     color: #fff;
     border:#000 2px solid;
     text-align: center;
@@ -609,7 +609,7 @@ input::placeholder:hover{
 .user:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
-    border: white solid 2px;
+    border: black solid 2px;
 }
 .windowclose:hover + .tooltip-text-modal {
     visibility: visible;
