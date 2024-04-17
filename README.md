@@ -4,7 +4,7 @@
 | ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
 | 1.GitHub| Version Control| [Version-Control]; [Repo];|
 | 2.ReactJs| JSX-Based FrontEnd Library|[Frontend]; [Javascript];|
-| 3.Django| Python-Based Backend Framework|[Frontend]; [Javascript];|
+| 3.Django| Python-Based Backend Framework|[Backend]; [Javascript];|
 | 4.ESLint| Linting Framework| [Lint]; [syntax];|
 | 5.Figma| Interface Design| [Prototype]; [Wireframe];|
 | 6.PostgreSQL| Relational Database| [Relational Integrity]; [Database];|
