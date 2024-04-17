@@ -43,12 +43,12 @@ body {
 #carouselImage {
     border: black solid 3px;
     width:40em;
-    height:21em;
+    height:22em;
 }
-#carouselImage2{
+#carouselImage2 {
     border: black solid 3px;
     width:40em;
-    height:21em;
+    height:22em;
 }
 .cart {
     border: #BC2B2B 3px solid;
@@ -284,14 +284,14 @@ input::placeholder:hover{
     flex-direction: row;
 }
 .notificationbar {
-    width: 1270px;
-    height: 50px;
+    width: 1260px;
+    height: 40px;
     background-color: #BC2B2B;
     border: black solid 5px;
     display: flex; 
     align-items: center;
     justify-content: space-around;
-    margin-left: 0.2em;
+    margin: 0.1em;
 }
 .notificationbar p {
     color:white;
