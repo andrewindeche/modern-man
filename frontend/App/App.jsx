@@ -1,5 +1,12 @@
 import React from 'react';
 import "../style.css";
 import Homepage from "../Homepage/HomePage";
-const App = () => <div><Homepage /></div>;
+import { createBrowserRouter } from 'react-router-dom';
+const App = () => {
+    <>
+    const router = createBrowserRouter ( 
+    <Homepage />
+            )
+    </>;
+}
 export default App;
