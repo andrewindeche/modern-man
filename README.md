@@ -12,11 +12,12 @@
 | 8.Docker| Virtulization| [Virtualization]; [Containers];|
 | 9.Django Rest Framework| API Toolkit| [API]; [REST Framework];|
 | 10.Pipenv| Packaging & Virtual Environment Tool| [Virtual Environment]; [Dependency Management];|
+| 11.CircleCI|Continous Intergration and Continous Delivery Tool| [CI/CD];|
 
 <p>The README documents details for the Implementation of a ReactJs and Django Application for a Men's wear website</p>
 
 ## <h1> Description</h1>
-<p>The Aim of the project is to build a React.js and Python Django web project for an Ecommerce site for a mens' wear with searchable categories of men's attire including: Suits, Shirts, NeckWear & Accessories   </p>
+<p>The Aim of the project is to build a React.js and Python Django web project for an Ecommerce site for a mens' wear with searchable categories of men's attire including: Suits, Shirts, NeckWear & Accessories</p>
 
 ## Tool Implementation Choices/Decisions
 <p><b>Github</b></p>
@@ -30,12 +31,14 @@
 </ul>
 
 ## <h1> Commands for Running the Project</h1>
-## Development server
+## Docker Environment
+Run `Docker compose build` to build a new image and `Docker compose up`  to open up the virtulized container version of the project. Navigate to  development server at `localhost://0.0.0.0:8000/` to open up the project.
 
-Run `npm start` for a development server. Navigate to `http://localhost:8080/`. The application will automatically reload if you change any of the source files.
+## Development server
+Run `npm start` for a development server. Navigate to `http://localhost:3000/`. The application will automatically reload if you change any of the source files.
 
 ## Production server
-Run `npm run start` for a production server, after building the project and generating neccesary statis files. Navigate to `http://localhost:8080/`. The application will automatically reload if you change any of the source files.
+Run `npm run start` for a production server, after building the project and generating neccesary statis files. Navigate to `http://localhost:3000/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
