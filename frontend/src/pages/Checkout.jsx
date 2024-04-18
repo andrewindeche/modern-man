@@ -1,12 +1,12 @@
-import NotificationBar from '../src/components/NotificationBar';
-import SearchBar from '../src/components/SearchBar';
-import NavButtons from '../src/components/NavButtons';
-import Mpesa from '../src/images/mastercard.webp';
-import Visa from '../src/images/mpesa.webp';
-import Mastercard from '../src/images/paypal.webp';
-import Paypal from '../src/images/visa.webp';
-import Suit1 from '../src/images/tuxedo1.webp';
-import Suit3 from '../src/images/white tux.webp';
+import NotificationBar from '../components/NotificationBar';
+import SearchBar from '../components/SearchBar';
+import NavButtons from '../components/NavButtons';
+import Mpesa from '../images/mastercard.webp';
+import Visa from '../images/mpesa.webp';
+import Mastercard from '../images/paypal.webp';
+import Paypal from '../images/visa.webp';
+import Suit1 from '../images/tuxedo1.webp';
+import Suit3 from '../images/white tux.webp';
 
 const Checkout = () => {
   return(
