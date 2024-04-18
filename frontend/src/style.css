@@ -1,0 +1,653 @@
+.aboutuser {
+    border: black solid 2px;
+    width:40%;
+    height:80%;
+    font-size:10px;
+    margin:18px;
+    padding: 2px
+}
+.aboutuser p, .payments p{
+    color:#BC2B2B;
+    text-align: center;
+    font-weight: 600;
+}
+.aboutuser li{
+    font-weight: bolder;
+}
+.aboutuser #email {
+    font-weight: normal;
+    padding: 8px 0;
+}
+.aboutuser,
+.payments {
+  display: inline-block !important;
+  vertical-align: top; 
+}
+button {
+    grid-column: span 2;
+  }
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    box-sizing: border-box;
+}
+.carousel {
+    display:flex;
+    flex-direction: row;
+    gap: 2em;
+    margin: 0.6em;
+    height:50%;
+    background-size: cover;
+    background-position: center;
+    overflow: none;
+}
+#carouselImage {
+    border: black solid 3px;
+    width:40em;
+    height:22em;
+}
+#carouselImage2 {
+    border: black solid 3px;
+    width:40em;
+    height:22em;
+}
+.cart {
+    border: #BC2B2B 3px solid;
+    padding: 4px;
+    margin-left: 8px;
+    border-radius: 2px;
+    width: 2em;
+    background-color: black;
+    color: white
+}
+.cartdetails {
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+}
+.cartdetails img {
+    width: 50%;
+}
+.categories {
+    display: flex;
+    justify-content: space-between; 
+    padding: 1em;
+}
+.categories button{
+    flex-direction: column;
+    font-size: small;
+    font-weight: bolder;
+    width: 200px;
+    height: 40px;
+    color: white;
+    padding: 15px;
+    background-size: cover;
+    background-position: center;
+    align-items: center; 
+    justify-content: center;
+}
+.categories button:hover{
+    border: red solid 2px;
+}
+.checkout {
+    padding:0 50px;
+    font-size: 12px;
+    width: 30%;
+}
+.checkoutamount {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    font-weight: bolder;
+}
+.checkoutamount button {
+    background-color: #000;
+    color: white;
+    width: 40%;
+    height: 30%;
+    border:#BC2B2B 4px solid;
+    border-radius: 5px;
+}
+.checkoutamount button:hover{
+    background: linear-gradient(45deg, #774439, #366823, #0000FF);
+    border:#000 solid 4px
+}
+.checkout-container {
+    display: flex;
+  }
+.checkoutdetails {
+    border: black solid 2px;
+    align-items: center; 
+    justify-content: space-around;
+    position:absolute;
+    right: 10%;
+    top:50%;
+    font-size: 10px;
+    margin:0 50px
+}
+.checkoutitem {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    font-weight: bolder;
+    border: black solid 1.5px;
+}
+.checkoutitem img{
+    width:15%;
+}
+.checkoutitem p {
+    justify-content: space-around;
+}
+.checkoutitem a {
+    font-size: larger;
+}
+.checkout h1 {
+    font-size: 20px;
+    font-weight: bolder;
+    padding:1em;
+}
+#Checkout {
+    position: absolute;
+    left: 25em
+}
+.checkout h4 {
+    color: #BC2B2B;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 14px;
+}
+.checkout ul {
+    list-style-type: none;
+}
+#email {
+    font-size: 9px;
+}
+.favorite:hover + .tooltip-text-modal {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+}
+.footer {
+    background-color: #000;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+.grandtotal{
+    font-size: 10px;
+    font-weight: bolder;
+}
+.heart:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+.input-group input {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+.input-group label {
+    margin-bottom: 5px;
+}
+.image {
+    border: black solid 2px;
+    border-radius: 1em;
+    height:16em;
+    width:14em;
+    padding:3em;
+}
+.image a {
+    font-weight: bolder;
+    font-size: 11px;
+}
+
+.image img {
+    width:80%;
+    height:60%
+}
+.image:hover {
+    border: #BC2B2B 3px solid;
+}
+.image:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1; 
+}
+.input-group {
+    padding: 10px 8em;
+}
+.input-group input {
+    width:100%;
+    border: grey 2px solid;
+}
+.input-group input:hover{
+    border:#412bbc 2px solid;
+}
+input::placeholder:hover{
+    color: white;
+    font-weight: bolder;
+}
+.input-group label, ::placeholder {
+    font-weight: bolder;
+}
+.signupnow {
+    color:#BC2B2B;
+    padding-left:4px;
+    font-size:14px
+}
+.modalbody {
+    display: flex;
+    flex-direction: row
+}
+.modalbody p {
+    font-size: 11px;
+}
+.modalheader {
+    color:#BC2B2B;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat 4(1fr);
+}
+.modalheader h2{
+    font-weight:bolder;
+}
+.modalicons {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 3em;
+    gap:10px;
+}
+
+.modalheader h2{
+    font-size: 20px;
+}
+.Modal {
+    border: black solid 2px;
+    width: 50%;
+    position: absolute;
+    display: grid;
+    right:12em;
+    bottom:10em;
+    padding: 30px
+}
+.nameLabel, .contactLabel, .passwordLabel {
+    display:flex;
+    flex-direction: row;
+}
+.notificationbar {
+    width: 1260px;
+    height: 40px;
+    background-color: #BC2B2B;
+    border: black solid 5px;
+    display: flex; 
+    align-items: center;
+    justify-content: space-around;
+    margin: 0.1em;
+}
+.notificationbar p {
+    color:white;
+    font-weight:bolder; 
+    font-size: large;
+    transform: translateY(20%);
+    margin: 0 auto;
+}
+.notificationbar button {
+    padding: 0.3em;
+    background-color:black;
+    color: white;
+    border: white solid 1.5px;
+    font-size: small;
+    width:8%;
+    border-radius:4px;
+    transform: translateX(-20em);
+}
+ #notificationbutton:hover {
+    cursor: pointer;
+    background: linear-gradient(45deg, #774439, #366823, #0000FF);
+    color: #FFFFFF;
+    border: white solid 2px;
+    animation: glowing 20s linear infinite;
+    font-weight:bolder;
+}
+.ondiscount {
+    position: absolute;
+    margin: -3em -6em;
+    border-radius: 5px;
+    background-color: #BC2B2B; 
+    padding: 7px; 
+    color: white;
+    font-size:10px;
+    font-weight: bolder;
+}
+.onsale {
+    position: absolute;
+    margin: -3em -6em;
+    color: white;
+    font-size:10px;
+    background-color: #2E2BBC;
+    padding: 7px;
+}
+.paymentselected {
+    text-align: center;
+    padding: 1em
+  }
+.paymentselected h4{
+    margin: 2em
+  }
+.paymentselected img {
+    width: 20%
+}
+.payments {
+    border:#000 2px solid;
+    width:40%;
+    position: absolute;
+    right: 1em;
+    top: 90px;
+    height: 10em;
+    padding: 10px;
+}
+.payments img {
+    border:#000 1px solid;
+    width: 48%;
+    height:33%;
+}
+.payments img:hover {
+    border:#BC2B2B solid;
+}
+.personaldetails {
+    display: grid;
+    border:#000 3px solid;
+    gap: 20px;
+    position: absolute;
+    left:10%;
+    top: 50%
+}
+.personaldetails h4{
+    font-size: 16px;
+    font-weight: bolder;
+    margin:1em
+}
+.productdescription{
+    font-size: 10px;
+}
+
+.productdescription{
+    border: black solid 1px;
+    font-weight: bolder;
+    padding-right: 20px;
+}
+.previews{
+    position: absolute;
+    left:6px;
+    display:flex;
+    flex-direction: row;
+    gap:4px;
+    width:11%;
+    height:11%
+}
+.previews img{
+    border: black solid 1px;
+}
+.previews img:hover{
+    border: #BC2B2B solid 2px;
+}
+#posterImage {
+    width:30%;
+    height:70%;
+    padding: 2em
+}
+#price {
+    color:black;
+}
+.registrationForm, .loginForm, .forgotPasswordForm {
+    border: black solid 4px;
+    margin: 4% 20%;
+    display: grid;
+    padding: 20px;
+    width: 70%;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    font-size: 12px;
+}
+.registrationForm button, .loginForm button, .forgotPasswordForm button {
+    background-color: #000;
+    width: 30%;
+    padding: 10px;
+    font-weight: bolder;
+    border:#000 3px solid;
+    margin: 2em 38%;
+    color:#fff;
+    border-radius: 6px;
+}
+.registrationForm button:hover, .loginForm button:hover, .forgotPasswordForm button:hover {
+    background: linear-gradient(45deg, #774439, #366823, #0000FF);
+    border:#000 3px solid;
+}
+.registrationForm p, .loginForm p, .forgotPasswordForm p {
+    background-color: #BC2B2B;
+    color:white;
+    padding: 1em;
+    width:100%;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.searchbar {
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    margin: 0.8em 2em;
+    gap: 40px;
+}
+.search-icon svg {
+    width: 40%; 
+    height: 40%;
+    padding: 0.5em;
+    border: 2px solid #FFFFFF; 
+}
+.search-input{
+    width: 500px;
+    height: 40px;
+    border: black solid 4px;
+    background-color: #D3D3D3;
+    padding-left: 40px;
+}
+.search-input::placeholder{
+    color: black;
+    font-weight: bolder;
+}
+.search-form {
+    position: relative;
+    flex-grow: 1;
+} 
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.searchbar h3{
+    font-weight: bolder;
+    margin: 0;
+    position: relative;
+    margin-left: 0em;
+    width:60%;
+    font-size:24px
+}
+.searchresultstitle {
+    margin: 1.5em 40%;
+    font-size:20px;
+    font-weight: bolder;
+}
+.searchresultsimages {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.shoes{
+    width:60px;
+    height:40px;
+    border: brown solid 2px;
+    transform: translateX(20em);
+}
+.shoppingcarticon, .windowclose, .favorite {
+    width:3em;
+    gap: 10px;
+    border-radius: 5px;
+    border:#000 solid 3px;
+    padding: 10px;
+    cursor: pointer;
+}
+.shoppingcarticon:hover, .windowclose:hover, .favorite:hover{
+    border: #BC2B2B solid 3px;
+    background-color: #000;
+    color:#FFFFFF
+}
+.shoppingcarticon:hover + .tooltip-text-modal {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+}
+.topheaderstar {
+    position:absolute;
+    right: 50px;
+    top:20px;
+}
+.user .heart .shopping {
+    margin-left: 10px; 
+}
+.user-icons {
+    position:relative;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 8em;
+    gap: 2em;  
+}
+.user-icons svg {
+    width: 8%; 
+    height: 8%;
+    padding: 0.5em;
+    border: 2px solid #000;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: bolder;
+    color:#BC2B2B;
+}
+
+.user-icons svg:hover{
+    background: linear-gradient(45deg, #774439, #366823, #0000FF);
+    border: red solid 2px;
+    color: white;
+}
+.search-input:hover{
+    color: white;
+    border: brown solid 5px;
+    cursor: pointer;
+}
+
+.searchresultsimages .image {
+    text-align: center; 
+    margin-bottom: 1em; 
+}
+.searchresultsimages p {
+    color:#BC2B2B;
+    font-size:10px;
+    font-weight: bolder;
+}
+.searchresultsimages .image > div {
+    margin-top: -1em; 
+}
+.shopping:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    border: #000 solid 2px;
+}
+.tooltip-text {
+    width: 120px;
+    background-color: #0A2472;
+    color: #fff;
+    border:#000 2px solid;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip-text-modal {
+    width: 80px;
+    font-size: 10px;
+    font-weight:bolder;
+    background-color: #BC2B2B;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 25%;
+    left: 55%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.user:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+}
+.windowclose:hover + .tooltip-text-modal {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+    .notificationbar {
+        width:70%;
+        height: 50%;
+    }
+    .notificationbar p {
+        font-size: x-small; 
+    }
+    .shoes{
+        display: none;
+    }
+    .notificationbar button {
+        transform: translateX(1%);
+        width: 30%;
+        height:80%;
+        font-size: 10px
+    }
+    .searchbar h3{
+        font-weight: bolder;
+        margin: 0;
+        position: relative;
+        width:30%;
+        font-size:7px;
+    }
+    .search-input{
+        width: 180px;
+        height: 20px;
+        padding-left: 40px;
+    }
+    .search-input::placeholder{
+        font-size:8px;
+        font-weight: bolder;
+    }
+ }
