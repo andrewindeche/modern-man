@@ -1,6 +1,6 @@
 import React from 'react';
 import "./style.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Homepage from "./pages/HomePage.jsx";
 import Registration from "./pages/Registration.jsx";
 import Login from "./pages/Login.jsx";
@@ -10,16 +10,14 @@ import Checkout from "./pages/Checkout.jsx"
 
 const App = () => {
     return (
-        <Router>
             <Routes>
                 <Route path="/" element={<Homepage/>} />
-                <Route path="/login" component={<Login />}/>
-                <Route path="/registration" component={<Registration/>} />
-                <Route path="/forgot" component={<Forgot/>}/>
-                <Route path="/searchpage" component={<SearchPage/>}/>
-                <Route path="/checkout" component={<Checkout/>}/>
-        </Routes>
-    </Router>
+                <Route path="/login" element={<Login />}/>
+                <Route path="/registration" element={<Registration/>} />
+                <Route path="/forgot" element={<Forgot/>}/>
+                <Route path="/searchpage" element={<SearchPage/>}/>
+                <Route path="/checkout" element={<Checkout/>}/>
+            </Routes>
         );
     };
 export default App;
