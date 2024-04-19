@@ -5,7 +5,7 @@ workflows:
   sample:
     jobs:
       build:
-        working_directory: ~/project/root/frontend
+        working_directory: ~/project/Ecommerce/frontend
         docker:
         - image: cimg/node:14.15.0
          steps:
