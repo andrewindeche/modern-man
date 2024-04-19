@@ -1,5 +1,5 @@
 import React from 'react';
-import Registration from 'Registration.jsx';
+import Registration from 'pages/Registration'
 import renderer from 'react-test-renderer';
 
 

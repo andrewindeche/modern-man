@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`forgot page renders the forgot page 1`] = `
+<div
+  className="forgotPasswordForm"
+>
+  <form>
+    <p>
+      Forgot Password? Generate New password
+    </p>
+    <span
+      className="nameLabel"
+    >
+      <div
+        className="input-group"
+      >
+        <label>
+          Enter Your Name
+        </label>
+        <input
+          name="fullName"
+          placeholder="Enter your Name"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div
+        className="input-group"
+      >
+        <label>
+          Enter Your Password
+        </label>
+        <input
+          name="fullName"
+          placeholder="Enter New Password"
+          required={true}
+          type="text"
+        />
+      </div>
+    </span>
+    <button
+      type="submit"
+    >
+      Reset Password
+    </button>
+  </form>
+</div>
+`;

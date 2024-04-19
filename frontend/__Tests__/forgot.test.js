@@ -1,7 +1,6 @@
 import React from 'react';
-import Forgot from 'Forgot.jsx';
+import Forgot from 'pages/Forgot.jsx';
 import renderer from 'react-test-renderer';
-
 
 describe("forgot page",() =>{
   it('renders the forgot page', () => {

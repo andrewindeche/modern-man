@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from 'Login.jsx';
+import Login from 'pages/Login.jsx';
 import renderer from 'react-test-renderer';
 
 

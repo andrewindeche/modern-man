@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchPage from 'SearchPage.jsx';
+import SearchPage from 'pages/SearchPage.jsx';
 import renderer from 'react-test-renderer';
 
 
