@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:14.17
-    working_directory: Ecommerce/frontend
+    working_directory: ~/Ecommerce
     steps:
       - checkout
       - run:
