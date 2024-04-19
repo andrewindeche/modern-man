@@ -4,16 +4,16 @@ orbs:
 workflows:
   sample:
     jobs:
-      build:
-        working_directory: ~/project/Ecommerce/frontend
-        docker:
-          - image: cimg/node:14.15.0
-        steps:
-          - checkout
-          - run:
-              name: Install Dependencies
-              command: npm install
-          - node/test:
-              version: '16.16.0'
-              test-results-for: jest
-              pkg-manager: npm
+      - build:
+          working_directory: ~/project/Ecommerce/frontend
+          docker:
+            - image: cimg/node:14.15.0
+          steps:
+            - checkout
+            - run:
+                name: Install Dependencies
+                command: npm install
+            - node/test:
+                version: '16.16.0'
+                test-results-for: jest
+                pkg-manager: npm
