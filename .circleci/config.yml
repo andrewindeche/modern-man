@@ -1,13 +1,15 @@
 version: 2.1
-orbs:
-  node: circleci/node@5.0.2
 
-workflows:
-  sample:
-    jobs:
-      - build:
-          working_directory: ~/Ecommerce/frontend
-      - node/test:
-          version: '16.16.0'
-          test-results-for: jest
-          pkg-manager: npm
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14.17
+    working_directory: ~/Ecommerce/frontend
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Tests
+          command: npm test
