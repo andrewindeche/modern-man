@@ -6,5 +6,9 @@ jobs:
     working_directory: ~/Ecommerce/frontend
     steps:
       - checkout
-      - run: command: npm install
-      - run: command: npm run test
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Tests
+          command: npm run test
