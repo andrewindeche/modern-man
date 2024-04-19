@@ -41,7 +41,6 @@
     "jest-cli": "^29.7.0",
     "jest-junit": "^16.0.0",
     "jest-transform-stub": "^2.0.0",
-    "jsdom": "^24.0.0",
     "react-refresh": "^0.14.0",
     "react-test-renderer": "^18.2.0",
     "style-loader": "^3.3.4",
