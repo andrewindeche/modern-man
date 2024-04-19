@@ -45,6 +45,7 @@ module.exports = {
   plugins: [
     new CompressionPlugin({
       include: /\/images\/.*\.(png|jpg|jpeg|webp)$/,
+      include:  /\.(js|jsx)(\?.*)?$/i,
     }),
     new HtmlWebpackPlugin({
       title: 'Production',
