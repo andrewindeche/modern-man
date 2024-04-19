@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faStar, faWindowClose, faShoppingCart } from '@fortawesome/free-solid-svg-icons'; 
-import Suit from '../images/tuxedo1.jpg';
+import Suit from '../images/tuxedo1.webp';
 import Preview1 from '../images/black lapel coat.webp';
 import Preview2 from '../images/black tie.webp';
 import Preview3 from '../images/white shirt.webp';

@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -42,6 +43,10 @@ module.exports = {
     historyApiFallback: true,
   },
   plugins: [
+    new CompressionPlugin({
+      include: /\/images\/.*\.(png|jpg|jpeg|webp)$/,
+      include:  /\.(js|jsx)(\?.*)?$/i,
+    }),
     new HtmlWebpackPlugin({
       title: 'Production',
       template: path.join(__dirname, 'src', 'index.html'),
