@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: cimg/node:14.17
-    working_directory: ~/project/frontend
+    working_directory: ~/project/Ecommerce/frontend
     steps:
       - checkout
       - run:
