@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:latest
+      - image: cimg/node: '21.4.0'
     working_directory: ~/Ecommerce/frontend
     steps:
       - checkout
