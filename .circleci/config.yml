@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:14.17
-    working_directory: ~/Ecommerce
+    working_directory: ~/Ecommerce/frontend
     steps:
       - checkout
       - run:
@@ -12,4 +12,4 @@ jobs:
           command: npm install
       - run:
           name: Run Tests
-          command: npm test
+          command: npm run test
