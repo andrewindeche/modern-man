@@ -7,7 +7,7 @@ workflows:
     jobs:
       - build:
           working_directory: ~/project/Ecommerce/frontend
-            - node/test:
-                version: '16.16.0'
-                test-results-for: jest
-                pkg-manager: npm
+      - node/test:
+          version: '16.16.0'
+          test-results-for: jest
+          pkg-manager: npm
