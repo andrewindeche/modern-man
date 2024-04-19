@@ -3,7 +3,7 @@ import NotificationBar from '../components/NotificationBar';
 import SearchBar from '../components/SearchBar'; 
 import NavButtons from '../components/NavButtons';
 import Cover from '../components/Cover';
-const homepage = () => {
+const HomePage = () => {
     return(
         <>
         <NotificationBar />
@@ -13,4 +13,4 @@ const homepage = () => {
         </>
      )
     }
-export default homepage;
+export default HomePage;

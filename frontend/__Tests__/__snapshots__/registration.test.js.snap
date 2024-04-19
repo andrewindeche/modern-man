@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`registration page renders the registration page 1`] = `
+<div
+  className="registrationForm"
+>
+  <form>
+    <p>
+      Registration: Create User Account
+    </p>
+    <span
+      className="nameLabel"
+    >
+      <div
+        className="input-group"
+      >
+        <label>
+          Full Name
+        </label>
+        <input
+          name="fullName"
+          placeholder="Enter your Name"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div
+        className="input-group"
+      >
+        <label>
+          User Name
+        </label>
+        <input
+          name="userName"
+          placeholder="Enter your User Name"
+          required={true}
+          type="text"
+        />
+      </div>
+    </span>
+    <span
+      className="contactLabel"
+    >
+      <div
+        className="input-group"
+      >
+        <label>
+          Email
+        </label>
+        <input
+          name="email"
+          placeholder="Enter your Email"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div
+        className="input-group"
+      >
+        <label>
+          Phone Number
+        </label>
+        <input
+          name="phoneNumber"
+          placeholder="Enter your Phone Number"
+          required={true}
+          type="text"
+        />
+      </div>
+    </span>
+    <span
+      className="passwordLabel"
+    >
+      <div
+        className="input-group"
+      >
+        <label>
+          Password
+        </label>
+        <input
+          name="password"
+          placeholder="Enter your Password"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div
+        className="input-group"
+      >
+        <label>
+          Confirm Password
+        </label>
+        <input
+          name="confirmPassword"
+          placeholder="Confirm your Password"
+          required={true}
+          type="text"
+        />
+      </div>
+    </span>
+    <button
+      type="submit"
+    >
+      Register
+    </button>
+  </form>
+</div>
+`;

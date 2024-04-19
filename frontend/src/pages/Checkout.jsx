@@ -7,7 +7,7 @@ import Mastercard from '../images/paypal.webp';
 import Paypal from '../images/visa.webp';
 import Suit1 from '../images/tuxedo1.webp';
 import Suit3 from '../images/white tux.webp';
-
+import React from 'react';
 const Checkout = () => {
   return(
     <>

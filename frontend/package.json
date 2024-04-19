@@ -10,17 +10,39 @@
     "start": "webpack serve --open --port 3000 --config webpack.prod.js",
     "lint": "eslint",
     "build": "webpack --config webpack.prod.js",
+    "test": "jest",
     "clean": "rm -rf dist/",
     "dev": "webpack serve --open --port 3000 --config webpack.dev.js"
+  },
+  "jest": {
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.(ico|svg|jpeg|jpg|png|gif|webp)$": "jest-transform-stub"
+    }
   },
   "author": "Andrew Indeche",
   "license": "MIT",
   "devDependencies": {
+    "babel-jest": "^29.7.0",
     "css-loader": "^6.10.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.0",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "jest-transform-stub": "^2.0.0",
+    "jsdom": "^24.0.0",
     "react-refresh": "^0.14.0",
+    "react-test-renderer": "^18.2.0",
     "style-loader": "^3.3.4",
     "webpack-bundle-analyzer": "^4.10.2"
   },
@@ -40,6 +62,7 @@
     "env": "^0.0.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
+    "identity-obj-proxy": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
