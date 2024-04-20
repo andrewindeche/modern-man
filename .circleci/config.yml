@@ -3,9 +3,10 @@ jobs:
   build:
     docker:
       - image: cimg/node:21.4.0
-    working_directory: ~/project/frontend
+    working_directory: ~/Ecommerce/frontend
     steps:
-      - checkout
+      - checkout:
+          path: ~/Ecommerce
       - run:
           name: Install Dependencies
           command: npm install
