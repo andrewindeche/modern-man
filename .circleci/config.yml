@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  frontend_tests:
     docker:
       - image: cimg/node:21.4.0
     working_directory: ~/Ecommerce/frontend
@@ -13,3 +13,19 @@ jobs:
       - run:
           name: Run Tests
           command: npm run test
+
+  backend_tests:
+    docker:
+      - image: circleci/python:3.8
+    working_directory: ~/Ecommerce/backend
+    steps:
+      - checkout:
+          path: ~/Ecommerce
+      - run:
+          name: Install Python dependencies
+          command: |
+            pip install -r requirements.txt
+      - run:
+          name: Run Python tests
+          command: |
+            python manage.py test
