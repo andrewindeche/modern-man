@@ -17,7 +17,7 @@ jobs:
 
   backend_tests:
     docker:
-      - image: circleci/python:3.8
+      - image: cimg/python:3.8
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
