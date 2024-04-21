@@ -19,6 +19,8 @@ jobs:
     docker:
       - image: cimg/python:3.10
       - image: postgres:13
+        services:
+          - postgres: 
         environment:
           POSTGRES_USER: user
           POSTGRES_PASSWORD: password
