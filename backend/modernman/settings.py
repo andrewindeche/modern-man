@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from dotenv import load_dotenv
-load_dotenv()
 
+load_dotenv()
 from pathlib import Path
 from datetime import timedelta
 
@@ -24,7 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: keep the secret key used in production secret!
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+
 DEBUG = False
 
 ALLOWED_HOSTS = []
@@ -83,9 +87,8 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST', default='localhost'),
-        'PORT': os.getenv('DB_PORT', default='5432'),
-        'SECRET_KEY': os.getenv('SECRET_KEY')
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 

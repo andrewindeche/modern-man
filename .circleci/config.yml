@@ -23,7 +23,6 @@ jobs:
           POSTGRES_USER: circleci
           POSTGRES_PASSWORD: password
           DB_NAME: dbname
-          SECRET_KEY: u^a-fhy%&baknzi47gbw4qcj99_ha#)pawj%n7um%mq%w+o(yf  
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
