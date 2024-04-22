@@ -29,6 +29,8 @@ jobs:
           path: ~/Ecommerce
       - run:
           name: Install Python dependencies
+          python3 -m venv venv
+            . venv/bin/activate
           command: |
             pip install -r requirements.txt
       - run:
@@ -41,6 +43,7 @@ jobs:
             python manage.py migrate
       - run:
           name: Run Python tests
+          . venv/bin/activate
           command: |
             export SECRET_KEY=$SECRET_KEY 
             python manage.py test
