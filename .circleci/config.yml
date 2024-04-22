@@ -18,30 +18,16 @@ jobs:
   build_backend:
     docker:
       - image: cimg/python:3.10.14
-        environment:
-          POSTGRES_USER: circleci
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: dbname
-          SECRET_KEY: ${SECRET_KEY}  # Assuming SECRET_KEY is set as a CircleCI project environment variable
       - image: cimg/postgres:13.3
         environment:
-          POSTGRES_USER: circleci
+          POSTGRES_USER: user
           POSTGRES_PASSWORD: password
-          POSTGRES_DB: dbname
+          DB_NAME: dbname
+          SECRET_KEY: ${SECRET_KEY}  
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
           path: ~/Ecommerce
-      - run:
-          name: Wait for DB
-          command: |
-            for i in `seq 1 10`;
-            do
-              nc -z localhost 5432 && echo Success && exit 0
-              echo -n .
-              sleep 1
-            done
-            echo Failed waiting for DB && exit 1
       - run:
           name: Install Python dependencies
           command: |
