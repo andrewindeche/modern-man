@@ -17,21 +17,39 @@ jobs:
 
   build_backend:
     docker:
-      - image: cimg/python:3.10.14-browsers
-        environment:
-          DATABASE_URL: postgresql://circleci@localhost/dbname?sslmode=disable
+      - image: cimg/python:3.10.14
       - image: cimg/postgres:13.3
         environment:
           POSTGRES_USER: circleci
+          POSTGRES_PASSWORD: password
           POSTGRES_DB: dbname
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
           path: ~/Ecommerce
       - run:
+          name: Set Environment Variable
+          command: echo "export MY_SECRET_KEY=your_secret_key_here" >> "$BASH_ENV"
+          environment:
+            MY_SECRET_KEY: your_secret_key_here
+      - run:
+          name: Wait for DB
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z localhost 5432 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for DB && exit 1
+      - run:
           name: Install Python dependencies
           command: |
             pip install -r requirements.txt
+      - run:
+          name: Apply Database Migrations
+          command: |
+            python manage.py migrate
       - run:
           name: Run Python tests
           command: |
