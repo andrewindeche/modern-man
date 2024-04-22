@@ -31,7 +31,7 @@ jobs:
           name: Set Environment Variable
           command: echo "export MY_SECRET_KEY=your_secret_key_here" >> "$BASH_ENV"
           environment:
-            MY_SECRET_KEY: your_secret_key_here
+            SECRET_KEY: ${SECRET_KEY}
       - run:
           name: Wait for DB
           command: |
