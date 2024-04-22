@@ -18,12 +18,16 @@ jobs:
   build_backend:
     docker:
       - image: cimg/python:3.10.14
+        environment:
+          POSTGRES_USER: circleci
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: dbname
+          SECRET_KEY: ${SECRET_KEY}  # Assuming SECRET_KEY is set as a CircleCI project environment variable
       - image: cimg/postgres:13.3
         environment:
           POSTGRES_USER: circleci
           POSTGRES_PASSWORD: password
           POSTGRES_DB: dbname
-          SECRET_KEY: u^a-fhy%&baknzi47gbw4qcj99_ha#)pawj%n7um%mq%w+o(yf
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
