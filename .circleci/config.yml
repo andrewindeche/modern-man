@@ -18,13 +18,13 @@ jobs:
   build_backend:
     docker:
       - image: cimg/python:3.10.14
-      - image: cimg/postgres:13.3
+    services:
+      postgres:
+        image: cimg/postgres:13.3
         environment:
           POSTGRES_USER: circleci
           POSTGRES_PASSWORD: password
-          DB_NAME: dbname
-          HOST: localhost
-          PORT: 5432
+          POSTGRES_DB: dbname
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
