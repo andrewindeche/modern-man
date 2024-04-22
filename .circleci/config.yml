@@ -23,7 +23,8 @@ jobs:
           POSTGRES_USER: circleci
           POSTGRES_PASSWORD: password
           DB_NAME: dbname
-          DB_HOST: localhost
+          HOST: localhost
+          PORT: 5432
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
