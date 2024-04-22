@@ -17,7 +17,9 @@ jobs:
 
   build_backend:
     docker:
-      - image: cimg/python:3.10.14
+      - image: cimg/python:3.10.14-browsers
+        environment:
+          DATABASE_URL: postgresql://circleci@localhost/dbname?sslmode=disable
       - image: cimg/postgres:13.3
         environment:
           POSTGRES_USER: circleci
