@@ -31,6 +31,10 @@ jobs:
           name: Install Python dependencies
           command: |
             pip install -r requirements.txt
+       - run:
+          name: Setup database
+          command: |
+            echo "127.0.0.1 postgres" | sudo tee -a /etc/hosts
       - run:
           name: Apply Database Migrations
           command: |
