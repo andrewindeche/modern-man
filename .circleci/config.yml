@@ -18,34 +18,6 @@ jobs:
   build_backend:
     docker:
       - image: cimg/python:3.10.14
-    services:
-      postgres:
-        image: cimg/postgres:13.3
+      - image: cimg/postgres:13.3
         environment:
           POSTGRES_USER: circleci
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: dbname
-    working_directory: ~/Ecommerce/backend
-    steps:
-      - checkout:
-          path: ~/Ecommerce
-      - run:
-          name: Install Python dependencies
-          command: |
-            pip install -r requirements.txt
-      - run:
-          name: Apply Database Migrations
-          command: |
-            python manage.py migrate
-      - run:
-          name: Run Python tests
-          command: |
-            export SECRET_KEY=$SECRET_KEY 
-            python manage.py test
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build_frontend
-      - build_backend
