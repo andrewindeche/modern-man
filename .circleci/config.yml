@@ -29,9 +29,6 @@ jobs:
       - checkout:
           path: ~/Ecommerce
       - run:
-          name: Set Database URL
-          command: echo 'export DATABASE_URL=postgresql://circleci@localhost/circle_test?sslmode=disable' >> $BASH_ENV
-      - run:
           name: Install Python dependencies
           command: |
             pip install -r requirements.txt
