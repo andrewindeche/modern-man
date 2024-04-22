@@ -39,6 +39,7 @@ jobs:
       - run:
           name: Run Python tests
           command: |
+            export SECRET_KEY=$SECRET_KEY  # Set the environment variable
             python manage.py test
 
 workflows:
