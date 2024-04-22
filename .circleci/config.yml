@@ -23,16 +23,13 @@ jobs:
           POSTGRES_USER: circleci
           POSTGRES_PASSWORD: password
           POSTGRES_DB: dbname
-          SECRET_KEY: u^a-fhy%&baknzi47gbw4qcj99_ha#)pawj%n7um%mq%w+o(yf
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
           path: ~/Ecommerce
       - run:
           name: Set Environment Variable
-          command: echo "export MY_SECRET_KEY=your_secret_key_here" >> "$BASH_ENV"
-          environment:
-            MY_SECRET_KEY: your_secret_key_here
+          SECRET_KEY: u^a-fhy%&baknzi47gbw4qcj99_ha#)pawj%n7um%mq%w+o(yf
       - run:
           name: Wait for DB
           command: |
