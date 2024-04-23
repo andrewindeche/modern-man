@@ -48,8 +48,8 @@ jobs:
             python manage.py migrate
       - run:
           name: Run Tests
+          export SECRET_KEY=$SECRET_KEY
           command: |
-            export SECRET_KEY=$SECRET_KEY
             . venv/bin/activate 
             python manage.py test
 
