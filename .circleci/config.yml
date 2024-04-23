@@ -28,7 +28,6 @@ jobs:
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
-      - python/load-cache
           path: ~/Ecommerce
       - run:
           name: Wait for DB
