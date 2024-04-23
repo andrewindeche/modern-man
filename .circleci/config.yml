@@ -20,7 +20,7 @@ jobs:
       - image: cimg/python:3.10.14
       - image: cimg/postgres:13.3
         environment:
-          POSTGRES_USER: $DB_USER
+          POSTGRES_USER: circleci
           POSTGRES_PASSWORD: $DB_PASSWORD
           POSTGRES_DB: $DB_NAME
           SECRET_KEY: $SECRET_KEY
