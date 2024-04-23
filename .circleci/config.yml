@@ -27,7 +27,7 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "backend/requirements.txt" }}
+            - v1-dependencies-{{ checksum "requirements.txt" }}
             - v1-dependencies-
       - run:
           name: Install Dependencies
