@@ -25,24 +25,30 @@ jobs:
           POSTGRES_DB: $DB_NAME
     working_directory: ~/Ecommerce/backend
     steps:
-      - checkout:
-          path: ~/Ecommerce
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-
       - run:
-          name: Install Python dependencies
+          name: Install Dependencies
           command: |
+            python -m venv venv
+            . venv/bin/activate
             pip install -r requirements.txt
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: Setup database
+          name: Run Migrations
           command: |
-            echo "127.0.0.1 postgres" | sudo tee -a /etc/hosts
-      - run:
-          name: Apply Database Migrations
-          command: |
+            . venv/bin/activate
             python manage.py migrate
       - run:
-          name: Run Python tests
+          name: Run Tests
           command: |
-            export SECRET_KEY=$SECRET_KEY 
+            export SECRET_KEY=$SECRET_KEY
+            . venv/bin/activate 
             python manage.py test
 
 workflows:
