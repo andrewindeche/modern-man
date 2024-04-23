@@ -23,6 +23,7 @@ jobs:
           POSTGRES_USER: $DB_USER
           POSTGRES_PASSWORD: $DB_PASSWORD
           POSTGRES_DB: $DB_NAME
+          SECRET_KEY=${SECRET_KEY}
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
@@ -48,7 +49,6 @@ jobs:
             python manage.py migrate
       - run:
           name: Run Tests
-          export SECRET_KEY=$SECRET_KEY
           command: |
             . venv/bin/activate 
             python manage.py test
