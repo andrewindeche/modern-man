@@ -47,9 +47,6 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
-          name: Create DB
-          command: psql -h localhost -U circleci -c 'CREATE DATABASE modernman;'
-      - run:
           name: Run Migrations
           command: |
             . venv/bin/activate
