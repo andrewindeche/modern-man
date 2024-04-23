@@ -24,9 +24,11 @@ jobs:
           POSTGRES_PASSWORD: $DB_PASSWORD
           POSTGRES_DB: $DB_NAME
           SECRET_KEY: $SECRET_KEY
+          POSTGRES_HOST_AUTH_METHOD: trust
     working_directory: ~/Ecommerce/backend
     steps:
       - checkout:
+      - python/load-cache
           path: ~/Ecommerce
       - run:
           name: Wait for DB
