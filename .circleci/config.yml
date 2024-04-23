@@ -25,6 +25,8 @@ jobs:
           POSTGRES_DB: $DB_NAME
     working_directory: ~/Ecommerce/backend
     steps:
+      - checkout:
+          path: ~/Ecommerce
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "requirements.txt" }}
