@@ -28,6 +28,9 @@ jobs:
     steps:
       - checkout:
           path: ~/Ecommerce
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "requirements.txt" }}
