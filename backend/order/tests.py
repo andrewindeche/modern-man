@@ -1,12 +1,17 @@
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 from .models import Product, Order,CartItem,OrderItem, Cart, Customer
 import unittest
 
+Customer = get_user_model()
+
 # Create your tests here.
 class TestShopping(unittest.TestCase):
     def setUp(self):
-        self.user = Customer.objects.create_user('non_admin', 'non_admin@example.com')
+        Customer = get_user_model()
+        Customer.objects.filter(username__in=['userx', 'non_admin']).delete()
+        self.user = Customer.objects.create_user(username='testuser', email='testuser@example.com', password='testpassword')
         self.product = Product.objects.create(name="Test Product", price=10.0)
         self.cart = Cart.objects.create(user=self.user)
         self.cart.products.add(self.product)
@@ -16,8 +21,12 @@ class TestShopping(unittest.TestCase):
         # Ensure unique username by appending a timestamp, UUID, or using a unique attribute
         import uuid
         username = f"non_admin_{uuid.uuid4().hex}"
+        self.assertEqual(self.user.email, 'testuser@example.com')
         Customer.objects.create_user(username=username, email=f"{username}@example.com")
-        # Perform test logic...
+        
+    def test_user_creation(self):
+        Customer.objects.create_user(username='userx', email='userx@example.com')
+        Customer.objects.create_user(username='non_admin', email='non_admin@example.com')
 
     def test_create_duplicate_user(self):
         username = "testuser"
