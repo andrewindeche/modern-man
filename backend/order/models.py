@@ -7,9 +7,9 @@ from django.db import transaction
 class Customer(AbstractUser):
     name = models.CharField(_('Name'), max_length=150)
     email = models.EmailField(_('Email address'), unique=True)
-    location = models.CharField(_('Location'), max_length=255)
-    city = models.CharField(_('City'), max_length=100)
-    country = models.CharField(_('Country'), max_length=100)
+    location = models.CharField(_('Location'), max_length=255, blank=True)
+    city = models.CharField(_('City'), max_length=100, blank=True)
+    country = models.CharField(_('Country'), max_length=100, blank=True)
     favorites = models.ManyToManyField('Product', related_name='favorited_by', blank=True)
     
     PAYMENT_METHOD_CHOICES = (
@@ -37,6 +37,22 @@ class Customer(AbstractUser):
 
     def add_to_cart(self, product):
         self.cart.append(product)
+        
+    def create_order(self):
+        """Creates an empty order for the customer."""
+        order = Order.objects.create(user=self)
+        return order
+
+    def add_to_cart(self, product, quantity=1):
+        """Adds a product to the user's cart or updates quantity if already present."""
+        cart, created = Cart.objects.get_or_create(user=self)
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+        if created:
+            cart_item.quantity = quantity
+        else:
+            cart_item.quantity += quantity
+        cart_item.subtotal = cart_item.quantity * product.price
+        cart_item.save()
     
 class Category(models.Model):
     CATEGORY_CHOICES = [
@@ -57,6 +73,13 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     added_by_admin = models.BooleanField(default=False)
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+    is_discounted = models.BooleanField(default=False)
+    discount_percentage = models.PositiveIntegerField(default=0, help_text="Percentage of the discount")
+    
+    def apply_discount(self):
+        if self.is_discounted:
+            return self.price * (100 - self.discount_percentage) / 100
+        return self.price
 
     def __str__(self):
         return f"{self.name} - ${self.price}"
@@ -64,7 +87,7 @@ class Product(models.Model):
         return self.favorited_by.filter(id=user.id).exists()
 
 class Order(models.Model):
-    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
     products = models.ManyToManyField(Product, through='OrderItem')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -76,16 +99,19 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField(default=1)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
     
+    def save(self, *args, **kwargs):
+        self.subtotal = self.quantity * self.product.apply_discount()
+        super().save(*args, **kwargs)
     def __str__(self):
         return f"Order Item #{self.pk} for {self.order}"
     
 class Cart(models.Model):
-    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='carts')
     products = models.ManyToManyField(Product, through='CartItem')
-
+    
     def add_product(self, product):
         cart_item, created = CartItem.objects.get_or_create(cart=self, product=product)
         if not created:
@@ -101,18 +127,21 @@ class Cart(models.Model):
     
     @transaction.atomic
     def checkout(self):
-        order = Order.objects.create(user=self.user)
-        order.save()
+        """Transforms all cart items into an order."""
+        order = self.user.create_order()
         for item in self.cartitem_set.all():
             OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, subtotal=item.subtotal)
-        self.products.clear()
+        self.cartitem_set.all().delete()
     
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField(default=1)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
 
+    def save(self, *args, **kwargs):
+        self.subtotal = self.quantity * self.product.apply_discount()
+        super().save(*args, **kwargs)
     def __str__(self):
         return f"CartItem for {self.product.name} in {self.cart}"
     

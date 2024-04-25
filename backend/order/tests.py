@@ -1,5 +1,6 @@
 from django.test import TestCase
-from .models import Product, Order,CartItem, Cart, Customer
+from django.db import IntegrityError
+from .models import Product, Order,CartItem,OrderItem, Cart, Customer
 import unittest
 
 # Create your tests here.
@@ -9,7 +10,31 @@ class TestShopping(unittest.TestCase):
         self.product = Product.objects.create(name="Test Product", price=10.0)
         self.cart = Cart.objects.create(user=self.user)
         self.cart.products.add(self.product)
-        self.cart.save() 
+        self.cart.products.clear()
+        
+    def test_create_user(self):
+        # Ensure unique username by appending a timestamp, UUID, or using a unique attribute
+        import uuid
+        username = f"non_admin_{uuid.uuid4().hex}"
+        Customer.objects.create_user(username=username, email=f"{username}@example.com")
+        # Perform test logic...
+
+    def test_create_duplicate_user(self):
+        username = "testuser"
+        Customer.objects.create_user(username=username, email="testuser1@example.com")
+        with self.assertRaises(IntegrityError):
+            # This should raise an IntegrityError because the username is the same
+            Customer.objects.create_user(username=username, email="testuser2@example.com")
+        
+    def test_duplicate_username(self):
+        """Test creating a user with a duplicate username to see if it raises IntegrityError."""
+        with self.assertRaises(IntegrityError):
+            Customer.objects.create_user('non_admin', 'another_email@example.com')
+
+    def test_duplicate_email(self):
+        """Test creating a user with a duplicate email to see if it raises IntegrityError."""
+        with self.assertRaises(IntegrityError):
+            Customer.objects.create_user('new_user', 'non_admin@example.com')
         
     def test_user_can_pick_product(self):
         customer = Customer("test_customer")
@@ -31,6 +56,26 @@ class TestShopping(unittest.TestCase):
         self.cart.add_product(self.product)
         self.assertEqual(len(self.cart.products), 1)  # After adding a product, cart should have one item
         pass
+    def test_add_to_cart(self):
+        CartItem.objects.create(cart=self.cart, product=self.product, quantity=2)
+        self.assertEqual(self.cart.cartitem_set.count(), 1)
+        self.assertEqual(self.cart.cartitem_set.first().quantity, 2)
+
+    def test_apply_discount(self):
+        self.product.is_discounted = True
+        self.product.discount_percentage = 10
+        self.product.save()
+        discounted_price = self.product.apply_discount()
+        self.assertEqual(discounted_price, 90.00)
+
+    def test_order_total_with_discount(self):
+        order = Order.objects.create(user=self.user)
+        OrderItem.objects.create(order=order, product=self.product, quantity=1)
+        self.product.is_discounted = True
+        self.product.discount_percentage = 10
+        self.product.save()
+        total = order.get_total()
+        self.assertAlmostEqual(total, 90.00)
 
 class TestProductCreation(unittest.TestCase):      
     def test_non_admin_cannot_create_product(self):

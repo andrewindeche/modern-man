@@ -22,7 +22,7 @@ jobs:
         environment:
           POSTGRES_USER: circleci
           POSTGRES_PASSWORD: $DB_PASSWORD
-          POSTGRES_DB: modernman
+          POSTGRES_DB: $DB_NAME
           SECRET_KEY: $SECRET_KEY
           POSTGRES_HOST_AUTH_METHOD: trust
     working_directory: ~/Ecommerce/backend
