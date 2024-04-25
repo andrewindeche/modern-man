@@ -29,11 +29,11 @@
 <li>The project was built using ReactJs Based Javascript FrontEnd Library. Jsx syntax was used for the project. A minimal ReactJs App was used to build the application from scratch for efficiency in space uilization and simplicity in the Application functionality.
 </ul>
 <p><b>Django</b></p>
-ul>
+<ul>
 <li>The project was built using Python Based Javascript Backend Library: Django. Python syntax was used for the project. Postgres was used as the DB and packages installed through pipenv. Django is a versatile stack with a user friendly admin dashboard for adding data.
 </ul>
 <p><b>Docker</b></p>
-ul>
+<ul>
 <li>A dockerized environment has been used for the backend and frontend. Docker virtualizes the apps in a container and decouples the applications for the host for production purpose.
 </ul>
 </ul>
