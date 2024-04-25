@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'modernman.wsgi.application'
 DATABASES = {
       'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
+        'NAME': os.getenv('DB_NAME','modernman'),
         'USER': os.getenv('DB_USER','circleci'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST','localhost'),
