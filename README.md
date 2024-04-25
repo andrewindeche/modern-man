@@ -4,10 +4,10 @@
 | ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
 | 1.GitHub| Version Control| [Version-Control]; [Repo];|
 | 2.ReactJs| JSX-Based FrontEnd Library|[Frontend]; [Javascript];|
-| 3.Django| Python-Based Backend Framework|[Backend]; [Javascript];|
+| 3.Django| Python-Based Backend Framework|[Backend]; [Python];|
 | 4.ESLint| Linting Framework| [Lint]; [syntax];|
 | 5.Figma| Interface Design| [Prototype]; [Wireframe];|
-| 6.PostgreSQL| Relational Database| [Relational Integrity]; [Database];|
+| 6.PostgreSQL| Relational Database| [Relational Integrity]; [SQL];|
 | 7.Jest| Javascript Testing Framework| [Testing Framework]; [Javascript];|
 | 8.Docker| Virtulization| [Virtualization]; [Containers];|
 | 9.Django Rest Framework| API Toolkit| [API]; [REST Framework];|
