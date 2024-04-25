@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.db import transaction
 
 # Create your models here.
 class Customer(AbstractUser):
@@ -86,15 +87,24 @@ class Cart(models.Model):
     products = models.ManyToManyField(Product, through='CartItem')
 
     def add_product(self, product):
-        self.products.add(product)
+        cart_item, created = CartItem.objects.get_or_create(cart=self, product=product)
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+        else:
+            cart_item.quantity = 1
+            cart_item.subtotal = product.price
+            cart_item.save()
 
     def remove_product(self, product):
-        self.products.remove(product)
-
+        CartItem.objects.filter(cart=self, product=product).delete()
+    
+    @transaction.atomic
     def checkout(self):
         order = Order.objects.create(user=self.user)
-        for product in self.products.all():
-            OrderItem.objects.create(order=order, product=product, quantity=1, subtotal=product.price)
+        order.save()
+        for item in self.cartitem_set.all():
+            OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, subtotal=item.subtotal)
         self.products.clear()
     
 class CartItem(models.Model):
