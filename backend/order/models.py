@@ -26,17 +26,15 @@ class Customer(AbstractUser):
         'auth.Group',
         verbose_name=_('groups'),
         blank=True,
-        related_name='customers'
     )
     user_permissions = models.ManyToManyField(
         'auth.Permission',
         verbose_name=_('user permissions'),
         blank=True,
-        related_name='customers'
     )
 
     def add_order(self, order):
-        self.orders.append(order)
+        self.orders.add(order)
         
     def create_order(self):
         """Creates an empty order for the customer."""
@@ -134,8 +132,10 @@ class OrderItem(models.Model):
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
     
     def save(self, *args, **kwargs):
-        self.subtotal = self.quantity * self.product.apply_discount()
+        if not self.subtotal:
+            self.subtotal = self.quantity * self.product.apply_discount()
         super().save(*args, **kwargs)
+        
     def __str__(self):
         return f"Order Item #{self.pk} for {self.order}"
     
@@ -146,6 +146,7 @@ class Cart(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Cart"
     
+    @transaction.atomic
     def add_product(self, product):
         cart_item, created = CartItem.objects.get_or_create(cart=self, product=product)
         if not created:
@@ -156,6 +157,7 @@ class Cart(models.Model):
             cart_item.subtotal = product.price
             cart_item.save()
 
+    @transaction.atomic
     def remove_product(self, product):
         CartItem.objects.filter(cart=self, product=product).delete()
     
@@ -174,11 +176,10 @@ class CartItem(models.Model):
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
 
     def save(self, *args, **kwargs):
-        self.subtotal = self.quantity * self.product.apply_discount()
-        super().save(*args, **kwargs)
         if not self.subtotal: 
             self.subtotal = self.quantity * self.product.price
         super().save(*args, **kwargs)
+        
     def __str__(self):
         return f"CartItem for {self.product.name} in {self.cart}"
     
