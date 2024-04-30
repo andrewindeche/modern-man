@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.db import transaction
+from django.core.exceptions import ObjectDoesNotExist
+
 
 # Create your models here.
 class Customer(AbstractUser):
@@ -11,6 +13,7 @@ class Customer(AbstractUser):
     city = models.CharField(_('City'), max_length=100, blank=True)
     country = models.CharField(_('Country'), max_length=100, blank=True)
     favorites = models.ManyToManyField('Product', related_name='favorited_by', blank=True)
+    products = models.ManyToManyField('Product', related_name='customers')
     
     PAYMENT_METHOD_CHOICES = (
         ('visa', 'Visa'),
@@ -34,9 +37,6 @@ class Customer(AbstractUser):
 
     def add_order(self, order):
         self.orders.append(order)
-
-    def add_to_cart(self, product):
-        self.cart.append(product)
         
     def create_order(self):
         """Creates an empty order for the customer."""
@@ -44,15 +44,20 @@ class Customer(AbstractUser):
         return order
 
     def add_to_cart(self, product, quantity=1):
-        """Adds a product to the user's cart or updates quantity if already present."""
-        cart, created = Cart.objects.get_or_create(user=self)
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-        if created:
-            cart_item.quantity = quantity
-        else:
-            cart_item.quantity += quantity
-        cart_item.subtotal = cart_item.quantity * product.price
-        cart_item.save()
+        try:
+            cart, created = Cart.objects.get_or_create(user=self)
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+            if created:
+                cart_item.quantity = quantity
+            else:
+                cart_item.quantity += quantity
+            cart_item.subtotal = cart_item.quantity * product.price
+            cart_item.save()
+            if not created:
+                cart_item.quantity += quantity
+                cart_item.save()
+        except ObjectDoesNotExist:
+            raise ValueError("The product does not exist.")
     
 class Category(models.Model):
     CATEGORY_CHOICES = [
@@ -76,6 +81,7 @@ class Product(models.Model):
     is_discounted = models.BooleanField(default=False)
     discount_percentage = models.PositiveIntegerField(default=0, help_text="Percentage of the discount")
     
+    
     def apply_discount(self):
         if self.is_discounted:
             return self.price * (100 - self.discount_percentage) / 100
@@ -83,6 +89,20 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name} - ${self.price}"
+    
+    @classmethod
+    def create_product(cls, name, description, price, category, image=None, added_by_admin=False, average_rating=0.00, is_discounted=False, discount_percentage=0):
+        return cls.objects.create(
+            name=name,
+            description=description,
+            price=price,
+            category=category,
+            image=image,
+            added_by_admin=added_by_admin,
+            average_rating=average_rating,
+            is_discounted=is_discounted,
+            discount_percentage=discount_percentage
+        )
     def is_favorited_by(self, user):
         return self.favorited_by.filter(id=user.id).exists()
 
@@ -141,6 +161,9 @@ class CartItem(models.Model):
 
     def save(self, *args, **kwargs):
         self.subtotal = self.quantity * self.product.apply_discount()
+        super().save(*args, **kwargs)
+        if not self.subtotal: 
+            self.subtotal = self.quantity * self.product.price
         super().save(*args, **kwargs)
     def __str__(self):
         return f"CartItem for {self.product.name} in {self.cart}"
