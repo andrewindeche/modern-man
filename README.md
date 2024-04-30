@@ -4,10 +4,10 @@
 | ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
 | 1.GitHub| Version Control| [Version-Control]; [Repo];|
 | 2.ReactJs| JSX-Based FrontEnd Library|[Frontend]; [Javascript];|
-| 3.Django| Python-Based Backend Framework|[Backend]; [Javascript];|
+| 3.Django| Python-Based Backend Framework|[Backend]; [Python];|
 | 4.ESLint| Linting Framework| [Lint]; [syntax];|
 | 5.Figma| Interface Design| [Prototype]; [Wireframe];|
-| 6.PostgreSQL| Relational Database| [Relational Integrity]; [Database];|
+| 6.PostgreSQL| Relational Database| [Relational Integrity]; [SQL];|
 | 7.Jest| Javascript Testing Framework| [Testing Framework]; [Javascript];|
 | 8.Docker| Virtulization| [Virtualization]; [Containers];|
 | 9.Django Rest Framework| API Toolkit| [API]; [REST Framework];|
@@ -28,6 +28,14 @@
 <ul>
 <li>The project was built using ReactJs Based Javascript FrontEnd Library. Jsx syntax was used for the project. A minimal ReactJs App was used to build the application from scratch for efficiency in space uilization and simplicity in the Application functionality.
 </ul>
+<p><b>Django</b></p>
+<ul>
+<li>The project was built using Python Based Javascript Backend Library: Django. Python syntax was used for the project. Postgres was used as the DB and packages installed through pipenv. Django is a versatile stack with a user friendly admin dashboard for adding data.
+</ul>
+<p><b>Docker</b></p>
+<ul>
+<li>A dockerized environment has been used for the backend and frontend. Docker virtualizes the apps in a container and decouples the applications for the host for production purpose.
+</ul>
 </ul>
 
 ## <h1> Commands for Running the Project</h1>
@@ -38,7 +46,10 @@ Run `Docker compose build` to build a new image and `Docker compose up`  to open
 Run `npm start` for a development server. Navigate to `http://localhost:3000/`. The application will automatically reload if you change any of the source files.
 
 ## Production server
+<p><b>React</b></p>
 Run `npm run start` for a production server, after building the project and generating neccesary statis files. Navigate to `http://localhost:3000/`. The application will automatically reload if you change any of the source files.
+<p><b>Django</b></p>
+Run `pipenv shell` to run python virtual environment with pipenv then `python3 manage.py runserver` so as to run the django server and start the app. Navigate to server at http://127.0.0.1:8000/. for admin dashboard navigate to http://127.0.0.1:8000/admin
 
 ## Code scaffolding
 
@@ -51,7 +62,6 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 ## Run Linter
 
 Run`npm run lint` to execute linting of the Next Js application. The dependency can be configured using `npm install` command.
-
 
 ## Figma Design
 
