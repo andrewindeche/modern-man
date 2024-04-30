@@ -113,6 +113,17 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_ordered = models.BooleanField(default=False)
     
+    def get_total(self):
+        total = 0
+        items = self.orderitem_set.all() 
+        for item in items:
+            if item.product.is_discounted:
+                discount = (item.product.price * item.product.discount_percentage) / 100
+                total += (item.product.price - discount) * item.quantity
+            else:
+                total += item.product.price * item.quantity
+        return total
+    
     def __str__(self):
         return f"Order #{self.pk}"
     
@@ -131,6 +142,9 @@ class OrderItem(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='carts')
     products = models.ManyToManyField(Product, through='CartItem')
+    
+    def __str__(self):
+        return f"{self.user.username}'s Cart"
     
     def add_product(self, product):
         cart_item, created = CartItem.objects.get_or_create(cart=self, product=product)

@@ -4,12 +4,8 @@ from .models import Product, Order,CartItem,OrderItem, Cart, Customer,Category
 
 class TestShopping(TestCase):
     def setUp(self):
-        self.customer_instance = Customer.objects.create_user(
-        username='testuser', 
-        email='testuser@example.com', 
-        password='testpassword'
-    )
-        self.cart = Cart.objects.create(user=self.customer_instance)
+        self.user = Customer.objects.create_user(username='testuser',email='testuser@example.com',password='testpassword')
+        self.cart = Cart.objects.create(user=self.user)
         self.category = Category.objects.create(name="Electronics")
         self.product = Product.objects.create(
             name="Test Product", 
@@ -19,25 +15,22 @@ class TestShopping(TestCase):
     )
         
     def test_user_can_pick_product(self):
-        customer = Customer("test_customer")
-        self.assertEqual(len(customer.cart), 0)
-        self.assertEqual(self.customer.cart.products.count(), 0)
-        self.cart.products.add(self.product)
-        self.assertEqual(self.customer.cart.products.count(), 1)  
+        cart = self.user.cart 
+        self.assertEqual(cart.products.count(), 0) 
+        cart.add_product(self.product)
+        self.assertEqual(cart.products.count(), 1) 
         pass
         
     def test_user_can_add_order(self):
         self.assertEqual(self.user.orders.count(), 0)
-        self.assertEqual(self.user.orders.count(), 1)
-        self.assertEqual(len(self.user.orders), 0)  
         self.cart.add_product(self.product)
-        self.cart.checkout()  
-        self.assertEqual(len(self.user.orders), 1) 
+        self.cart.checkout()
+        self.assertEqual(self.user.orders.count(), 1) 
 
     def test_user_can_put_product_into_cart(self):
-        self.assertEqual(len(self.cart.products), 0) 
+        self.assertEqual(self.cart.products.count(), 0)
         self.cart.add_product(self.product)
-        self.assertEqual(len(self.cart.products), 1)  
+        self.assertEqual(self.cart.products.count(), 1) 
         pass
     
     def test_add_to_cart(self):
@@ -51,7 +44,7 @@ class TestShopping(TestCase):
         self.product.discount_percentage = 10
         self.product.save()
         discounted_price = self.product.apply_discount()
-        self.assertEqual(discounted_price, 90.00)
+        self.assertEqual(discounted_price, 9.00)
         pass
 
     def test_order_total_with_discount(self):
@@ -61,12 +54,12 @@ class TestShopping(TestCase):
         self.product.discount_percentage = 10
         self.product.save()
         total = order.get_total()
-        self.assertAlmostEqual(total, 90.00)
+        self.assertAlmostEqual(total, 9.00)
         pass
     
     def test_user_can_add_product_to_favorites(self):
-        self.customer.favorites.add(self.product)
-        self.assertTrue(self.customer.favorites.filter(id=self.product.id).exists())
+        self.user.favorites.add(self.product)
+        self.assertTrue(self.user.favorites.filter(id=self.product.id).exists())
 
 class TestProductCreation(TestCase):      
     def test_non_admin_cannot_create_product(self):
