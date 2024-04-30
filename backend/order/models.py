@@ -79,7 +79,6 @@ class Product(models.Model):
     is_discounted = models.BooleanField(default=False)
     discount_percentage = models.PositiveIntegerField(default=0, help_text="Percentage of the discount")
     
-    
     def apply_discount(self):
         if self.is_discounted:
             return self.price * (100 - self.discount_percentage) / 100

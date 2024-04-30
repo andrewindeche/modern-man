@@ -15,7 +15,7 @@ class TestShopping(TestCase):
     )
         
     def test_user_can_pick_product(self):
-        cart = self.user.cart 
+        cart = Cart.objects.create(user=self.user)
         self.assertEqual(cart.products.count(), 0) 
         cart.add_product(self.product)
         self.assertEqual(cart.products.count(), 1) 
