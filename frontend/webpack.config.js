@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const CompressionPlugin = require("compression-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: {
@@ -51,6 +52,7 @@ module.exports = {
       title: 'Production',
       template: path.join(__dirname, 'src', 'index.html'),
     }),
+    new BundleAnalyzerPlugin(),
     new webpack.IgnorePlugin({
       resourceRegExp: /dev\.js$/,
     }),
