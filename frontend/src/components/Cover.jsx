@@ -1,11 +1,19 @@
-import posterImage2 from '../images/poster2.webp';
-import posterImage from '../images/poster.webp';
+import React, { useEffect, useState } from 'react';
 
 const cover = () => {
+    const [images, setImages] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/api/images/')
+          .then(response => response.json())
+          .then(data => setImages(data))
+          .catch(error => console.error('Error fetching images:', error));
+      }, []);
     return(
         <div className='carousel'>
-            <img src={posterImage2} id="carouselImage" alt="carousel2" />
-            <img src={posterImage} id="carouselImage2" alt="carousel" />
+            {images.map(image => ( 
+            <img key={image.id} id="carouselImage"  src={`${image.image}`} alt={image.title} />
+                ))}
         </div>
     )
 }

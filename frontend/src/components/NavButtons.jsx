@@ -1,7 +1,7 @@
 import suitsImage from '../images/suits.webp'; 
 import shirtsImage from '../images/shirts.webp';
 import neckwearImage from '../images/neckwear.webp';
-import shoes from '../images/shoes1.webp'
+import shoes from '../images/shoes1.webp';
 
 const NavButtons = () => (
   <div className="categories">
