@@ -189,3 +189,11 @@ class Rating(models.Model):
 
     def __str__(self):
         return f"Rating {self.rating} by {self.user.username} for {self.product.name}"
+    
+class CoverImages(models.Model):
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='images/')
+    
+class ButtonImages(models.Model):
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='images/')
