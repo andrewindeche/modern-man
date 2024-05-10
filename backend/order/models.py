@@ -185,7 +185,7 @@ class CartItem(models.Model):
 class Rating(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='ratings')
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)])
+    rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 10)])
 
     def __str__(self):
         return f"Rating {self.rating} by {self.user.username} for {self.product.name}"
