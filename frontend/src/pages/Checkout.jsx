@@ -5,8 +5,6 @@ import Mpesa from '../images/mastercard.webp';
 import Visa from '../images/mpesa.webp';
 import Mastercard from '../images/paypal.webp';
 import Paypal from '../images/visa.webp';
-import Suit1 from '../images/tuxedo1.webp';
-import Suit3 from '../images/white tux.webp';
 import React from 'react';
 const Checkout = () => {
   return(
@@ -41,13 +39,13 @@ const Checkout = () => {
         <div className='checkoutdetails'>
           <div className="cartdetails">
             <h4>Shopping Cart Details</h4>
-            <span className='checkoutitem'><img src={Suit1} alt="tuxedo"/>
+            <span className='checkoutitem'><img alt="tuxedo"/>
             <p>Black Full Italian Men's Tuxedo * 2 </p>
             <a>$2000</a></span>
-            <span className='checkoutitem'><img src={Suit1} alt="tuxedo" />
+            <span className='checkoutitem'><img alt="tuxedo" />
             <p>Grey full Official Men's Suit * 1</p>
             <a>$1500</a></span>
-            <span className='checkoutitem'><img src={Suit3} alt="tuxedo" />
+            <span className='checkoutitem'><img alt="tuxedo" />
             <p>White full Official Men's Suit* 1</p>
             <a>$1800</a></span>
             </div>
