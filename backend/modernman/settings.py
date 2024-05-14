@@ -32,15 +32,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','db','127.0.0.1','http://localhost:3000']
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000', 
+    'http://localhost:3000',
 ]
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-]
-CORS_ALLOW_CREDENTIALS = True
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',

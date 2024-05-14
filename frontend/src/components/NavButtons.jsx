@@ -15,17 +15,17 @@ const NavButtons = () => {
   
   return (
       <div className="categories">
-        <Link to={{ pathname: "/searchpage", state: { category: 'Suits' } }}>
-          <button onClick={() => handleCategoryClick('Suits')} className="suits-image" style={{ backgroundImage: `url(${suitsImage})` }}>Suits</button>
+        <Link to= "/searchpage">
+          <button onClick={() => handleCategoryClick('suits')} className="suits-image" style={{ backgroundImage: `url(${suitsImage})` }}>Suits</button>
           </Link>
         <Link to="/searchpage">
           <button onClick={() => handleCategoryClick('Shirts')} className="shirts-image" style={{ backgroundImage: `url(${shirtsImage})` }}>Shirts</button>
           </Link>
         <Link to="/searchpage">
-          <button onClick={() => handleCategoryClick('Neckwear & Accessories')} className="neck-wear" style={{ backgroundImage: `url(${neckwearImage})` }}>Neck wear & Accessories</button>
+          <button onClick={() => handleCategoryClick('neckwear')} className="neck-wear" style={{ backgroundImage: `url(${neckwearImage})` }}>Neck wear & Accessories</button>
           </Link>
         <Link to="/searchpage">
-          <button onClick={() => handleCategoryClick('Shoes')} className="shoes-image" style={{ backgroundImage: `url(${shoes})` }}>Shoes</button>
+          <button onClick={() => handleCategoryClick('shoes')} className="shoes-image" style={{ backgroundImage: `url(${shoes})` }}>Shoes</button>
           </Link>
       </div>
   );

@@ -20,7 +20,7 @@ const Searchpage = () => {
             <NotificationBar />
             <NavButtons />
             <SearchBar />
-                <h4 className="searchresultstitle">Suits and Tuxedos</h4>
+                <h4 className="searchresultstitle">Results</h4>
                 <div className="searchresultsimages">
                 {loading ? (
                     <p>Loading...</p>
