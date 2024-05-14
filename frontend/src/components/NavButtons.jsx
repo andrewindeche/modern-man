@@ -19,7 +19,7 @@ const NavButtons = () => {
           <button onClick={() => handleCategoryClick('suits')} className="suits-image" style={{ backgroundImage: `url(${suitsImage})` }}>Suits</button>
           </Link>
         <Link to="/searchpage">
-          <button onClick={() => handleCategoryClick('Shirts')} className="shirts-image" style={{ backgroundImage: `url(${shirtsImage})` }}>Shirts</button>
+          <button onClick={() => handleCategoryClick('shirts')} className="shirts-image" style={{ backgroundImage: `url(${shirtsImage})` }}>Shirts</button>
           </Link>
         <Link to="/searchpage">
           <button onClick={() => handleCategoryClick('neckwear')} className="neck-wear" style={{ backgroundImage: `url(${neckwearImage})` }}>Neck wear & Accessories</button>

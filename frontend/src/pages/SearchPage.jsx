@@ -30,7 +30,8 @@ const Searchpage = () => {
                     items.map((item, index) => (
                         <div key={index} className="image">
                             <div className="container">
-                            <span className="ondiscount">-18%</span>
+                            {item.discount_percentage > 0 && (
+                         <span className="ondiscount">{item.discount_percentage}%</span>)}
                                 {/* Render item details */}
                                 <img src={item.image} alt={item.name} />
                                 <p>{item.name}</p>
