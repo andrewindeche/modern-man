@@ -8,6 +8,13 @@ from .serializers import ProductSerializer, CartSerializer, OrderSerializer, Cov
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    
+    def get_queryset(self):
+        queryset = self.queryset
+        category_name = self.request.query_params.get('category', None)
+        if category_name is not None:
+            queryset = queryset.filter(category__name=category_name)
+        return queryset
 
 class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()

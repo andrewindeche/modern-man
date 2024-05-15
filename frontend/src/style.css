@@ -198,8 +198,8 @@ html, body {
 .image {
     border: black solid 2px;
     border-radius: 1em;
-    height:16em;
-    width:14em;
+    height:30%;
+    width:23%;
     padding:3em;
 }
 .image a {
@@ -484,6 +484,7 @@ input::placeholder:hover{
     font-weight: bolder;
 }
 .searchresultsimages {
+    margin-top:3em;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
