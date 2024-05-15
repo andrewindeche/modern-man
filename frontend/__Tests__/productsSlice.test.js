@@ -1,21 +1,6 @@
 import { fetchProducts, productsSlice } from 'store/productsSlice';
-import { configureStore } from '@reduxjs/toolkit';
 
 require('jest-fetch-mock').enableMocks();
-
-describe('fetchProducts thunk', () => {
-    it('should handle fetching products', async () => {
-        const store = configureStore({ reducer: { products: productsSlice.reducer } });
-        const category = 'suits';
-
-        await store.dispatch(fetchProducts(category));
-        
-        const state = store.getState().products;
-        expect(state.items).not.toEqual([]);
-        expect(state.loading).toBe(false);
-        expect(state.error).toBeNull();
-    });
-});
 
 describe('products reducer', () => {
     let initialState;

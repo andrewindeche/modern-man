@@ -484,6 +484,7 @@ input::placeholder:hover{
     font-weight: bolder;
 }
 .searchresultsimages {
+    margin-top:3em;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

@@ -20,7 +20,6 @@ const Searchpage = () => {
             <NotificationBar />
             <NavButtons />
             <SearchBar />
-                <h4 className="searchresultstitle">Results</h4>
                 <div className="searchresultsimages">
                 {loading ? (
                     <p>Loading...</p>
@@ -32,12 +31,18 @@ const Searchpage = () => {
                             <div className="container">
                             {item.discount_percentage > 0 && (
                          <span className="ondiscount">{item.discount_percentage}%</span>)}
-                                {/* Render item details */}
                                 <img src={item.image} alt={item.name} />
                                 <p>{item.name}</p>
-                                {[...Array(4)].map((_, index) => (
-                                    <FontAwesomeIcon key={index} icon={faStar} className="shopping" />
-                                ))}
+                                {
+                                [...Array(5)].map((_, index) => (
+                                    <FontAwesomeIcon
+                                    key={index}
+                                    icon={faStar}
+                                    className={`shopping ${index < item.average_rating ? 'active' : ''}`}
+                                    />
+                                ))
+                                }
+
                                 <p id="price">{item.price}</p>
                             </div>
                         </div>
