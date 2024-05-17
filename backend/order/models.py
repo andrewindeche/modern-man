@@ -1,11 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 
 
-# Create your models here.
 class Customer(AbstractUser):
     name = models.CharField(_('Name'), max_length=150)
     email = models.EmailField(_('Email address'), unique=True)
@@ -76,8 +76,11 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     added_by_admin = models.BooleanField(default=False)
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
-    is_discounted = models.BooleanField(default=False)
     discount_percentage = models.PositiveIntegerField(default=0, help_text="Percentage of the discount")
+    
+    @property
+    def is_discounted(self):
+        return self.discount_percentage > 0
     
     def apply_discount(self):
         if self.is_discounted:
@@ -97,7 +100,6 @@ class Product(models.Model):
             image=image,
             added_by_admin=added_by_admin,
             average_rating=average_rating,
-            is_discounted=is_discounted,
             discount_percentage=discount_percentage
         )
     def is_favorited_by(self, user):
@@ -167,6 +169,14 @@ class Cart(models.Model):
         for item in self.cartitem_set.all():
             OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, subtotal=item.subtotal)
         self.cartitem_set.all().delete()
+
+class VerificationCode(models.Model):
+    email = models.EmailField(unique=True)
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_expired(self):
+        return (timezone.now() - self.created_at).total_seconds() > 300
     
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

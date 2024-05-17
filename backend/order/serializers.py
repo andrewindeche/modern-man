@@ -1,10 +1,17 @@
 from rest_framework import serializers
-from .models import Product, Cart, Order, ButtonImages, CoverImages
+from .models import Product, Cart, Order, ButtonImages, CoverImages, VerificationCode
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
+    discounted_price = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'price', 'discounted_price', 'category', 'image', 'added_by_admin', 'average_rating', 'discount_percentage']
+
+    def get_discounted_price(self, obj):
+        return obj.apply_discount()
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,3 +32,17 @@ class ButtonImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ButtonImages
         fields = ('id', 'title', 'image')
+        
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['username'] = user.username
+        return token
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+class VerifyCodeSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(max_length=6)

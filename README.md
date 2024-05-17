@@ -13,6 +13,8 @@
 | 9.Django Rest Framework| API Toolkit| [API]; [REST Framework];|
 | 10.Pipenv| Packaging & Virtual Environment Tool| [Virtual Environment]; [Dependency Management];|
 | 11.CircleCI|Continous Intergration and Continous Delivery Tool| [Continous Intergration/Continous Delivery];|
+| 12.SMTP bucket|Fake SMTP Server| [Simple Mail Transfer Protocol] ; [Email Server];|
+| 13.Redis|Database,Message & Cache Broker Server| [Server] ; [Cache];|
 
 <p>The README documents details for the Implementation of a ReactJs and Django Application for a Men's wear website</p>
 
