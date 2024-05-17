@@ -1,5 +1,5 @@
 .aboutuser {
-    border: black solid 2px;
+    border: black solid 1.5px;
     width:40%;
     height:80%;
     font-size:10px;
@@ -87,7 +87,7 @@ body {
 .checkout {
     padding:0 50px;
     font-size: 12px;
-    width: 30%;
+    width: 50%;
 }
 .checkoutamount {
     display: flex;
@@ -111,21 +111,21 @@ body {
     display: flex;
   }
 .checkoutdetails {
-    border: black solid 2px;
+    border: black solid 1.5px;
     align-items: center; 
     justify-content: space-around;
     position:absolute;
-    right: 10%;
-    top:50%;
+    right: 5%;
+    top:37%;
     font-size: 10px;
-    margin:0 50px
+    margin:0 30px
 }
 .checkoutitem {
     display: flex;
     flex-direction:row;
     justify-content: space-between;
+    padding: 8px;
     font-weight: bolder;
-    border: black solid 1.5px;
 }
 .checkoutitem img{
     width:15%;
@@ -334,7 +334,8 @@ input::placeholder:hover{
 }
 .paymentselected {
     text-align: center;
-    padding: 1em
+    padding: 1em;
+    margin: 0 auto;
   }
 .paymentselected h4{
     margin: 2em
@@ -343,11 +344,11 @@ input::placeholder:hover{
     width: 20%
 }
 .payments {
-    border:#000 2px solid;
+    border:#000 1.5px solid;
     width:40%;
     position: absolute;
     right: 1em;
-    top: 90px;
+    top: 70px;
     height: 10em;
     padding: 10px;
 }
@@ -361,11 +362,12 @@ input::placeholder:hover{
 }
 .personaldetails {
     display: grid;
-    border:#000 3px solid;
-    gap: 20px;
+    border:#000 1.5px solid;
+    gap: 2px;
+    width: 30%;
     position: absolute;
-    left:10%;
-    top: 50%
+    left:2%;
+    top: 38%
 }
 .personaldetails h4{
     font-size: 16px;

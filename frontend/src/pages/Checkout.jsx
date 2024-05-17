@@ -13,10 +13,9 @@ const Checkout = () => {
       <SearchBar />
       <NavButtons />
       <div className='checkout'>
-        <h1 id="Checkout">Check Out</h1>
         <div className='checkout-container'>
         <div className='personaldetails'>
-        <h4 className='checkouttitle'>Personal Information</h4>
+        <h4 className='checkouttitle'>User Profile</h4>
           <ul className='aboutuser'>
           <p className='about'>About</p>
             <li>Andrew Indeche</li>
@@ -38,7 +37,7 @@ const Checkout = () => {
         </div>
         <div className='checkoutdetails'>
           <div className="cartdetails">
-            <h4>Shopping Cart Details</h4>
+            <h4>Cart Summary</h4>
             <span className='checkoutitem'><img alt="tuxedo"/>
             <p>Black Full Italian Men's Tuxedo * 2 </p>
             <a>$2000</a></span>

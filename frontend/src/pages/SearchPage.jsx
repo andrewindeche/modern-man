@@ -43,7 +43,7 @@ const Searchpage = () => {
                                 ))
                                 }
 
-                                <p id="price">{item.price}</p>
+                                <p id="price">{item.discounted_price}</p>
                             </div>
                         </div>
                     ))
