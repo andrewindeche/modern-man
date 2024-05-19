@@ -297,12 +297,12 @@ input::placeholder:hover{
     margin: 0 auto;
 }
 .notificationbar button {
-    padding: 0.3em;
+    padding: 0.1em;
     background-color:black;
     color: white;
     border: white solid 1.5px;
     font-size: small;
-    width:8%;
+    width:100%;
     border-radius:4px;
     transform: translateX(-20em);
 }

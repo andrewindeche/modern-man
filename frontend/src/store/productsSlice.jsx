@@ -2,9 +2,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
-    async (category, { rejectWithValue }) => {
+    async ({ category, discounted }, { rejectWithValue }) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/products?category=${category}`);
+            let url = `http://127.0.0.1:8000/api/products?category=${category}`;
+            if (discounted) {
+                url = `http://127.0.0.1:8000/api/products/discounted-products`;
+            } else if (category) {
+                url += `?category=${category}`;
+            }
+            const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Server error occurred!');
             }
@@ -15,7 +21,7 @@ export const fetchProducts = createAsyncThunk(
     }
 );
 
-export const productsSlice = createSlice({
+const productsSlice = createSlice({
     name: 'products',
     initialState: {
         items: [],

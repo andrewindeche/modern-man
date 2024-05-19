@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Max
 
 
 class Customer(AbstractUser):
@@ -77,6 +78,8 @@ class Product(models.Model):
     added_by_admin = models.BooleanField(default=False)
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     discount_percentage = models.PositiveIntegerField(default=0, help_text="Percentage of the discount")
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    is_discounted = models.BooleanField(default=False)
     
     @property
     def is_discounted(self):
@@ -104,6 +107,11 @@ class Product(models.Model):
         )
     def is_favorited_by(self, user):
         return self.favorited_by.filter(id=user.id).exists()
+    
+    def get_product_with_highest_discount():
+        highest_discount_product = Product.objects.filter(discount_percentage__gt=0).order_by('-discount_percentage').first()
+        print(f"The product with the highest discount is: {highest_discount_product}")
+        return highest_discount_product
 
 class Order(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')

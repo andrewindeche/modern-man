@@ -8,7 +8,6 @@ import { fetchProducts } from '../store/productsSlice';
 
 const NavButtons = () => {
   const dispatch = useDispatch();
-
   const handleCategoryClick = (category) => {
     dispatch(fetchProducts(category));
   };

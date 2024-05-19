@@ -8,6 +8,9 @@ from .utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Product, Order, Cart, CoverImages,ButtonImages, VerificationCode
 from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer, ButtonImagesSerializer,EmailSerializer, VerifyCodeSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 class ProductListCreateAPIView(generics.ListCreateAPIView):
@@ -25,13 +28,13 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     
-import logging
-
-logger = logging.getLogger(__name__)
+class DiscountedProductsView(generics.ListAPIView):
+    queryset = Product.objects.filter(discount_percentage__gt=0)
+    serializer_class = ProductSerializer
 
 class HighestDiscountProduct(generics.GenericAPIView):
     serializer_class = ProductSerializer
-    queryset = None  # Explicitly set to None
+    queryset = None  
 
     def get_queryset(self):
         return Product.objects.all().order_by('-discount_percentage')

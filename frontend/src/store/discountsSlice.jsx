@@ -5,7 +5,7 @@ export const fetchDiscountedProducts = createAsyncThunk(
     'discount/fetchDiscountedProducts',
     async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/discounted-products`);
+            const response = await axios.get('http://127.0.0.1:8000/api/products/discounted-products');
             return response.data;
         } catch (error) {
             throw error;
@@ -20,7 +20,6 @@ const discountSlice = createSlice({
         loading: false,
         error: null,
     },
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchDiscountedProducts.pending, (state) => {
