@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CoverImagesViewSet,ButtonImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView, VerifyCodeView, HighestDiscountProduct,DiscountedProductsView
+from .views import CoverImagesViewSet,ButtonImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView, VerifyCodeView, HighestDiscountProduct,DiscountedProductListAPIView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -12,7 +12,7 @@ urlpatterns = [
     path('products/<str:category>/', ProductListCreateAPIView.as_view(), name='product_list_by_category'),
     path('products/highest-discount-product/', HighestDiscountProduct.as_view(), name='highest-discount-product'),
     path('products/<int:pk>/', ProductDetailAPIView.as_view(), name='product-detail'),
-     path('api/products/discounted-products', DiscountedProductsView.as_view(), name='discounted-products'),
+    path('products/discounted-products', DiscountedProductListAPIView.as_view(), name='discounted-products'),
     path('cart/add/', CartCreateAPIView.as_view(), name='cart-create'),
     path('cart/checkout/', OrderCreateAPIView.as_view(), name='order-create'),
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),

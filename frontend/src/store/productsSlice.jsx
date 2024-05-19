@@ -4,9 +4,9 @@ export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async ({ category, discounted }, { rejectWithValue }) => {
         try {
-            let url = `http://127.0.0.1:8000/api/products?category=${category}`;
+            let url = 'http://127.0.0.1:8000/api/products';
             if (discounted) {
-                url = `http://127.0.0.1:8000/api/products/discounted-products`;
+                url = 'http://127.0.0.1:8000/api/products/discounted-products';
             } else if (category) {
                 url += `?category=${category}`;
             }

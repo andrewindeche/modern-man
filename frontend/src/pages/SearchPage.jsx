@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchProducts } from '../store/productsSlice';
@@ -17,10 +17,11 @@ const SearchPage = () => {
     const { items, loading, error } = useSelector(state => state.products);
     const query = useQuery();
     const discounted = query.get('discounted') === 'true';
+    const category = query.get('category') || '';
 
     useEffect(() => {
-        dispatch(fetchProducts({ category: '', discounted }));
-    }, [dispatch, discounted]);
+        dispatch(fetchProducts({ category, discounted }));
+    }, [dispatch, category, discounted]);
 
     return (
         <>
@@ -41,11 +42,11 @@ const SearchPage = () => {
                                 )}
                                 <img src={item.image} alt={item.name} />
                                 <p>{item.name}</p>
-                                {[...Array(5)].map((_, index) => (
+                                {[...Array(5)].map((_, i) => (
                                     <FontAwesomeIcon
-                                        key={index}
+                                        key={i}
                                         icon={faStar}
-                                        className={`shopping ${index < item.average_rating ? 'active' : ''}`}
+                                        className={`shopping ${i < item.average_rating ? 'active' : ''}`}
                                     />
                                 ))}
                                 <p id="price">${item.discounted_price}</p>

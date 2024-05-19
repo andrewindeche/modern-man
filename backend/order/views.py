@@ -12,13 +12,11 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Create your views here.
 class ProductListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     
     def get_queryset(self):
-        queryset = self.queryset
+        queryset = Product.objects.all()
         category_name = self.request.query_params.get('category', None)
         if category_name is not None:
             queryset = queryset.filter(category__name=category_name)
@@ -28,9 +26,11 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     
-class DiscountedProductsView(generics.ListAPIView):
-    queryset = Product.objects.filter(discount_percentage__gt=0)
+class DiscountedProductListAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
+    
+    def get_queryset(self):
+        return Product.objects.filter(discount_percentage__gt=0)
 
 class HighestDiscountProduct(generics.GenericAPIView):
     serializer_class = ProductSerializer
