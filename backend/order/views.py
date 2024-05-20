@@ -1,18 +1,14 @@
 import random
-from django.db.models import Q
 from rest_framework import generics, viewsets,status
 from django.utils import timezone
-from django.core.cache import cache
 from rest_framework.response import Response
 from .utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Product, Order, Cart, CoverImages,ButtonImages, VerificationCode,ProductDiscountFilter
 from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer, ButtonImagesSerializer,EmailSerializer, VerifyCodeSerializer
-import logging
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
-logger = logging.getLogger(__name__)
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
@@ -45,9 +41,7 @@ class HighestDiscountProduct(generics.GenericAPIView):
         return Product.objects.all().order_by('-discount_percentage')
 
     def get(self, request, *args, **kwargs):
-        logger.debug("Handling GET request for HighestDiscountProduct")
         queryset = self.get_queryset()
-        logger.debug(f"Queryset evaluated: {queryset}")
         highest_discount_product = queryset.first() if queryset.exists() else None
         if highest_discount_product:
             serializer = ProductSerializer(highest_discount_product)

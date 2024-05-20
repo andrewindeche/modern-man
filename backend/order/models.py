@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Max
 from django_filters import rest_framework as filters
 
 

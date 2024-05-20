@@ -10,7 +10,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('products/', ProductListCreateAPIView.as_view(), name='product-list-create'),
     path('products/<str:category>/', ProductListCreateAPIView.as_view(), name='product_list_by_category'),
-    path('products/highest-discount-product/', HighestDiscountProduct.as_view(), name='highest-discount-product'),
+    path('products/highest-discount-product', HighestDiscountProduct.as_view(), name='highest-discount-product'),
     path('products/<int:pk>/', ProductDetailAPIView.as_view(), name='product-detail'),
     path('products/discounted-products', DiscountedProductListAPIView.as_view(), name='discounted-products'),
     path('cart/add/', CartCreateAPIView.as_view(), name='cart-create'),
