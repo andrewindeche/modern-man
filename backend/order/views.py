@@ -6,9 +6,11 @@ from django.core.cache import cache
 from rest_framework.response import Response
 from .utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Product, Order, Cart, CoverImages,ButtonImages, VerificationCode
+from .models import Product, Order, Cart, CoverImages,ButtonImages, VerificationCode,ProductDiscountFilter
 from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer, ButtonImagesSerializer,EmailSerializer, VerifyCodeSerializer
 import logging
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 logger = logging.getLogger(__name__)
 
@@ -28,10 +30,11 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     
 class DiscountedProductListAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
-    
+    filter_backends = [DjangoFilterBackend,filters.OrderingFilter]  
+    filterset_class = ProductDiscountFilter  
+
     def get_queryset(self):
-        queryset = Product.objects.filter(discount_percentage__gt=0)
-        return queryset
+        return Product.objects.filter(discount_percentage__gt=0)
 
 class HighestDiscountProduct(generics.GenericAPIView):
     serializer_class = ProductSerializer

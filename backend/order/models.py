@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Max
+from django_filters import rest_framework as filters
 
 
 class Customer(AbstractUser):
@@ -211,3 +212,8 @@ class CoverImages(models.Model):
 class ButtonImages(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/')
+    
+class ProductDiscountFilter(filters.FilterSet):
+  class Meta:
+    model = Product
+    fields = ['discount_percentage'] 
