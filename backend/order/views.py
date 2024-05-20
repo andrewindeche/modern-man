@@ -30,7 +30,11 @@ class DiscountedProductListAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
     
     def get_queryset(self):
-        return Product.objects.filter(discount_percentage__gt=0)
+        queryset = Product.objects.filter(is_discounted=True)
+        print("Queryset before filtering by discount_percentage:", queryset)
+        queryset = queryset.exclude(discount_percentage=0)
+        print("Final queryset after excluding discount_percentage=0:", queryset)
+        return queryset
 
 class HighestDiscountProduct(generics.GenericAPIView):
     serializer_class = ProductSerializer

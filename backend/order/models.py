@@ -78,7 +78,6 @@ class Product(models.Model):
     added_by_admin = models.BooleanField(default=False)
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     discount_percentage = models.PositiveIntegerField(default=0, help_text="Percentage of the discount")
-    discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     is_discounted = models.BooleanField(default=False)
     
     @property
@@ -88,6 +87,11 @@ class Product(models.Model):
     def apply_discount(self):
         if self.is_discounted:
             return self.price * (100 - self.discount_percentage) / 100
+        return self.price
+    
+    def discounted_price(self):
+        if self.is_discounted:
+            return self.apply_discount()
         return self.price
 
     def __str__(self):
