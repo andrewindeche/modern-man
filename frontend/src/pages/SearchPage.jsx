@@ -18,7 +18,7 @@ const SearchPage = () => {
     const products = useSelector(state => state.products);
     const discount = useSelector(state => state.discount);
     const query = useQuery();
-    const discounted = query.get('discount_percantage') > 0;
+    const discounted = query.get('discounted') === 'true';
     const category = query.get('category') || '';
 
     useEffect(() => {
