@@ -30,11 +30,12 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     
 class DiscountedProductListAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend,filters.OrderingFilter]  
+    filter_backends = [filters.OrderingFilter, DjangoFilterBackend]  
     filterset_class = ProductDiscountFilter  
 
     def get_queryset(self):
-        return Product.objects.filter(discount_percentage__gt=0)
+        queryset = Product.objects.filter(discount_percentage__gt=0)  
+        return queryset
 
 class HighestDiscountProduct(generics.GenericAPIView):
     serializer_class = ProductSerializer
