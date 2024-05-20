@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Customer,Category,Product,Order,Cart,OrderItem,CartItem,CoverImages,ButtonImages
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'category', 'image', 'is_discounted', 'discount_percentage']
+    list_display = ['name', 'price', 'category', 'image', 'discount_percentage']
     search_fields = ['name', 'description']
     readonly_fields = ['discounted_price'] 
     

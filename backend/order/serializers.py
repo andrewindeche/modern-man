@@ -8,7 +8,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'description', 'price', 'discounted_price','is_discounted', 'category', 'image', 'added_by_admin', 'average_rating', 'discount_percentage']
+        fields = fields = '__all__'
 
     def get_discounted_price(self, obj):
         return obj.apply_discount()

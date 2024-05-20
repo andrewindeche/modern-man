@@ -75,22 +75,16 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
-    added_by_admin = models.BooleanField(default=False)
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     discount_percentage = models.PositiveIntegerField(default=0, help_text="Percentage of the discount")
-    is_discounted = models.BooleanField(default=False)
-    
-    @property
-    def is_discounted(self):
-        return self.discount_percentage > 0
     
     def apply_discount(self):
-        if self.is_discounted:
+        if self.discount_percentage > 0:
             return self.price * (100 - self.discount_percentage) / 100
         return self.price
     
     def discounted_price(self):
-        if self.is_discounted:
+        if self.discount_percentage > 0:
             return self.apply_discount()
         return self.price
 
@@ -98,14 +92,13 @@ class Product(models.Model):
         return f"{self.name} - ${self.price}"
     
     @classmethod
-    def create_product(cls, name, description, price, category, image=None, added_by_admin=False, average_rating=0.00, is_discounted=False, discount_percentage=0):
+    def create_product(cls, name, description, price, category, image=None, average_rating=0.00, discount_percentage=0):
         return cls.objects.create(
             name=name,
             description=description,
             price=price,
             category=category,
             image=image,
-            added_by_admin=added_by_admin,
             average_rating=average_rating,
             discount_percentage=discount_percentage
         )
@@ -114,7 +107,6 @@ class Product(models.Model):
     
     def get_product_with_highest_discount():
         highest_discount_product = Product.objects.filter(discount_percentage__gt=0).order_by('-discount_percentage').first()
-        print(f"The product with the highest discount is: {highest_discount_product}")
         return highest_discount_product
 
 class Order(models.Model):
