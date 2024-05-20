@@ -12,6 +12,10 @@ djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 whitenoise = "*"
+requests = "*"
+redis = "*"
+django-redis = "*"
+django-filter = "*"
 
 [dev-packages]
 

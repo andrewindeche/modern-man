@@ -1,11 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
+from django_filters import rest_framework as filters
 
 
-# Create your models here.
 class Customer(AbstractUser):
     name = models.CharField(_('Name'), max_length=150)
     email = models.EmailField(_('Email address'), unique=True)
@@ -74,34 +75,42 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
-    added_by_admin = models.BooleanField(default=False)
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
-    is_discounted = models.BooleanField(default=False)
     discount_percentage = models.PositiveIntegerField(default=0, help_text="Percentage of the discount")
     
     def apply_discount(self):
-        if self.is_discounted:
+        if self.discount_percentage > 0:
             return self.price * (100 - self.discount_percentage) / 100
+        return self.price
+    
+    def is_discounted(self):
+        return self.discount_percentage > 0
+    
+    def discounted_price(self):
+        if self.discount_percentage > 0:
+            return self.apply_discount()
         return self.price
 
     def __str__(self):
         return f"{self.name} - ${self.price}"
     
     @classmethod
-    def create_product(cls, name, description, price, category, image=None, added_by_admin=False, average_rating=0.00, is_discounted=False, discount_percentage=0):
+    def create_product(cls, name, description, price, category, image=None, average_rating=0.00, discount_percentage=0):
         return cls.objects.create(
             name=name,
             description=description,
             price=price,
             category=category,
             image=image,
-            added_by_admin=added_by_admin,
             average_rating=average_rating,
-            is_discounted=is_discounted,
             discount_percentage=discount_percentage
         )
     def is_favorited_by(self, user):
         return self.favorited_by.filter(id=user.id).exists()
+    
+    def get_product_with_highest_discount():
+        highest_discount_product = Product.objects.filter(discount_percentage__gt=0).order_by('-discount_percentage').first()
+        return highest_discount_product
 
 class Order(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
@@ -167,6 +176,14 @@ class Cart(models.Model):
         for item in self.cartitem_set.all():
             OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, subtotal=item.subtotal)
         self.cartitem_set.all().delete()
+
+class VerificationCode(models.Model):
+    email = models.EmailField(unique=True)
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_expired(self):
+        return (timezone.now() - self.created_at).total_seconds() > 300
     
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -197,3 +214,8 @@ class CoverImages(models.Model):
 class ButtonImages(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/')
+    
+class ProductDiscountFilter(filters.FilterSet):
+  class Meta:
+    model = Product
+    fields = ['discount_percentage'] 
