@@ -288,7 +288,7 @@ input::placeholder:hover{
     align-items: center;
     justify-content: space-around;
     margin: 0.1em;
-    animation: fadeInOut 5s linear infinite;
+    animation: fadeInOut 4s linear infinite;
 }
 .notificationbar p {
     color:white;
@@ -501,7 +501,7 @@ input::placeholder:hover{
 }
 
 .shoes{
-    width:60px;
+    width:50px;
     height:40px;
     border: brown solid 2px;
     transform: translateX(20em);

@@ -41,6 +41,7 @@ const NotificationBar = () => {
                 <p>Error: {error}</p>
             ) : discountedProducts.length > 0 ? (
                 <> 
+                    <img src={discountedProducts[currentIndex].image} alt="My Shoes" className='shoes' />
                     <p>Get {discountedProducts[currentIndex].discount_percentage}% off on {discountedProducts[currentIndex].name}</p>
                     <button id="notificationbutton" onClick={handleLearnMoreClick}>Learn More</button>
                 </>
