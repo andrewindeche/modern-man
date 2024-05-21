@@ -16,6 +16,19 @@ const NotificationBar = () => {
     const { items: discountedProducts, loading, error } = useSelector(state => state.discount);
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    useEffect(() => {
+        dispatch(fetchDiscountedProducts());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (discountedProducts.length > 0) {
+            const interval = setInterval(() => {
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % discountedProducts.length);
+            }, 5000); 
+            return () => clearInterval(interval);
+        }
+    }, [discountedProducts]);
+
     const handleLearnMoreClick = () => {
         navigate('/searchpage?discounted=true');
     };
