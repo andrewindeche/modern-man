@@ -285,7 +285,6 @@ input::placeholder:hover{
     background-color: #BC2B2B;
     border: black solid 5px;
     display: flex; 
-    flex-direction: row;
     align-items: center;
     justify-content: space-around;
     margin: 0.1em;
@@ -298,13 +297,13 @@ input::placeholder:hover{
     margin: 0 auto;
 }
 .notificationbar button {
-    padding: 0.4em;
+    padding: 0.1em;
     background-color:black;
     font-weight: bold;
     color: white;
     border: white solid 1.6px;
     font-size: small;
-    width:30%;
+    width:10%;
     border-radius:4px;
     transform: translateX(-20em);
 }
@@ -505,7 +504,6 @@ input::placeholder:hover{
     height:40px;
     border: brown solid 2px;
     transform: translateX(20em);
-    position:relative
 }
 .shoppingcarticon, .windowclose, .favorite {
     width:3em;
