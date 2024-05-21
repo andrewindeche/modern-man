@@ -1,9 +1,8 @@
 import React, { useEffect, useState }  from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDiscountedProduct } from '../store/discountsSlice';
+import { fetchDiscountedProducts } from '../store/discountsSlice';
 import { css, keyframes } from '@emotion/react';
-import styled from '@emotion/styled';
 
 
 const fadeInOut = keyframes`
@@ -46,12 +45,9 @@ const NotificationBar = () => {
                     animation: ${fadeInOut} 5s linear infinite;
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    text-align: center;
                 `}>  
-                <img src={highestDiscountProduct.image} alt={highestDiscountProduct.name} className='shoes' />
-                    <p>Get {discountedProducts[currentIndex].discount_percentage}% off on {discountedProducts[currentIndex].name}</p>
+                <img src={discountedProducts[currentIndex].image} className='shoes' />
+                    <p> Get {discountedProducts[currentIndex].discount_percentage}% off on {discountedProducts[currentIndex].name}</p>
                     <button id="notificationbutton" onClick={handleLearnMoreClick}>Learn More</button>
                 </div>
             ) : (
