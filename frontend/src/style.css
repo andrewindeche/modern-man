@@ -288,6 +288,7 @@ input::placeholder:hover{
     align-items: center;
     justify-content: space-around;
     margin: 0.1em;
+    animation: fadeInOut 4s linear infinite;
 }
 .notificationbar p {
     color:white;
@@ -297,7 +298,7 @@ input::placeholder:hover{
     margin: 0 auto;
 }
 .notificationbar button {
-    padding: 0.1em;
+    padding: 0.3em;
     background-color:black;
     font-weight: bold;
     color: white;
@@ -493,8 +494,14 @@ input::placeholder:hover{
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.search-input:hover{
+    color: white;
+    border: brown solid 5px;
+    cursor: pointer;
+}
+
 .shoes{
-    width:60px;
+    width:50px;
     height:40px;
     border: brown solid 2px;
     transform: translateX(20em);
@@ -517,46 +524,6 @@ input::placeholder:hover{
     opacity: 1;
     border: black solid 2px;
 }
-.topheaderstar {
-    position:absolute;
-    right: 50px;
-    top:20px;
-}
-.user .heart .shopping {
-    margin-left: 10px; 
-}
-.user-icons {
-    position:relative;
-    display: flex;
-    align-items: center;
-    padding-right: 10px;
-    padding-left: 8em;
-    gap: 2em;  
-}
-.user-icons svg {
-    width: 8%; 
-    height: 8%;
-    padding: 0.5em;
-    border: 2px solid #000;
-}
-
-.title {
-    font-size: 15px;
-    font-weight: bolder;
-    color:#BC2B2B;
-}
-
-.user-icons svg:hover{
-    background: linear-gradient(45deg, #774439, #366823, #0000FF);
-    border: red solid 2px;
-    color: white;
-}
-.search-input:hover{
-    color: white;
-    border: brown solid 5px;
-    cursor: pointer;
-}
-
 .searchresultsimages .image {
     text-align: center; 
     margin-bottom: 1em; 
@@ -573,6 +540,16 @@ input::placeholder:hover{
     visibility: visible;
     opacity: 1;
     border: #000 solid 2px;
+}
+.topheaderstar {
+    position:absolute;
+    right: 50px;
+    top:20px;
+}
+.title {
+    font-size: 15px;
+    font-weight: bolder;
+    color:#BC2B2B;
 }
 .tooltip-text {
     width: 120px;
@@ -606,10 +583,32 @@ input::placeholder:hover{
     opacity: 0;
     transition: opacity 0.3s;
 }
+.user .heart .shopping {
+    margin-left: 10px; 
+}
+.user-icons {
+    position:relative;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 8em;
+    gap: 2em;  
+}
+.user-icons svg {
+    width: 8%; 
+    height: 8%;
+    padding: 0.5em;
+    border: 2px solid #000;
+}
 .user:hover + .tooltip-text {
     visibility: visible;
     opacity: 1;
     border: black solid 2px;
+}
+.user-icons svg:hover{
+    background: linear-gradient(45deg, #774439, #366823, #0000FF);
+    border: red solid 2px;
+    color: white;
 }
 .windowclose:hover + .tooltip-text-modal {
     visibility: visible;
