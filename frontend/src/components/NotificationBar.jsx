@@ -35,9 +35,18 @@ const NotificationBar = () => {
 
     return (
         <div className="notificationbar">
-            <img src={shoes} alt="My Shoes" className='shoes' />
-            <p>Get 50% off Selected Shoes</p>
-            <button id="notificationbutton" onClick={handleLearnMoreClick}>Learn More</button>
+            {loading ? (
+                <p>Loading...</p>
+            ) : error ? (
+                <p>Error: {error}</p>
+            ) : discountedProducts.length > 0 ? (
+                <> 
+                    <p>Get {discountedProducts[currentIndex].discount_percentage}% off on {discountedProducts[currentIndex].name}</p>
+                    <button id="notificationbutton" onClick={handleLearnMoreClick}>Learn More</button>
+                </>
+            ) : (
+                <p>No discount available</p>
+            )}
         </div>
     );
 }

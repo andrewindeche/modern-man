@@ -288,6 +288,7 @@ input::placeholder:hover{
     align-items: center;
     justify-content: space-around;
     margin: 0.1em;
+    animation: fadeInOut 5s linear infinite;
 }
 .notificationbar p {
     color:white;
@@ -297,7 +298,7 @@ input::placeholder:hover{
     margin: 0 auto;
 }
 .notificationbar button {
-    padding: 0.1em;
+    padding: 0.3em;
     background-color:black;
     font-weight: bold;
     color: white;
