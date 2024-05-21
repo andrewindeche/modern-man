@@ -5,8 +5,16 @@ import { fetchDiscountedProducts } from '../store/discountsSlice';
 import { css, keyframes } from '@emotion/react';
 import shoes from '../images/shoes.webp';
 
+const fadeInOut = keyframes`
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+`;
+
 const NotificationBar = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { items: discountedProducts, loading, error } = useSelector(state => state.discount);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     const handleLearnMoreClick = () => {
         navigate('/searchpage?discounted=true');
