@@ -24,6 +24,15 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     
+class ProductSearchView(generics.GenericAPIView):
+    serializer_class = ProductSerializer
+
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('query', '')
+        products = Product.objects.filter(name__icontains=query)
+        serializer = self.get_serializer(products, many=True)
+        return Response(serializer.data)
+    
 class DiscountedProductListAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]

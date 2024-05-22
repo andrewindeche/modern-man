@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDiscountedProducts } from '../store/discountsSlice';
-import { css, keyframes } from '@emotion/react';
-import shoes from '../images/shoes.webp';
+import { keyframes } from '@emotion/react';
 
 const fadeInOut = keyframes`
   0%, 100% { opacity: 0; }

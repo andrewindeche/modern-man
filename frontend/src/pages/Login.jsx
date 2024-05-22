@@ -1,4 +1,5 @@
 import React from 'react';
+
 const Login = () => {
     return(
         <div className="loginForm">
@@ -25,7 +26,7 @@ const Login = () => {
                     </div>
                 </span>
                     <button type="submit">Login</button>
-            </form>
+             </form>
         </div>
     )
 }

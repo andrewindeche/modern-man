@@ -9,5 +9,4 @@ module.exports = merge(common, {
       chunks: 'all',
     },
   },
- },
-);
+});
