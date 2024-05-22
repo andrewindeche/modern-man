@@ -12,7 +12,7 @@ export const searchProducts = createAsyncThunk(
   'search/searchProducts',
   async (query, thunkAPI) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/products/?search=${query}`);
+      const response = await axios.get(`http://127.0.0.1:8000/api/search/?query=${query}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -40,7 +40,7 @@ const searchSlice = createSlice({
       })
       .addCase(searchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload; 
       });
   },
 });

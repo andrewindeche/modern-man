@@ -1,11 +1,16 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch,faUser,faHeart,faShoppingCart} from '@fortawesome/free-solid-svg-icons'; 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateQuery } from '../store/searchSlice';
-const SearchBar  = () => {
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faSearch, faUser, faHeart, faShoppingCart,
+} from '@fortawesome/free-solid-svg-icons';
+import { updateQuery, searchProducts } from '../store/searchSlice';
+
+function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -14,11 +19,13 @@ const SearchBar  = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     dispatch(updateQuery(searchTerm));
+    dispatch(searchProducts(searchTerm));
+    navigate(`/searchpage?query=${encodeURIComponent(searchTerm)}`);
   };
 
-    return(
+  return (
     <div className="searchbar">
-        <h3>Modern Man</h3>
+      <h3>Modern Man</h3>
       <form className="search-form" onSubmit={handleSearchSubmit}>
         <FontAwesomeIcon icon={faSearch} className="search-icon" />
         <input
@@ -30,15 +37,15 @@ const SearchBar  = () => {
         />
       </form>
       <div className="user-icons">
-      <FontAwesomeIcon icon={faUser} className="user" />
-      <span className="tooltip-text">User Profile</span>
-      <FontAwesomeIcon icon={faShoppingCart} className="shopping" />
-      <span className="tooltip-text">Checkout</span>
-      <FontAwesomeIcon icon={faHeart} className="heart" />
-      <span className="tooltip-text">Favorite</span>
+        <FontAwesomeIcon icon={faUser} className="user" />
+        <span className="tooltip-text">User Profile</span>
+        <FontAwesomeIcon icon={faShoppingCart} className="shopping" />
+        <span className="tooltip-text">Checkout</span>
+        <FontAwesomeIcon icon={faHeart} className="heart" />
+        <span className="tooltip-text">Favorite</span>
       </div>
     </div>
-    )
+  );
 }
 
-export default SearchBar ;
+export default SearchBar;
