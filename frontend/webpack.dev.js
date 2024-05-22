@@ -1,17 +1,16 @@
-const path = require("path");
-const {merge} = require("webpack-merge"); 
+const { merge } = require('webpack-merge');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const common = require("./webpack.config.js");
+const common = require('./webpack.config.js');
 
 module.exports = merge(common, {
-    mode: "development",
-    devtool: 'inline-source-map',
-    devServer: {
-        static: './',
-        port: process.env.PORT,
-        hot: true,
-    },
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    static: './',
+    port: process.env.PORT,
+    hot: true,
+  },
 });

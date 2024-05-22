@@ -5,7 +5,7 @@
     "version": "v21.4.0"
   },
   "description": "A React App for modernman",
-  "main": "./src/index.js",
+  "main": "./src/index.jsx",
   "scripts": {
     "start": "webpack serve --open --port 3000 --config webpack.prod.js",
     "lint": "eslint",

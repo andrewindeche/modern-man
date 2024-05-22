@@ -1,8 +1,8 @@
-import suitsImage from '../images/suits.webp'; 
+import { Link } from 'react-router-dom';
+import suitsImage from '../images/suits.webp';
 import shirtsImage from '../images/shirts.webp';
 import neckwearImage from '../images/neckwear.webp';
 import shoes from '../images/shoes1.webp';
-import { Link } from 'react-router-dom';
 
 const NavButtons = () => {
   return (

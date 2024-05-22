@@ -5,7 +5,7 @@ const Carousel = () => {
         <div className='carousel'>
             <img style={{ backgroundImage: `url(${Poster})` }} />
         </div>
-    )
+  )
 }
 
 export default Carousel;

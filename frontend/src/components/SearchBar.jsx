@@ -7,7 +7,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { updateQuery, searchProducts } from '../store/searchSlice';
 
-function SearchBar() {
+
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,6 +47,6 @@ function SearchBar() {
       </div>
     </div>
   );
-}
+};
 
 export default SearchBar;

@@ -1,11 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const CompressionPlugin = require("compression-webpack-plugin");
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/index.js',
+    main: './src/index.jsx',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -44,8 +44,7 @@ module.exports = {
   },
   plugins: [
     new CompressionPlugin({
-      include: /\/images\/.*\.(png|jpg|jpeg|webp)$/,
-      include:  /\.(js|jsx|css|woff|ttf)(\?.*)?$/i,
+      include: /\/images\/.*\.(png|jpg|jpeg|webp|js|jsx|css|woff|ttf)$/,
     }),
     new HtmlWebpackPlugin({
       title: 'Production',

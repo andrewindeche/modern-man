@@ -1,5 +1,4 @@
-const Footer = () => {
-    return (
+const Footer = () => (
         <div>
             <ul className="footer">
               <li>Modern Man fashion </li>
@@ -8,5 +7,4 @@ const Footer = () => {
             </ul>
         </div>
     )
-}
 export default Footer;

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
-import reducer, { fetchDiscountedProducts } from '../store/discountsSlice';
+import reducer, { fetchDiscountedProducts } from 'store/discountsSlice';
 
 jest.mock('axios');
 
