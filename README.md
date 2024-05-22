@@ -3,7 +3,7 @@
 |Tool                | Description                    | Tags for tools used                                                                                               |
 | ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
 | 1.ReactJs| JSX-Based FrontEnd Library|[Frontend]; [Javascript];|
-| 2.Redux| State Management Library|[Frontend]; [Javascript];|
+| 2.Redux| State Management Library|[State]; [Slice]; [Thunks];[Reducers];[Store];|
 | 3.Django| Python-Based Backend Framework|[Backend]; [Python];|
 | 4.ESLint| Linting Framework| [Lint]; [syntax];|
 | 5.Figma| Interface Design| [Prototype]; [Wireframe];|
