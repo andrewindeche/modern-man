@@ -2,8 +2,8 @@
 
 |Tool                | Description                    | Tags for tools used                                                                                               |
 | ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| 1.GitHub| Version Control| [Version-Control]; [Repo];|
-| 2.ReactJs| JSX-Based FrontEnd Library|[Frontend]; [Javascript];|
+| 1.ReactJs| JSX-Based FrontEnd Library|[Frontend]; [Javascript];|
+| 2.Redux| State Management Library|[Frontend]; [Javascript];|
 | 3.Django| Python-Based Backend Framework|[Backend]; [Python];|
 | 4.ESLint| Linting Framework| [Lint]; [syntax];|
 | 5.Figma| Interface Design| [Prototype]; [Wireframe];|
@@ -50,6 +50,7 @@ Run `npm start` for a development server. Navigate to `http://localhost:3000/`. 
 ## Production server
 <p><b>React</b></p>
 Run `npm run start` for a production server, after building the project and generating neccesary statis files. Navigate to `http://localhost:3000/`. The application will automatically reload if you change any of the source files.
+
 <p><b>Django</b></p>
 Run `pipenv shell` to run python virtual environment with pipenv then `python3 manage.py runserver` so as to run the django server and start the app. Navigate to server at http://127.0.0.1:8000/. for admin dashboard navigate to http://127.0.0.1:8000/admin
 
