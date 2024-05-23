@@ -264,15 +264,16 @@ input::placeholder:hover{
 }
 
 .modalheader h2{
-    font-size: 20px;
+    font-size: 15px;
 }
 .Modal {
     border: black solid 2px;
     width: 50%;
+    height: 80%;
     position: absolute;
     display: grid;
-    right:12em;
-    bottom:10em;
+    right:18em;
+    bottom:3em;
     padding: 30px
 }
 .nameLabel, .contactLabel, .passwordLabel {
@@ -376,14 +377,12 @@ input::placeholder:hover{
     font-weight: bolder;
     margin:1em
 }
-.productdescription{
-    font-size: 10px;
-}
 
 .productdescription{
-    border: black solid 1px;
     font-weight: bolder;
-    padding-right: 20px;
+    font-size: 10px;
+    width: 90%;
+    height:80%
 }
 .previews{
     position: absolute;
@@ -391,8 +390,8 @@ input::placeholder:hover{
     display:flex;
     flex-direction: row;
     gap:4px;
-    width:11%;
-    height:11%
+    width:4%;
+    height:8%
 }
 .previews img{
     border: black solid 1px;
@@ -401,9 +400,9 @@ input::placeholder:hover{
     border: #BC2B2B solid 2px;
 }
 #posterImage {
-    width:30%;
-    height:70%;
-    padding: 2em
+    width:70%;
+    height:80%;
+    border: black solid 2px;
 }
 #price {
     color:black;
@@ -510,14 +509,35 @@ input::placeholder:hover{
     width:3em;
     gap: 10px;
     border-radius: 5px;
-    border:#000 solid 3px;
     padding: 10px;
     cursor: pointer;
 }
-.shoppingcarticon:hover, .windowclose:hover, .favorite:hover{
-    border: #BC2B2B solid 3px;
-    background-color: #000;
-    color:#FFFFFF
+.shoppingcarticon{
+    border: green solid 1.5px;
+    color: green;
+} 
+
+.windowclose{
+    border: red solid 1.5px;
+    color:red;
+}
+ .favorite{
+    border: #17A2B8 solid 1.5px;
+    color: #17A2B8;
+ }
+
+.shoppingcarticon:hover {
+    background-color:green;
+    color: white;
+}
+
+.windowclose:hover {
+    background-color:red;
+    color: white;
+} 
+.favorite:hover {
+    background-color: #17A2B8;
+    color: white;
 }
 .shoppingcarticon:hover + .tooltip-text-modal {
     visibility: visible;
@@ -547,7 +567,7 @@ input::placeholder:hover{
     top:20px;
 }
 .title {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bolder;
     color:#BC2B2B;
 }

@@ -19,7 +19,7 @@
 <p>The README documents details for the Implementation of a ReactJs and Django Application for a Men's wear website</p>
 
 ## <h1> Description</h1>
-<p>The Aim of the project is to build a React.js and Python Django web project for an Ecommerce site for a mens' wear with searchable categories of men's attire including: Suits, Shirts, NeckWear & Accessories</p>
+<p>The aim of the project is to build a React.js and Python Django web application for an e-commerce men’s wear store. The application will include searchable categories of men’s attire, such as suits, shirts, shoes, neckwear, and accessories</p>
 
 ## Tool Implementation Choices/Decisions
 <p><b>Github</b></p>
