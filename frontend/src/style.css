@@ -157,10 +157,16 @@ body {
 #email {
     font-size: 9px;
 }
+.favorite{
+    border: #17A2B8 solid 1.5px;
+    color: #17A2B8;
+ }
+
 .favorite:hover + .tooltip-text-modal {
     visibility: visible;
     opacity: 1;
     border: black solid 2px;
+    margin: 0.5em 6em;
 }
 .footer {
     background-color: #000;
@@ -265,16 +271,17 @@ input::placeholder:hover{
 
 .modalheader h2{
     font-size: 15px;
+    font-family: "Rock Salt", cursive;
 }
 .Modal {
     border: black solid 2px;
     width: 50%;
-    height: 80%;
+    height: 70%;
     position: absolute;
     display: grid;
     right:18em;
-    bottom:3em;
-    padding: 30px
+    bottom:4em;
+    padding: 30px;
 }
 .nameLabel, .contactLabel, .passwordLabel {
     display:flex;
@@ -379,10 +386,14 @@ input::placeholder:hover{
 }
 
 .productdescription{
-    font-weight: bolder;
+    font-weight: bold;
     font-size: 10px;
     width: 90%;
     height:80%
+}
+p.title{
+    font-size: 12px;
+    font-family: "Rock Salt", cursive;
 }
 .previews{
     position: absolute;
@@ -400,8 +411,8 @@ input::placeholder:hover{
     border: #BC2B2B solid 2px;
 }
 #posterImage {
-    width:70%;
-    height:80%;
+    width:17em;
+    height:100%;
     border: black solid 2px;
 }
 #price {
@@ -521,10 +532,6 @@ input::placeholder:hover{
     border: red solid 1.5px;
     color:red;
 }
- .favorite{
-    border: #17A2B8 solid 1.5px;
-    color: #17A2B8;
- }
 
 .shoppingcarticon:hover {
     background-color:green;
@@ -543,6 +550,7 @@ input::placeholder:hover{
     visibility: visible;
     opacity: 1;
     border: black solid 2px;
+    margin: 1em -3em
 }
 .searchresultsimages .image {
     text-align: center; 
@@ -560,6 +568,9 @@ input::placeholder:hover{
     visibility: visible;
     opacity: 1;
     border: #000 solid 2px;
+}
+.star{
+    width: 20%
 }
 .topheaderstar {
     position:absolute;
@@ -602,6 +613,7 @@ input::placeholder:hover{
     left: 55%;
     opacity: 0;
     transition: opacity 0.3s;
+    font-family: "Rock Salt", cursive;
 }
 .user .heart .shopping {
     margin-left: 10px; 
@@ -634,6 +646,7 @@ input::placeholder:hover{
     visibility: visible;
     opacity: 1;
     border: black solid 2px;
+    margin: 2em 14em
 }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
