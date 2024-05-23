@@ -241,14 +241,11 @@ input::placeholder:hover{
 .input-group label, ::placeholder {
     font-weight: bolder;
 }
-.signupnow {
-    color:#BC2B2B;
-    padding-left:4px;
-    font-size:14px
-}
+
 .modalbody {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+    border-top: 2px solid #BC2B2B;
 }
 .modalbody p {
     font-size: 11px;
@@ -279,9 +276,9 @@ input::placeholder:hover{
     height: 70%;
     position: absolute;
     display: grid;
-    right:18em;
+    right:20em;
     bottom:4em;
-    padding: 30px;
+    padding: 10px;
 }
 .nameLabel, .contactLabel, .passwordLabel {
     display:flex;
@@ -392,8 +389,9 @@ input::placeholder:hover{
     height:80%
 }
 p.title{
-    font-size: 12px;
+    font-size: 18px;
     font-family: "Rock Salt", cursive;
+    color:green
 }
 .previews{
     position: absolute;
@@ -410,10 +408,11 @@ p.title{
 .previews img:hover{
     border: #BC2B2B solid 2px;
 }
+
 #posterImage {
     width:17em;
-    height:100%;
-    border: black solid 2px;
+    height:96%;
+    border: #BC2B2B solid 1.2px;
 }
 #price {
     color:black;
@@ -527,10 +526,15 @@ p.title{
     border: green solid 1.5px;
     color: green;
 } 
+.signupnow {
+    color:#BC2B2B;
+    padding-left:4px;
+    font-size:14px
+}
 
 .windowclose{
-    border: red solid 1.5px;
-    color:red;
+    border: #BC2B2B solid 1.5px;
+    color:#BC2B2B;
 }
 
 .shoppingcarticon:hover {
