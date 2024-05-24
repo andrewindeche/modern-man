@@ -281,7 +281,7 @@ input::placeholder:hover{
 .modalicons {
     display: flex;
     flex-direction: row;
-    margin: 2px 3em;
+    margin: 6em;
     gap:10px;
     position:relative
 }
@@ -599,11 +599,11 @@ p.title{
     color: white;
 } 
 
-
 .topheaderstar {
-    position:absolute;
-    right: 50px;
-    top:20px;
+    position:relative;
+    right: 10px;
+    top:0.05px;
+    color: #BC2B2B
 }
 .title {
     font-size: 18px;
