@@ -102,7 +102,11 @@ function SearchPage() {
         )}
         <span className="tooltip-text">View More</span>
       </div>
-      {selectedItem && <ModalContent item={selectedItem} onClose={() => setSelectedItem(null)} />}
+      {selectedItem && (
+        <div className="modal-background" onClick={() => setSelectedItem(null)}>
+          <ModalContent item={selectedItem} onClose={() => setSelectedItem(null)} position={modalPosition} />
+        </div>
+      )}
     </>
   );
 }

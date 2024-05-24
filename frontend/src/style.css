@@ -283,11 +283,13 @@ input::placeholder:hover{
 .modalheader h2{
     font-size: 15px;
     font-family: "Rock Salt", cursive;
+    text-decoration: underline ;
 }
 .Modal {
-    border: black solid 2px;
-    width: 50%;
+    border: #BC2B2B solid 2px;
+    width: 56%;
     height: 70%;
+    background: white;
     position: absolute;
     display: grid;
     right:20em;
@@ -295,6 +297,7 @@ input::placeholder:hover{
     padding: 10px;
     transform: translateY(-1%);
     animation: slideIn 0.8s forwards;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 .nameLabel, .contactLabel, .passwordLabel {
     display:flex;
@@ -671,6 +674,17 @@ p.title{
     border: black solid 2px;
     margin: 2em 14em
 }
+@keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    to {
+      transform: translateY(0);
+    }
+  }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
     .notificationbar {
