@@ -161,6 +161,10 @@ body {
     border: #17A2B8 solid 1.5px;
     color: #17A2B8;
  }
+ .favorite:hover {
+    background-color: #17A2B8;
+    color: white;
+}
 
 .favorite:hover + .tooltip-text-modal {
     visibility: visible;
@@ -168,6 +172,7 @@ body {
     border: black solid 2px;
     margin: 0.5em 6em;
 }
+
 .footer {
     background-color: #000;
     color: white;
@@ -276,8 +281,9 @@ input::placeholder:hover{
 .modalicons {
     display: flex;
     flex-direction: row;
-    margin: 1em 3em;
+    margin: 2px 3em;
     gap:10px;
+    position:relative
 }
 
 .modalheader h2{
@@ -293,7 +299,7 @@ input::placeholder:hover{
     position: absolute;
     display: grid;
     right:20em;
-    bottom:1em;
+    bottom:0.2em;
     padding: 10px;
     transform: translateY(-1%);
     animation: slideIn 0.8s forwards;
@@ -428,8 +434,9 @@ p.title{
 }
 
 #posterImage {
-    width:17em;
-    height:96%;
+    padding: 15px;
+    width:60%;
+    height:60%;
 }
 #price {
     color:black;
@@ -560,15 +567,6 @@ p.title{
     background-color:green;
     color: white;
 }
-
-.windowclose:hover {
-    background-color:red;
-    color: white;
-} 
-.favorite:hover {
-    background-color: #17A2B8;
-    color: white;
-}
 .shoppingcarticon:hover + .tooltip-text-modal {
     visibility: visible;
     opacity: 1;
@@ -595,6 +593,13 @@ p.title{
 .star{
     width: 20%
 }
+
+.windowclose:hover {
+    background-color:red;
+    color: white;
+} 
+
+
 .topheaderstar {
     position:absolute;
     right: 50px;
