@@ -4,11 +4,23 @@
         "es2021": true,
         "node": true
     },
-    "extends": "airbnb",
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
     "parserOptions": {
         "ecmaVersion": "latest",
+        "ecmaFeatures": {
+            "jsx": true
+        },
         "sourceType": "module"
     },
+    "plugins": [
+        "react",
+        "import",
+        "jsx-a11y",
+        "react-hooks"
+    ],
     "rules": {
     }
 }

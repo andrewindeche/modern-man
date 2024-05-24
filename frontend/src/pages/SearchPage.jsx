@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +9,7 @@ import { searchProducts, updateQuery } from '../store/searchSlice';
 import NotificationBar from '../components/NotificationBar';
 import SearchBar from '../components/SearchBar';
 import NavButtons from '../components/NavButtons';
+import ModalContent from '../components/Modal';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -21,6 +22,8 @@ function SearchPage() {
   const discounted = query.get('discounted') === 'true';
   const category = query.get('category') || '';
   const searchQuery = query.get('query') || '';
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
     if (searchQuery) {
@@ -35,10 +38,14 @@ function SearchPage() {
 
   const { results: searchItems, loading: searchLoading, error: searchError } = search;
   const { items = [], loading, error } = discounted ? discount : products;
-
+  const handleItemClick = (item, event) => {
+    const rect = event.target.getBoundingClientRect();
+    setModalPosition({ top: rect.top + window.scrollY, left: rect.left + window.scrollX });
+    setSelectedItem(item);
+  };
   const renderItems = (items) => (
     items.map((item, index) => (
-      <div key={index} className="image">
+      <div key={index} className="image" onClick={(event) => handleItemClick(item, event)}>
         <div className="container">
           {item.discount_percentage > 0 && (
           <span className="ondiscount">
@@ -49,12 +56,13 @@ function SearchPage() {
           <img src={item.image} alt={item.name} />
           <p>{item.name}</p>
           {[...Array(5)].map((_, i) => (
-            <FontAwesomeIcon
-              key={i}
-              icon={faStar}
-              className={`shopping ${i < item.average_rating ? 'active' : ''}`}
-            />
-          ))}
+                  <FontAwesomeIcon
+                    key={i}
+                    icon={faStar}
+                    className={`star ${i < item.average_rating ? 'active' : ''}`}
+                    size="2x"
+                  />
+                ))}
           <p id="price">
             $
             {item.discounted_price}
@@ -95,6 +103,11 @@ function SearchPage() {
         )}
         <span className="tooltip-text">View More</span>
       </div>
+      {selectedItem && (
+        <div className="modal-background" onClick={() => setSelectedItem(null)}>
+          <ModalContent item={selectedItem} onClose={() => setSelectedItem(null)} position={modalPosition} />
+        </div>
+      )}
     </>
   );
 }

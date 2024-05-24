@@ -157,11 +157,22 @@ body {
 #email {
     font-size: 9px;
 }
+.favorite{
+    border: #17A2B8 solid 1.5px;
+    color: #17A2B8;
+ }
+ .favorite:hover {
+    background-color: #17A2B8;
+    color: white;
+}
+
 .favorite:hover + .tooltip-text-modal {
     visibility: visible;
     opacity: 1;
     border: black solid 2px;
+    margin: 0.5em 6em;
 }
+
 .footer {
     background-color: #000;
     color: white;
@@ -201,6 +212,7 @@ html, body {
     height:30%;
     width:23%;
     padding:3em;
+    cursor: pointer;
 }
 .image a {
     font-weight: bolder;
@@ -235,14 +247,24 @@ input::placeholder:hover{
 .input-group label, ::placeholder {
     font-weight: bolder;
 }
-.signupnow {
-    color:#BC2B2B;
-    padding-left:4px;
-    font-size:14px
-}
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 1050;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
 .modalbody {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+    border-top: 2px solid #BC2B2B;
 }
 .modalbody p {
     font-size: 11px;
@@ -255,25 +277,36 @@ input::placeholder:hover{
 }
 .modalheader h2{
     font-weight:bolder;
+    font-size: 7px;
 }
 .modalicons {
     display: flex;
     flex-direction: row;
-    margin: 1em 3em;
-    gap:10px;
+    padding:1px;
+    gap:30px;
+    position:relative;
+    right: 0.1px;
+    cursor: pointer;
 }
 
 .modalheader h2{
-    font-size: 20px;
+    font-size: 15px;
+    font-family: "Rock Salt", cursive;
+    text-decoration: underline ;
 }
 .Modal {
-    border: black solid 2px;
-    width: 50%;
+    border: #BC2B2B solid 2px;
+    width: 56%;
+    height: 75%;
+    background: white;
     position: absolute;
     display: grid;
-    right:12em;
-    bottom:10em;
-    padding: 30px
+    right:20em;
+    bottom:2em;
+    padding: 10px;
+    transform: translateY(-1%);
+    animation: slideIn 0.8s forwards;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 .nameLabel, .contactLabel, .passwordLabel {
     display:flex;
@@ -376,14 +409,20 @@ input::placeholder:hover{
     font-weight: bolder;
     margin:1em
 }
-.productdescription{
-    font-size: 10px;
-}
 
 .productdescription{
-    border: black solid 1px;
-    font-weight: bolder;
-    padding-right: 20px;
+    font-weight: bold;
+    font-size: 10px;
+    width: 90%;
+    height:80%
+}
+#descriptiontext{
+    font-size:12px;
+    margin: 4px 0;
+}
+p.title{
+    font-size: 18px;
+    color:green
 }
 .previews{
     position: absolute;
@@ -391,8 +430,8 @@ input::placeholder:hover{
     display:flex;
     flex-direction: row;
     gap:4px;
-    width:11%;
-    height:11%
+    width:4%;
+    height:8%
 }
 .previews img{
     border: black solid 1px;
@@ -400,10 +439,11 @@ input::placeholder:hover{
 .previews img:hover{
     border: #BC2B2B solid 2px;
 }
+
 #posterImage {
-    width:30%;
-    height:70%;
-    padding: 2em
+    padding: 15px;
+    width:60%;
+    height:50%;
 }
 #price {
     color:black;
@@ -510,19 +550,35 @@ input::placeholder:hover{
     width:3em;
     gap: 10px;
     border-radius: 5px;
-    border:#000 solid 3px;
     padding: 10px;
     cursor: pointer;
 }
-.shoppingcarticon:hover, .windowclose:hover, .favorite:hover{
-    border: #BC2B2B solid 3px;
-    background-color: #000;
-    color:#FFFFFF
+.shoppingcarticon{
+    border: green solid 1.5px;
+    color: green;
+    cursor: pointer
+} 
+.signupnow {
+    color:#BC2B2B;
+    padding-left:4px;
+    font-size:14px
+}
+
+.windowclose{
+    border: #BC2B2B solid 1.5px;
+    color:#BC2B2B;
+    cursor: pointer
+}
+
+.shoppingcarticon:hover {
+    background-color:green;
+    color: white;
 }
 .shoppingcarticon:hover + .tooltip-text-modal {
     visibility: visible;
     opacity: 1;
     border: black solid 2px;
+    margin: 1em -3em
 }
 .searchresultsimages .image {
     text-align: center; 
@@ -541,13 +597,27 @@ input::placeholder:hover{
     opacity: 1;
     border: #000 solid 2px;
 }
+.star{
+    width: 10%;
+    color: gray;
+}
+  .star.active {
+    color: #BC2B2B;
+  }
+
+.windowclose:hover {
+    background-color:red;
+    color: white;
+} 
+
 .topheaderstar {
-    position:absolute;
-    right: 50px;
-    top:20px;
+    position:relative;
+    right: 10px;
+    top:0.05px;
+    color: #BC2B2B
 }
 .title {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bolder;
     color:#BC2B2B;
 }
@@ -582,6 +652,7 @@ input::placeholder:hover{
     left: 55%;
     opacity: 0;
     transition: opacity 0.3s;
+    font-family: "Rock Salt", cursive;
 }
 .user .heart .shopping {
     margin-left: 10px; 
@@ -593,6 +664,7 @@ input::placeholder:hover{
     padding-right: 10px;
     padding-left: 8em;
     gap: 2em;  
+    cursor: pointer
 }
 .user-icons svg {
     width: 8%; 
@@ -615,6 +687,17 @@ input::placeholder:hover{
     opacity: 1;
     border: black solid 2px;
 }
+@keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    to {
+      transform: translateY(0);
+    }
+  }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
     .notificationbar {

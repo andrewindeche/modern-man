@@ -6,8 +6,7 @@ import Registration from "./pages/Registration.jsx";
 import Login from "./pages/Login.jsx";
 import Forgot from "./pages/Forgot.jsx";
 import SearchPage from "./pages/SearchPage.jsx";
-import Checkout from "./pages/Checkout.jsx"
-
+import Checkout from "./pages/Checkout.jsx";
 const App = () => {
     return (
             <Routes>
