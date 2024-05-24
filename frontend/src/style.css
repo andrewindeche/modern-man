@@ -288,12 +288,12 @@ input::placeholder:hover{
 .Modal {
     border: #BC2B2B solid 2px;
     width: 56%;
-    height: 70%;
+    height: 90%;
     background: white;
     position: absolute;
     display: grid;
     right:20em;
-    bottom:4em;
+    bottom:1em;
     padding: 10px;
     transform: translateY(-1%);
     animation: slideIn 0.8s forwards;
@@ -409,7 +409,6 @@ input::placeholder:hover{
 }
 p.title{
     font-size: 18px;
-    font-family: "Rock Salt", cursive;
     color:green
 }
 .previews{
@@ -431,7 +430,6 @@ p.title{
 #posterImage {
     width:17em;
     height:96%;
-    border: #BC2B2B solid 1.2px;
 }
 #price {
     color:black;
