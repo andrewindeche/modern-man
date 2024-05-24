@@ -1,16 +1,14 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faStar, faWindowClose, faShoppingCart } from '@fortawesome/free-solid-svg-icons'; 
-import Preview3 from '../images/white shirt.webp';
-import Preview5 from '../images/tuxedo trouser.webp';
 
 const ModalContent = ({ item, onClose, position = { top: 0, left: 0 } }) => {
       if (!item) return null;
 
-      const { name, image, price, description, rating } = item;
+      const { name, image, price, description, average_rating } = item;
       const modalStyle = {
-        top: position.top,
-        left: position.left,
+        top: `${position.top}px`,
+        left:`${position.left}px`,
       };
   return (
     <>
@@ -32,11 +30,18 @@ const ModalContent = ({ item, onClose, position = { top: 0, left: 0 } }) => {
             <div className="productdescription">
               <p className="title">Price: {price}</p>
               <div className="topheaderstar">
-            {[...Array(rating)].map((_, index) => (
-              <FontAwesomeIcon key={index} icon={faStar} className="star" size="2x" />
-            ))}
+              {[...Array(5)].map((_, index) => (
+                <FontAwesomeIcon
+                  key={index}
+                  icon={faStar}
+                  className={`star ${index < average_rating ? 'active' : ''}`}
+                  size="2x"
+                />
+              ))}
           </div>
+          <div id='descriptiontext'>
               {description}
+          </div>
             </div>
           </div>
         </div>

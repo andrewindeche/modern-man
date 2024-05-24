@@ -56,12 +56,13 @@ function SearchPage() {
           <img src={item.image} alt={item.name} />
           <p>{item.name}</p>
           {[...Array(5)].map((_, i) => (
-            <FontAwesomeIcon
-              key={i}
-              icon={faStar}
-              className={`shopping ${i < item.average_rating ? 'active' : ''}`}
-            />
-          ))}
+                  <FontAwesomeIcon
+                    key={i}
+                    icon={faStar}
+                    className={`star ${i < item.average_rating ? 'active' : ''}`}
+                    size="2x"
+                  />
+                ))}
           <p id="price">
             $
             {item.discounted_price}
