@@ -67,6 +67,15 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 
 Run`npm run lint` to execute linting of the Next Js application. The dependency can be configured using `npm install` command.
 
+## Payment Intergrations
+
+Create Stripe account on: https://stripe.com/
+Refer to backend\env.example for env variables
+
+## Payment Intergrations
+Create Mpesa Daraja account on: https://developer.safaricom.co.ke/
+Refer to backend\env.example for env variables
+
 ## Figma Design
 
 https://www.figma.com/file/jnMvsOEENiEnb8dCw01oXI/Untitled?type=design&node-id=0-1&mode=design&t=B2Yp0sZdtXKK8X2M-0
