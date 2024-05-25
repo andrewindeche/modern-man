@@ -210,11 +210,7 @@ class Rating(models.Model):
 class CoverImages(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/')
-    
-class ButtonImages(models.Model):
-    title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='images/')
-    
+        
 class ProductDiscountFilter(filters.FilterSet):
   class Meta:
     model = Product

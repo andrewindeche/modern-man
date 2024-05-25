@@ -4,11 +4,14 @@ from django.utils import timezone
 from rest_framework.response import Response
 from .utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Product, Order, Cart, CoverImages,ButtonImages, VerificationCode,ProductDiscountFilter
-from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer, ButtonImagesSerializer,EmailSerializer, VerifyCodeSerializer
+from .models import Product, Order, Cart, CoverImages, VerificationCode,ProductDiscountFilter
+from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer,EmailSerializer, VerifyCodeSerializer, ChargeSerializer
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+import stripe
+from django.conf import settings
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
@@ -116,6 +119,25 @@ class CoverImagesViewSet(viewsets.ModelViewSet):
     queryset = CoverImages.objects.all()
     serializer_class = CoverImagesSerializer
     
-class ButtonImagesViewSet(viewsets.ModelViewSet):
-    queryset = ButtonImages.objects.all()
-    serializer_class = ButtonImagesSerializer
+class ChargeView(generics.GenericAPIView):
+    serializer_class = ChargeSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        stripe_token = serializer.validated_data['stripe_token']
+        amount = serializer.validated_data['amount']
+        currency = serializer.validated_data['currency']
+        description = serializer.validated_data.get('description', 'A Django charge')
+
+        try:
+            charge = stripe.Charge.create(
+                amount=amount,
+                currency=currency,
+                description=description,
+                source=stripe_token,
+            )
+            return Response({'charge': charge}, status=status.HTTP_200_OK)
+        except stripe.error.StripeError as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)

@@ -1,10 +1,9 @@
 from django.urls import path, include
-from .views import CoverImagesViewSet,ButtonImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView, VerifyCodeView, HighestDiscountProduct,DiscountedProductListAPIView,ProductSearchView
+from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView, VerifyCodeView, HighestDiscountProduct,DiscountedProductListAPIView,ProductSearchView,ChargeView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'images', CoverImagesViewSet)
-router.register(r'button-images', ButtonImagesViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -19,4 +18,5 @@ urlpatterns = [
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('second-step-auth/', DoubleAuthView.as_view(), name='second_step_auth'),
     path('verify-code/', VerifyCodeView.as_view(), name='verify_code'),
+    path('charge/', ChargeView.as_view(), name='charge'),
 ] 

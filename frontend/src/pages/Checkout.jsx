@@ -6,6 +6,9 @@ import Visa from '../images/mpesa.webp';
 import Mastercard from '../images/paypal.webp';
 import Paypal from '../images/visa.webp';
 import React from 'react';
+import {
+   faShoppingCart
+} from '@fortawesome/free-solid-svg-icons';
 const Checkout = () => {
   return(
     <>

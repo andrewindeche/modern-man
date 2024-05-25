@@ -18,6 +18,7 @@ django-redis = "*"
 django-filter = "*"
 django-mpesa = "*"
 stripe = "*"
+python-decouple = "*"
 
 [dev-packages]
 

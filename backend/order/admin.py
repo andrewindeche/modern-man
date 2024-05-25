@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer,Category,Product,Order,Cart,OrderItem,CartItem,CoverImages,ButtonImages
+from .models import Customer,Category,Product,Order,Cart,OrderItem,CartItem,CoverImages
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'category', 'image', 'discount_percentage']
@@ -15,5 +15,4 @@ admin.site.register(OrderItem)
 admin.site.register(Cart)
 admin.site.register(CartItem)
 admin.site.register(CoverImages)
-admin.site.register(ButtonImages)
 
