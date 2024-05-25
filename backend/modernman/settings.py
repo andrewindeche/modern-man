@@ -27,10 +27,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY','a8*9eb-8_1zic&uefps(rhl_9osxe-%&gl_t5)^*7&=4cruww3')
 
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
-
-STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
-
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','db','127.0.0.1','http://localhost:3000']
@@ -52,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
-    'mpesa'
 ]
 
 MIDDLEWARE = [
@@ -173,6 +168,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 APPEND_SLASH = True
+
+#Payment Intergrations
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+MPESA_CONSUMER_KEY = os.getenv('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = os.getenv('MPESA_CONSUMER_SECRET')
+MPESA_ENV = os.getenv('MPESA_ENV')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
