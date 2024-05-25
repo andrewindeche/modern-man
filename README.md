@@ -15,7 +15,7 @@
 | 11.CircleCI|Continous Intergration and Continous Delivery Tool| [Continous Intergration/Continous Delivery];|
 | 12.SMTP bucket|Fake SMTP Server| [Simple Mail Transfer Protocol] ; [Email Server];|
 | 13.Redis|Database,Message & Cache Broker Server| [Server] ; [Cache];|
-| 14.Flutterwave |Payment Intergration for Payments| [Payment] ; [API];|
+| 14.Django-Mpesa and Stripe |Payment Gateway| [Payment] ; [Mpesa]; [STK];|
 
 <p>The README documents details for the Implementation of a ReactJs and Django Application for a Men's wear website</p>
 

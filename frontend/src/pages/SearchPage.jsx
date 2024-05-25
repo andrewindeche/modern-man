@@ -64,8 +64,7 @@ function SearchPage() {
                   />
                 ))}
           <p id="price">
-            $
-            {item.discounted_price}
+            ${item.discounted_price}
           </p>
         </div>
       </div>

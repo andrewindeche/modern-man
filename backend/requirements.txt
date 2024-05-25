@@ -15,3 +15,5 @@ redis==5.0.4
 requests==2.31.0
 django-filter==24.2
 django-redis==5.4.0
+django-mpesa==2.0.14
+stripe==9.8.0

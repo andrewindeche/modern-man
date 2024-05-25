@@ -189,6 +189,11 @@ body {
     opacity: 1;
     border: black solid 2px;
 }
+.home-icon {
+    color: black;
+    border: black solid 2px;
+    padding:0.6em
+}
 html, body {
     height: 100%;
     margin: 0;
@@ -519,8 +524,10 @@ p.title{
     margin: 0;
     position: relative;
     margin-left: 0em;
-    width:60%;
-    font-size:24px
+    width:100%;
+    font-size:24px;
+    color: black;
+    text-decoration: none;
 }
 .searchresultstitle {
     margin: 1.5em 40%;
@@ -669,7 +676,7 @@ p.title{
 .user-icons svg {
     width: 8%; 
     height: 8%;
-    padding: 0.5em;
+    padding: 0.8em;
     border: 2px solid #000;
 }
 .user:hover + .tooltip-text {
@@ -677,10 +684,15 @@ p.title{
     opacity: 1;
     border: black solid 2px;
 }
-.user-icons svg:hover{
+.user-icons svg:hover, .home-icon:hover {
     background: linear-gradient(45deg, #774439, #366823, #0000FF);
     border: red solid 2px;
     color: white;
+}
+.home-icon:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
 }
 .windowclose:hover + .tooltip-text-modal {
     visibility: visible;

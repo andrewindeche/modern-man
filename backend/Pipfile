@@ -16,6 +16,8 @@ requests = "*"
 redis = "*"
 django-redis = "*"
 django-filter = "*"
+django-mpesa = "*"
+stripe = "*"
 
 [dev-packages]
 
