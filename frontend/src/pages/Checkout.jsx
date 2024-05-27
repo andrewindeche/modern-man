@@ -1,19 +1,29 @@
 import NotificationBar from '../components/NotificationBar';
 import SearchBar from '../components/SearchBar';
 import NavButtons from '../components/NavButtons';
+import React, { useState } from 'react';
 import Mpesa from '../images/mastercard.webp';
 import Visa from '../images/mpesa.webp';
 import Mastercard from '../images/paypal.webp';
 import Paypal from '../images/visa.webp';
-import React from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 const Checkout = () => {
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Selected payment method: ${selectedOption}`);
+  };
   return(
     <>
       <NotificationBar />
       <SearchBar />
       <NavButtons />
-      <Tab.Container defaultActiveKey= "Billing Details">
+      <Tab.Container defaultActiveKey= "Billing Details" >
       <Nav variant="tabs">
         <Nav.Item>
           <Nav.Link eventKey="Billing Details">Billing Detail</Nav.Link>
@@ -25,17 +35,56 @@ const Checkout = () => {
       <Tab.Content>
       <Tab.Pane eventKey="Billing Details">
           <form className='billingdetails'>
-          <label>First and Last Name:</label><input />
-            <label>Email Address:</label><input />
+          <label className="locationHeading">Personal Details</label>
+          <label>First and Last Name:</label><input placeholder="Enter Your First and Last Name" />
+            <label>Email Address:</label><input placeholder="Enter Your Email Address" />
             <label className="locationHeading">Delivery Details</label>
             <span className="locationAddress">
-              <label>Location:</label><input />
-            <label>Building:</label><input /></span>
+              <label>Location:</label><input placeholder="Enter Your Delivery Location" />
+            <label>Building:</label><input placeholder="Enter Your Building Details" /></span>
+            <span className='checkoutamount'><button>Save</button></span>
           </form>
         </Tab.Pane>
         <Tab.Pane eventKey="Payment Options">
-          <h4>Content for Tab 3</h4>
-          <p>This is the content for the third tab.</p>
+        <div className="payment-options">
+      <h3>Select Payment Method</h3>
+      <form onSubmit={handleSubmit}>
+        <div className="radio">
+          <label>
+            <input
+              type="radio"
+              value="card"
+              checked={selectedOption === 'card'}
+              onChange={handleOptionChange}
+            />
+            Card Payment
+          </label>
+        </div>
+        <div className="radio">
+          <label>
+            <input
+              type="radio"
+              value="mpesa"
+              checked={selectedOption === 'mpesa'}
+              onChange={handleOptionChange}
+            />
+            M-Pesa
+          </label>
+        </div>
+        <div className="radio">
+          <label>
+            <input
+              type="radio"
+              value="paypal"
+              checked={selectedOption === 'paypal'}
+              onChange={handleOptionChange}
+            />
+            PayPal
+          </label>
+        </div>
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
+    </div>
         </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
@@ -71,4 +120,4 @@ const Checkout = () => {
         </>
     )
 }
-export default Checkout
+export default Checkout;
