@@ -28,7 +28,7 @@ const ModalContent = ({ item, onClose, position = { top: 0, left: 0 } }) => {
           <img src={image}id="posterImage" alt={name} />
           <div>
             <div className="productdescription">
-              <p className="title">Price: {price}</p>
+              <p className="title">Price: ${price}</p>
               <div className="topheaderstar">
               {[...Array(5)].map((_, index) => (
                 <FontAwesomeIcon

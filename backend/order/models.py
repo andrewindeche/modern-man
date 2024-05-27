@@ -5,6 +5,11 @@ from django.utils.translation import gettext_lazy as _
 from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 from django_filters import rest_framework as filters
+import requests
+from requests.auth import HTTPBasicAuth
+import datetime
+import base64
+from django.conf import settings
 
 
 class Customer(AbstractUser):
@@ -176,7 +181,6 @@ class Cart(models.Model):
         for item in self.cartitem_set.all():
             OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, subtotal=item.subtotal)
         self.cartitem_set.all().delete()
-
 class VerificationCode(models.Model):
     email = models.EmailField(unique=True)
     code = models.CharField(max_length=6)
@@ -210,12 +214,21 @@ class Rating(models.Model):
 class CoverImages(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/')
-    
-class ButtonImages(models.Model):
-    title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='images/')
-    
+        
 class ProductDiscountFilter(filters.FilterSet):
   class Meta:
     model = Product
     fields = ['discount_percentage'] 
+
+class MpesaTransaction(models.Model):
+    phone_number = models.CharField(max_length=15)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    reference = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
+    transaction_id = models.CharField(max_length=100)
+    status = models.CharField(max_length=50)
+    transaction_date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.phone_number} - {self.amount} - {self.user.username} - {self.transaction_id}"
+ 

@@ -15,7 +15,7 @@
 | 11.CircleCI|Continous Intergration and Continous Delivery Tool| [Continous Intergration/Continous Delivery];|
 | 12.SMTP bucket|Fake SMTP Server| [Simple Mail Transfer Protocol] ; [Email Server];|
 | 13.Redis|Database,Message & Cache Broker Server| [Server] ; [Cache];|
-| 14.Flutterwave |Payment Intergration for Payments| [Payment] ; [API];|
+| 14.Django-Mpesa and Stripe |Payment Gateway| [Payment] ; [Mpesa]; [STK];|
 
 <p>The README documents details for the Implementation of a ReactJs and Django Application for a Men's wear website</p>
 
@@ -66,6 +66,15 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 ## Run Linter
 
 Run`npm run lint` to execute linting of the Next Js application. The dependency can be configured using `npm install` command.
+
+## Payment Intergrations
+
+Create Stripe account on: https://stripe.com/
+Refer to backend\env.example for env variables
+
+## Payment Intergrations
+Create Mpesa Daraja account on: https://developer.safaricom.co.ke/
+Refer to backend\env.example for env variables
 
 ## Figma Design
 

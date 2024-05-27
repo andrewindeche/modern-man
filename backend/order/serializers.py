@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Cart, Order, ButtonImages, CoverImages, VerificationCode
+from .models import Product, Cart, Order, CoverImages, MpesaTransaction
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -33,11 +33,6 @@ class CoverImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = CoverImages
         fields = ('id', 'title', 'image')
-
-class ButtonImagesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ButtonImages
-        fields = ('id', 'title', 'image')
         
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -52,3 +47,14 @@ class EmailSerializer(serializers.Serializer):
 class VerifyCodeSerializer(serializers.Serializer):
     email = serializers.EmailField()
     code = serializers.CharField(max_length=6)
+    
+class ChargeSerializer(serializers.Serializer):
+    stripe_token = serializers.CharField(max_length=255)
+    amount = serializers.IntegerField()
+    currency = serializers.CharField(max_length=3, default='usd')
+    description = serializers.CharField(max_length=255, required=False)
+    
+class MpesaTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MpesaTransaction
+        fields = '__all__'
