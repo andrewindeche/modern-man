@@ -6,12 +6,39 @@ import Visa from '../images/mpesa.webp';
 import Mastercard from '../images/paypal.webp';
 import Paypal from '../images/visa.webp';
 import React from 'react';
+import { Tab, Nav } from 'react-bootstrap';
 const Checkout = () => {
   return(
     <>
       <NotificationBar />
       <SearchBar />
       <NavButtons />
+      <Tab.Container defaultActiveKey= "Billing Details">
+      <Nav variant="tabs">
+        <Nav.Item>
+          <Nav.Link eventKey="Billing Details">Billing Detail</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="Payment Options">Payment Options</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <Tab.Content>
+      <Tab.Pane eventKey="Billing Details">
+          <form className='billingdetails'>
+          <label>First and Last Name:</label><input />
+            <label>Email Address:</label><input />
+            <label className="locationHeading">Delivery Details</label>
+            <span className="locationAddress">
+              <label>Location:</label><input />
+            <label>Building:</label><input /></span>
+          </form>
+        </Tab.Pane>
+        <Tab.Pane eventKey="Payment Options">
+          <h4>Content for Tab 3</h4>
+          <p>This is the content for the third tab.</p>
+        </Tab.Pane>
+        </Tab.Content>
+      </Tab.Container>
       <div className='checkout'>
         <div className='checkout-container'>
         <div className='checkoutdetails'>

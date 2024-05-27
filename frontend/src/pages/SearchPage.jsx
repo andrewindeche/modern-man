@@ -13,7 +13,7 @@ import ModalContent from '../components/Modal';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
-function SearchPage() {
+const SearchPage = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const discount = useSelector((state) => state.discount);
