@@ -4,7 +4,7 @@ from django.utils import timezone
 from rest_framework.response import Response
 from .utils.utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Product, Order, Cart, CoverImages, VerificationCode,ProductDiscountFilter,MpesaTransaction
+from .models import Product, Order, Cart, CoverImages, VerificationCode,ProductDiscountFilter
 from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer,EmailSerializer, VerifyCodeSerializer, ChargeSerializer, MpesaTransactionSerializer
 from .utils.mpesa_utils import lipa_na_mpesa_online 
 from rest_framework import filters
@@ -14,6 +14,9 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.views.decorators.csrf import csrf_exempt
+from .utils.mpesa_utils import process_mpesa_callback
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -155,9 +158,4 @@ class MpesaChargeView(generics.GenericAPIView):
     
 @csrf_exempt
 def mpesa_callback(request):
-    data = json.loads(request.body.decode('utf-8'))
-    transaction = MpesaTransaction.objects.get(transaction_id=data['Body']['stkCallback']['CheckoutRequestID'])
-    transaction.status = data['Body']['stkCallback']['ResultDesc']
-    transaction.save()
-
-    return JsonResponse({"status": "success"})
+    return process_mpesa_callback(request)

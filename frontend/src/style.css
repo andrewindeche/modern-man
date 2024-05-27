@@ -1,27 +1,6 @@
-.aboutuser {
-    border: black solid 1.5px;
-    width:40%;
-    height:80%;
-    font-size:10px;
-    margin:18px;
-    padding: 2px
-}
-.aboutuser p, .payments p{
+.amount{
     color:#BC2B2B;
-    text-align: center;
-    font-weight: 600;
-}
-.aboutuser li{
-    font-weight: bolder;
-}
-.aboutuser #email {
-    font-weight: normal;
-    padding: 8px 0;
-}
-.aboutuser,
-.payments {
-  display: inline-block !important;
-  vertical-align: top; 
+    font-weight: bold;
 }
 button {
     grid-column: span 2;
@@ -63,6 +42,10 @@ body {
 .cartdetails img {
     width: 50%;
 }
+.cartdetails h4 {
+    border-bottom: #BC2B2B 1.5px solid;
+    padding: 10px;
+}
 .categories {
     display: flex;
     justify-content: space-between; 
@@ -84,11 +67,6 @@ body {
 .categories button:hover{
     border: red solid 2px;
 }
-.checkout {
-    padding:0 50px;
-    font-size: 12px;
-    width: 50%;
-}
 .checkoutamount {
     display: flex;
     flex-direction:row;
@@ -98,8 +76,9 @@ body {
 .checkoutamount button {
     background-color: #000;
     color: white;
-    width: 40%;
-    height: 30%;
+    width: 60%;
+    padding: 1em;
+    height: 60%;
     border:#BC2B2B 4px solid;
     border-radius: 5px;
 }
@@ -115,14 +94,16 @@ body {
     align-items: center; 
     justify-content: space-around;
     position:absolute;
-    right: 5%;
-    top:37%;
+    right: 1%;
+    top:40%;
+    width: 35%;
     font-size: 10px;
-    margin:0 30px
+    margin:0 20px
 }
 .checkoutitem {
     display: flex;
     flex-direction:row;
+    border-bottom: black solid 1px;
     justify-content: space-between;
     padding: 8px;
     font-weight: bolder;
@@ -140,10 +121,6 @@ body {
     font-size: 20px;
     font-weight: bolder;
     padding:1em;
-}
-#Checkout {
-    position: absolute;
-    left: 25em
 }
 .checkout h4 {
     color: #BC2B2B;
@@ -399,20 +376,6 @@ input::placeholder:hover{
 }
 .payments img:hover {
     border:#BC2B2B solid;
-}
-.personaldetails {
-    display: grid;
-    border:#000 1.5px solid;
-    gap: 2px;
-    width: 30%;
-    position: absolute;
-    left:2%;
-    top: 38%
-}
-.personaldetails h4{
-    font-size: 16px;
-    font-weight: bolder;
-    margin:1em
 }
 
 .productdescription{

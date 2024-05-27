@@ -3,6 +3,10 @@ from requests.auth import HTTPBasicAuth
 from django.conf import settings
 import datetime
 import base64
+import json
+from django.http import JsonResponse
+from django.contrib.auth.models import User as DjangoUser 
+from order.models import MpesaTransaction, Customer
 
 def get_mpesa_access_token():
     consumer_key = settings.MPESA_CONSUMER_KEY
@@ -41,3 +45,24 @@ def lipa_na_mpesa_online(phone_number, amount, account_reference, transaction_de
     }
     response = requests.post(api_url, json=payload, headers=headers)
     return response.json()
+
+def process_mpesa_callback(request):
+    data = json.loads(request.body.decode('utf-8'))
+    callback_data = data['Body']['stkCallback']
+    
+    phone_number = callback_data['CallbackMetadata']['Item'][4]['Value']
+    amount = callback_data['CallbackMetadata']['Item'][0]['Value']
+    transaction_id = callback_data['CallbackMetadata']['Item'][1]['Value']
+    status = callback_data['ResultDesc']
+    
+    user = Customer.objects.first() 
+
+    MpesaTransaction.objects.create(
+        user=user,
+        phone_number=phone_number,
+        amount=amount,
+        transaction_id=transaction_id,
+        status=status
+    )
+
+    return JsonResponse({"status": "success"})

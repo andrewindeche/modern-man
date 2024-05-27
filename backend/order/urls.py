@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView, VerifyCodeView,DiscountedProductListAPIView,ProductSearchView,StripeChargeView,MpesaChargeView
+from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView, VerifyCodeView,DiscountedProductListAPIView,ProductSearchView,StripeChargeView,MpesaChargeView,mpesa_callback
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -19,4 +19,5 @@ urlpatterns = [
     path('verify-code/', VerifyCodeView.as_view(), name='verify_code'),
     path('stripe/', StripeChargeView.as_view(), name='stripe_charge'),
     path('mpesa/', MpesaChargeView.as_view(), name='mpesa_charge'),
+    path('mpesa/callback/', mpesa_callback, name='mpesa_callback'),
 ] 
