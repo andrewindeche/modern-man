@@ -10,9 +10,9 @@ const appNode = createRoot(document.getElementById('ModernMan'));
 appNode.render(
   <React.StrictMode>
     <Provider store={store}>
-        <BrowserRouter>
-          <App />  
-        </BrowserRouter>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
-  </React.StrictMode>
-  );
+  </React.StrictMode>,
+);

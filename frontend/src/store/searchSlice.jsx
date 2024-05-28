@@ -17,7 +17,7 @@ export const searchProducts = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 const searchSlice = createSlice({
@@ -40,7 +40,7 @@ const searchSlice = createSlice({
       })
       .addCase(searchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload; 
+        state.error = action.payload;
       });
   },
 });

@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const common = require('./webpack.config.js');
+const common = require('./webpack.config');
 
 module.exports = merge(common, {
   mode: 'development',

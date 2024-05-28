@@ -5,12 +5,12 @@ import discountReducer from './discountsSlice';
 import userReducer from './userSlice';
 
 const store = configureStore({
-    reducer: {
-        products: productsReducer,
-        search: searchReducer,
-        discount: discountReducer,
-        user: userReducer
-    },
+  reducer: {
+    products: productsReducer,
+    search: searchReducer,
+    discount: discountReducer,
+    user: userReducer,
+  },
 });
 
 export default store;

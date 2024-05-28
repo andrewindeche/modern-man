@@ -8,7 +8,7 @@
     width:48%;
     padding:50px;
     border: #ccc 1.5px solid;
-    margin:2px 2em;
+    margin:2px 2.7em;
     font-size:12px;
     font-weight: bolder;
 }
@@ -114,7 +114,7 @@ body {
     right: 1%;
     top:40%;
     width: 35%;
-    height: 109%;
+    height: 80%;
     font-size: 10px;
     margin:0 20px
 }
@@ -230,6 +230,9 @@ html, body {
     visibility: visible;
     opacity: 1; 
 }
+input[type="radio"]:checked + .radio {
+    border-color: #BC2B2B;
+  }
 .input-group {
     padding: 10px 8em;
 }
@@ -431,6 +434,16 @@ input::placeholder:hover{
     font-size:12px;
     margin: 4px 0;
 }
+.payment-options{
+    display: flex;
+    flex-direction: column;
+    width:48%;
+    padding:50px;
+    border: #ccc 1.5px solid;
+    margin:2px 3em;
+    font-size:12px;
+    font-weight: bolder;
+}
 p.title{
     font-size: 18px;
     color:green
@@ -458,6 +471,17 @@ p.title{
 }
 #price {
     color:black;
+}
+.radio{
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding:6em;
+}
+.radio:hover{
+    border: #BC2B2B solid 2px;
+}
+.radio.selected{
+    border: #BC2B2B solid 2px;
 }
 .registrationForm, .loginForm, .forgotPasswordForm {
     border: black solid 4px;
