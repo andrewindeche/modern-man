@@ -71,17 +71,6 @@ const Checkout = () => {
             M-Pesa
           </label>
         </div>
-        <div className="radio">
-          <label>
-            <input
-              type="radio"
-              value="paypal"
-              checked={selectedOption === 'paypal'}
-              onChange={handleOptionChange}
-            />
-            PayPal
-          </label>
-        </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </div>
