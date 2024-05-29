@@ -47,6 +47,7 @@ const Checkout = () => {
   }
 
   const stripePromise = loadStripe(stripePublicKey);
+  return (
     <>
       <NotificationBar />
       <SearchBar />
@@ -62,7 +63,8 @@ const Checkout = () => {
         />
       </Elements>
       <CartSummary />
-    </>;
+    </>
+  );
 };
 
 export default Checkout;
