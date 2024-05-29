@@ -8,6 +8,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import NotificationBar from '../components/NotificationBar';
 import SearchBar from '../components/SearchBar';
 import NavButtons from '../components/NavButtons';
+import CartSummary from '../components/CartSummary';
 import MpesaImage from '../images/mpesa.webp';
 import VisaImage from '../images/visa.webp';
 import MastercardImage from '../images/mastercard.webp';
@@ -42,6 +43,8 @@ const Checkout = () => {
   }
 
   const stripePromise = loadStripe(stripePublicKey);
+  //const stripe = useStripe();
+  //const elements = useElements();
 
   return (
     <>
@@ -81,7 +84,7 @@ const Checkout = () => {
               <form onSubmit={handleSubmit}>
                 <div className="radio">
                     <label>
-                    <p>CREDIT CARD</p>
+                      <p>CREDIT CARD</p>
                       <input
                         type="radio"
                         value="card"
@@ -95,10 +98,10 @@ const Checkout = () => {
                         Please note that direct credit card payment is not allowed in all countries
                       </p>
                     </label>
-                  </div>
-                  <div className="radio">
+                </div>
+                <div className="radio">
                     <label>
-                    <p>MPESA</p>
+                      <p>MPESA</p>
                       <input
                         type="radio"
                         value="mpesa"
@@ -108,57 +111,19 @@ const Checkout = () => {
                       <img src={MpesaImage} alt="M-Pesa" className="paymentIcon" />
                     </label>
                   </div>
-                  {selectedOption === 'card' && (
+                {selectedOption === 'card' && (
                   <div className="card-details">
                     <label htmlFor="card-element">Card Details</label>
                     <CardElement id="card-element" options={{ hidePostalCode: true }} />
                   </div>
-                  )}
+                )}
                   <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
               </div>
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
-      <div className="checkout">
-        <div className="checkout-container">
-          <div className="checkoutdetails">
-            <div className="cartdetails">
-              <h4>Cart Summary</h4>
-              <span className="checkoutitem">
-                <img alt="tuxedo" />
-                <p>2 * Black Full Italian Men's Tuxedo</p>
-                <p className="amount">$2000</p>
-              </span>
-              <span className="checkoutitem">
-                <img alt="tuxedo" />
-                <p>1 * Grey full Official Men's Suit</p>
-                <p className="amount">$1500</p>
-              </span>
-              <span className="checkoutitem">
-                <img alt="tuxedo" />
-                <p>1 * White full Official Men's Suit</p>
-                <p className="amount">$1800</p>
-              </span>
-            </div>
-            <div className="grandtotal">
-              <span className="checkoutamount">
-                <p>SubTotal</p>
-                <p className="amount">$3400</p>
-              </span>
-              <span className="checkoutamount">
-                <p>Shipping</p>
-                <p className="amount">$0</p>
-              </span>
-              <span className="checkoutamount">
-                <p>Total</p>
-                <p className="amount">$3400</p>
-              </span>
-              <span className="checkoutamount"><button>Place Order</button></span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <CartSummary />
     </>
   );
 };
