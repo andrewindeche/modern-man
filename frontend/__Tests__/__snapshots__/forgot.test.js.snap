@@ -14,10 +14,13 @@ exports[`forgot page renders the forgot page 1`] = `
       <div
         className="input-group"
       >
-        <label>
+        <label
+          htmlFor="fullName"
+        >
           Enter Your Name
         </label>
         <input
+          id="fullName"
           name="fullName"
           placeholder="Enter your Name"
           required={true}
@@ -27,14 +30,17 @@ exports[`forgot page renders the forgot page 1`] = `
       <div
         className="input-group"
       >
-        <label>
+        <label
+          htmlFor="password"
+        >
           Enter Your Password
         </label>
         <input
-          name="fullName"
+          id="password"
+          name="password"
           placeholder="Enter New Password"
           required={true}
-          type="text"
+          type="password"
         />
       </div>
     </span>

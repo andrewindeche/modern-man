@@ -1,24 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
+import {
+  Elements, CardElement, useStripe, useElements,
+} from '@stripe/react-stripe-js';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadStripe } from '@stripe/stripe-js';
 import NotificationBar from '../components/NotificationBar';
 import SearchBar from '../components/SearchBar';
 import NavButtons from '../components/NavButtons';
-import Mpesa from '../images/mastercard.webp';
-import Visa from '../images/mpesa.webp';
-import Mastercard from '../images/paypal.webp';
-import Paypal from '../images/visa.webp';
+import MpesaImage from '../images/mpesa.webp';
+import VisaImage from '../images/visa.webp';
+import MastercardImage from '../images/mastercard.webp';
+import { fetchStripePublicKey } from '../store/stripeSlice';
+import { setSelectedOption, processPayment } from '../store/paymentSlice';
 
 const Checkout = () => {
-  const [selectedOption, setSelectedOption] = useState('');
+  const dispatch = useDispatch();
+  const stripePublicKey = useSelector((state) => state.stripe.publicKey);
+  const stripeStatus = useSelector((state) => state.stripe.status);
+  const selectedOption = useSelector((state) => state.payment.selectedOption);
+  const paymentStatus = useSelector((state) => state.payment.status);
+  const paymentError = useSelector((state) => state.payment.error);
+
+  useEffect(() => {
+    if (stripeStatus === 'idle') {
+      dispatch(fetchStripePublicKey());
+    }
+  }, [stripeStatus, dispatch]);
 
   const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+    dispatch(setSelectedOption(event.target.value));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert(`Selected payment method: ${selectedOption}`);
+    dispatch(processPayment({ stripe, elements, selectedOption }));
   };
+
+  if (stripeStatus === 'loading' || !stripePublicKey) {
+    return <div>Loading...</div>;
+  }
+
+  const stripePromise = loadStripe(stripePublicKey);
+
   return (
     <>
       <NotificationBar />
@@ -56,30 +80,43 @@ const Checkout = () => {
               <p>Select Your Preferred payment method.</p>
               <form onSubmit={handleSubmit}>
                 <div className="radio">
-                  <label>
-                    <input
-                      type="radio"
-                      value="card"
-                      checked={selectedOption === 'card'}
-                      onChange={handleOptionChange}
-                    />
-                    Card Payment
-                  </label>
-                </div>
-                <div className="radio">
-                  <label>
-                    <input
-                      type="radio"
-                      value="mpesa"
-                      checked={selectedOption === 'mpesa'}
-                      onChange={handleOptionChange}
-                  />
-                    M-Pesa
-                  </label>
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-              </form>
-            </div>
+                    <label>
+                    <p>CREDIT CARD</p>
+                      <input
+                        type="radio"
+                        value="card"
+                        checked={selectedOption === 'card'}
+                        onChange={handleOptionChange}
+                      />
+                      <img src={VisaImage} alt="Visa" className="paymentIcon" />
+                      <img src={MastercardImage} alt="MasterCard" className="paymentIcon" />
+                      <p>
+                        You will be redirected to a secure payment page.
+                        Please note that direct credit card payment is not allowed in all countries
+                      </p>
+                    </label>
+                  </div>
+                  <div className="radio">
+                    <label>
+                    <p>MPESA</p>
+                      <input
+                        type="radio"
+                        value="mpesa"
+                        checked={selectedOption === 'mpesa'}
+                        onChange={handleOptionChange}
+                      />
+                      <img src={MpesaImage} alt="M-Pesa" className="paymentIcon" />
+                    </label>
+                  </div>
+                  {selectedOption === 'card' && (
+                  <div className="card-details">
+                    <label htmlFor="card-element">Card Details</label>
+                    <CardElement id="card-element" options={{ hidePostalCode: true }} />
+                  </div>
+                  )}
+                  <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+              </div>
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
@@ -125,4 +162,5 @@ const Checkout = () => {
     </>
   );
 };
+
 export default Checkout;

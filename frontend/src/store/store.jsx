@@ -3,6 +3,8 @@ import productsReducer from './productsSlice';
 import searchReducer from './searchSlice';
 import discountReducer from './discountsSlice';
 import userReducer from './userSlice';
+import stripeReducer from './stripeSlice';
+import paymentReducer from './paymentSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ const store = configureStore({
     search: searchReducer,
     discount: discountReducer,
     user: userReducer,
+    stripe: stripeReducer,
+    payment: paymentReducer,
   },
 });
 

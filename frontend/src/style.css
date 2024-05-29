@@ -149,6 +149,10 @@ body {
 .checkout ul {
     list-style-type: none;
 }
+#descriptiontext{
+    font-size:12px;
+    margin: 4px 0;
+}
 #email {
     font-size: 9px;
 }
@@ -188,6 +192,11 @@ body {
     color: black;
     border: black solid 2px;
     padding:0.6em
+}
+.home-icon:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    border: black solid 2px;
 }
 html, body {
     height: 100%;
@@ -395,6 +404,9 @@ input::placeholder:hover{
     background-color: #2E2BBC;
     padding: 7px;
 }
+.paymentIcon{
+    width: 17%
+}
 .paymentselected {
     text-align: center;
     padding: 1em;
@@ -430,15 +442,11 @@ input::placeholder:hover{
     width: 90%;
     height:80%
 }
-#descriptiontext{
-    font-size:12px;
-    margin: 4px 0;
-}
 .payment-options{
     display: flex;
     flex-direction: column;
     width:48%;
-    padding:50px;
+    padding:60px;
     border: #ccc 1.5px solid;
     margin:2px 3em;
     font-size:12px;
@@ -475,7 +483,10 @@ p.title{
 .radio{
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    padding:6em;
+    padding:4em;
+}
+.radio p{
+    font-weight: 600;
 }
 .radio:hover{
     border: #BC2B2B solid 2px;
@@ -601,12 +612,6 @@ p.title{
     font-size:14px
 }
 
-.windowclose{
-    border: #BC2B2B solid 1.5px;
-    color:#BC2B2B;
-    cursor: pointer
-}
-
 .shoppingcarticon:hover {
     background-color:green;
     color: white;
@@ -717,11 +722,13 @@ p.title{
     border: #BC2B2B solid 2px;
     color: white;
 }
-.home-icon:hover + .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-    border: black solid 2px;
+
+.windowclose{
+    border: #BC2B2B solid 1.5px;
+    color:#BC2B2B;
+    cursor: pointer
 }
+
 .windowclose:hover {
     background-color:red;
     color: white;

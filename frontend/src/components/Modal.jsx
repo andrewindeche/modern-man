@@ -11,7 +11,7 @@ const ModalContent = ({ item, onClose }) => {
   // eslint-disable-next-line react/prop-types
   const {
     // eslint-disable-next-line react/prop-types
-    name, image, price, description, averageRating,
+    name, image, price, description, average_rating,
   } = item;
   return (
     <div className="Modal">
@@ -41,7 +41,7 @@ const ModalContent = ({ item, onClose }) => {
                   // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   icon={faStar}
-                  className={`star ${index < averageRating ? 'active' : ''}`}
+                  className={`star ${index < average_rating ? 'active' : ''}`}
                   size="2x"
                 />
               ))}
