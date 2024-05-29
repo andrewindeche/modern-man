@@ -155,6 +155,9 @@ class MpesaChargeView(generics.GenericAPIView):
 
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def get_stripe_public_key(request):
+    return JsonResponse({'publicKey': settings.STRIPE_PUBLISHABLE_KEY})
     
 @csrf_exempt
 def mpesa_callback(request):

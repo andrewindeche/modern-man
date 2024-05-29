@@ -50,11 +50,11 @@ exports[`login page renders the login page 1`] = `
       >
         <label>
           Forgot Password?
-          <a
+          <div
             className="signupnow"
           >
             Reset Password
-          </a>
+          </div>
         </label>
       </div>
       <div
@@ -62,11 +62,11 @@ exports[`login page renders the login page 1`] = `
       >
         <label>
           Not a member?
-          <a
+          <div
             className="signupnow"
           >
             Sign Up Now
-          </a>
+          </div>
         </label>
       </div>
     </span>

@@ -14,7 +14,7 @@ const initialState = {
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
-  async (credentials, { dispatch }) => {
+  async (credentials) => {
     try {
       const djangoResponse = await axios.post(DJANGO_AUTH_API_URL, credentials);
       const token = djangoResponse.data.access;
@@ -25,7 +25,7 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       throw error.response ? error.response.data.error : error.message;
     }
-  }
+  },
 );
 
 export const verifyCode = createAsyncThunk(
@@ -37,7 +37,7 @@ export const verifyCode = createAsyncThunk(
     } catch (error) {
       throw error.response ? error.response.data.error : error.message;
     }
-  }
+  },
 );
 
 const userSlice = createSlice({

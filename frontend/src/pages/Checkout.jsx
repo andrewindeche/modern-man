@@ -1,123 +1,70 @@
+import React, { useEffect } from 'react';
+import { Elements, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadStripe } from '@stripe/stripe-js';
+import MpesaImage from '../images/mpesa.webp';
+import VisaImage from '../images/visa.webp';
+import MastercardImage from '../images/mastercard.webp';
+import { fetchStripePublicKey } from '../store/stripeSlice';
+import { setSelectedOption, processPayment } from '../store/paymentSlice';
 import NotificationBar from '../components/NotificationBar';
 import SearchBar from '../components/SearchBar';
 import NavButtons from '../components/NavButtons';
-import React, { useState } from 'react';
-import Mpesa from '../images/mastercard.webp';
-import Visa from '../images/mpesa.webp';
-import Mastercard from '../images/paypal.webp';
-import Paypal from '../images/visa.webp';
-import { Tab, Nav } from 'react-bootstrap';
+import CartSummary from '../components/CartSummary';
+import TabBar from '../components/TabBar';
+
 const Checkout = () => {
-  const [selectedOption, setSelectedOption] = useState('');
+  const dispatch = useDispatch();
+  const stripePublicKey = useSelector((state) => state.stripe.publicKey);
+  const stripeStatus = useSelector((state) => state.stripe.status);
+  const selectedOption = useSelector((state) => state.payment.selectedOption);
+  const paymentStatus = useSelector((state) => state.payment.status);
+  const paymentError = useSelector((state) => state.payment.error);
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  useEffect(() => {
+    if (stripeStatus === 'idle') {
+      dispatch(fetchStripePublicKey());
+    }
+  }, [stripeStatus, dispatch]);
 
   const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+    dispatch(setSelectedOption(event.target.value));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert(`Selected payment method: ${selectedOption}`);
+    if (!stripe || !elements) {
+      return;
+    }
+    dispatch(processPayment({ stripe, elements, selectedOption }));
   };
-  return(
+
+  if (stripeStatus === 'loading' || !stripePublicKey) {
+    return <div>Loading...</div>;
+  }
+
+  const stripePromise = loadStripe(stripePublicKey);
+  return (
     <>
       <NotificationBar />
       <SearchBar />
       <NavButtons />
-      <Tab.Container defaultActiveKey= "Billing Details" >
-      <Nav variant="tabs">
-        <Nav.Item>
-          <Nav.Link eventKey="Billing Details">Billing Detail</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="Payment Options">Payment Options</Nav.Link>
-        </Nav.Item>
-      </Nav>
-      <Tab.Content>
-      <Tab.Pane eventKey="Billing Details">
-          <form className='billingdetails'>
-          <label className="locationHeading">Personal Details</label>
-          <label>First and Last Name:</label><input placeholder="Enter Your First and Last Name" />
-            <label>Email Address:</label><input placeholder="Enter Your Email Address" />
-            <label className="locationHeading">Delivery Details</label>
-            <span className="locationAddress">
-              <label>Location:</label><input placeholder="Enter Your Delivery Location" />
-            <label>Building:</label><input placeholder="Enter Your Building Details" /></span>
-            <span className='checkoutamount'><button>Save</button></span>
-          </form>
-        </Tab.Pane>
-        <Tab.Pane eventKey="Payment Options">
-        <div className="payment-options">
-      <h3>Select Payment Method</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="radio">
-          <label>
-            <input
-              type="radio"
-              value="card"
-              checked={selectedOption === 'card'}
-              onChange={handleOptionChange}
-            />
-            Card Payment
-          </label>
-        </div>
-        <div className="radio">
-          <label>
-            <input
-              type="radio"
-              value="mpesa"
-              checked={selectedOption === 'mpesa'}
-              onChange={handleOptionChange}
-            />
-            M-Pesa
-          </label>
-        </div>
-        <div className="radio">
-          <label>
-            <input
-              type="radio"
-              value="paypal"
-              checked={selectedOption === 'paypal'}
-              onChange={handleOptionChange}
-            />
-            PayPal
-          </label>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-    </div>
-        </Tab.Pane>
-        </Tab.Content>
-      </Tab.Container>
-      <div className='checkout'>
-        <div className='checkout-container'>
-        <div className='checkoutdetails'>
-          <div className="cartdetails">
-            <h4>Cart Summary</h4>
-            <span className='checkoutitem'><img alt="tuxedo"/>
-            <p>2 * Black Full Italian Men's Tuxedo</p>
-            <p className='amount'>$2000</p>
-            </span>
-            <span className='checkoutitem'><img alt="tuxedo" />
-            <p>1 * Grey full Official Men's Suit</p>
-            <p className='amount'>$1500</p></span>
-            <span className='checkoutitem'><img alt="tuxedo" />
-            <p>1 * White full Official Men's Suit</p>
-            <p className='amount'>$1800</p></span>
-            </div>
-            <div className='grandtotal'>
-              <span className='checkoutamount'><p>SubTotal</p>
-              <p className='amount'>$3400</p></span>
-              <span className='checkoutamount'><p>Shipping</p>
-              <p className='amount'>$0</p></span>
-              <span className='checkoutamount'><p>Total</p>
-              <p className='amount'>$3400</p>
-              </span>
-              <span className='checkoutamount'><button>Place Order</button></span>
-            </div>
-          </div>
-        </div>
-      </div>
-        </>
-    )
-}
+      <Elements stripe={stripePromise}>
+        <TabBar
+          selectedOption={selectedOption}
+          handleOptionChange={handleOptionChange}
+          handleSubmit={handleSubmit}
+          VisaImage={VisaImage}
+          MastercardImage={MastercardImage}
+          MpesaImage={MpesaImage}
+        />
+      </Elements>
+      <CartSummary />
+    </>
+  );
+};
+
 export default Checkout;

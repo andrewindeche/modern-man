@@ -56,15 +56,17 @@ const SearchPage = () => {
           <img src={item.image} alt={item.name} />
           <p>{item.name}</p>
           {[...Array(5)].map((_, i) => (
-                  <FontAwesomeIcon
-                    key={i}
-                    icon={faStar}
-                    className={`star ${i < item.average_rating ? 'active' : ''}`}
-                    size="2x"
-                  />
-                ))}
+            <FontAwesomeIcon
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              icon={faStar}
+              className={`star ${i < item.average_rating ? 'active' : ''}`}
+              size="2x"
+            />
+          ))}
           <p id="price">
-            ${item.discounted_price}
+            $
+            {item.discounted_price}
           </p>
         </div>
       </div>
@@ -109,6 +111,6 @@ const SearchPage = () => {
       )}
     </>
   );
-}
+};
 
 export default SearchPage;
