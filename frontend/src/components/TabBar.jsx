@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 import { CardElement } from '@stripe/react-stripe-js';
+import PropTypes from 'prop-types';
 
 const TabBar = ({
   selectedOption,
@@ -85,5 +86,13 @@ const TabBar = ({
       </Tab.Content>
     </Tab.Container>
 );
+TabBar.propTypes = {
+  selectedOption: PropTypes.string.isRequired,
+  handleOptionChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  VisaImage: PropTypes.string.isRequired,
+  MastercardImage: PropTypes.string.isRequired,
+  MpesaImage: PropTypes.string.isRequired,
+};
 
 export default TabBar;
