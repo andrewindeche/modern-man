@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CartSummary = () => ( 
+const CartSummary = () => (
   <div className="checkout">
     <div className="checkout-container">
       <div className="checkoutdetails">
@@ -35,7 +35,9 @@ const CartSummary = () => (
             <p>Total</p>
             <p className="amount">$3400</p>
           </span>
-          <span className="checkoutamount"><button>Place Order</button></span>
+          <span className="checkoutamount">
+            <button type="button">Place Order</button>
+          </span>
         </div>
       </div>
     </div>

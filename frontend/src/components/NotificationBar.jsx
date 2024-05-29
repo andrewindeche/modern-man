@@ -48,7 +48,7 @@ const NotificationBar = () => {
             {' '}
             {discountedProducts[currentIndex].name}
           </p>
-          <button id="notificationbutton" onClick={handleLearnMoreClick}>Learn More</button>
+          <button type="button" id="notificationbutton" onClick={handleLearnMoreClick}>Learn More</button>
         </>
       ) : (
         <p>No discount available</p>
