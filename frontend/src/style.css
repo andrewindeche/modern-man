@@ -22,6 +22,12 @@
 button {
     grid-column: span 2;
   }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
 body {
     font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
@@ -34,14 +40,12 @@ body {
     height:50%;
     background-size: cover;
     background-position: center;
-    overflow: none;
 }
 #carouselImage {
     border: black solid 3px;
     width:38em;
     height:22em;
 }
-
 .cart {
     border: #BC2B2B 3px solid;
     padding: 4px;
@@ -759,9 +763,30 @@ p.title{
   }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
+    html{
+        overflow: scroll;
+    }
+    .categories{
+        display: flex;
+        flex-direction: row;
+    }
+    .categories button{
+        width: 70%;
+        font-size: 8px;
+    }
+    .carousel{
+        margin:1em;
+        display: flex;
+        flex-direction: row;
+    }
+    #carouselImage{
+        width: 45%;
+        height: auto;
+    }
     .notificationbar {
         width:98%;
         height: 70%;
+        margin-bottom: 7em;
     }
     .notificationbar p {
         font-size: x-small; 
@@ -776,19 +801,38 @@ p.title{
         font-size: 10px
     }
     .searchbar h3{
+        position: absolute;
         font-weight: bolder;
-        margin: 0;
-        position: relative;
-        width:30%;
-        font-size:7px;
+        top:15px;
+        width:80%;
+        font-size:18px;
+        padding: 2em;
+        margin: 1 3em;
+        text-align: center;
+    }
+    .search-form{
+        position: absolute;
+        padding: 0.5em;
+        top: 50px;
+        right: 4px;
     }
     .search-input{
-        width: 180px;
-        height: 20px;
-        padding-left: 40px;
+        width: 280px;
+        height: 45px;
+        margin: 2em
     }
     .search-input::placeholder{
         font-size:8px;
         font-weight: bolder;
+    }
+    .searchresultsimages .image{
+        height:120%
+    }
+    .user-icons{
+        position:absolute;
+        right: 16px;
+    }
+    .user-icons svg{
+        width:0.8em
     }
  }
