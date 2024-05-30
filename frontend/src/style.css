@@ -783,6 +783,9 @@ p.title{
         width: 45%;
         height: auto;
     }
+    .container img{
+        width: 100%
+    }
     .notificationbar {
         width:98%;
         height: 70%;
@@ -790,6 +793,9 @@ p.title{
     }
     .notificationbar p {
         font-size: x-small; 
+    }
+    .ondiscount{
+        display:none;
     }
     .shoes{
         display: none;
@@ -825,8 +831,10 @@ p.title{
         font-size:8px;
         font-weight: bolder;
     }
-    .searchresultsimages .image{
-        height:120%
+    .searchresultsimages{
+        width:90%;
+        font-size: 2px;
+        height:auto
     }
     .user-icons{
         position:absolute;
