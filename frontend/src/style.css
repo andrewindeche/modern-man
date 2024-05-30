@@ -760,8 +760,8 @@ p.title{
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
     .notificationbar {
-        width:70%;
-        height: 50%;
+        width:98%;
+        height: 70%;
     }
     .notificationbar p {
         font-size: x-small; 
