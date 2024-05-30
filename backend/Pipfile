@@ -19,6 +19,7 @@ django-filter = "*"
 django-mpesa = "*"
 stripe = "*"
 python-decouple = "*"
+secure-smtplib = "*"
 
 [dev-packages]
 

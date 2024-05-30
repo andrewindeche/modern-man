@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Forgot from './pages/Forgot';
 import SearchPage from './pages/SearchPage';
 import Checkout from './pages/Checkout';
+import ErrorPage from './pages/ErrorPage';
 
 const App = () => (
   <Routes>
@@ -16,6 +17,7 @@ const App = () => (
     <Route path="/forgot" element={<Forgot />} />
     <Route path="/searchpage" element={<SearchPage />} />
     <Route path="/checkout" element={<Checkout />} />
+    <Route path="*" element={<ErrorPage />} />
   </Routes>
 );
 export default App;

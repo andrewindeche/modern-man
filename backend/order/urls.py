@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView, VerifyCodeView,DiscountedProductListAPIView,ProductSearchView,StripeChargeView,MpesaChargeView,mpesa_callback,get_stripe_public_key
+from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView, CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView, VerifyCodeView,DiscountedProductListAPIView,ProductSearchView,StripeChargeView,MpesaChargeView,mpesa_callback,get_stripe_public_key,get_mpesa_public_key
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -21,4 +21,5 @@ urlpatterns = [
     path('mpesa/', MpesaChargeView.as_view(), name='mpesa_charge'),
     path('mpesa/callback/', mpesa_callback, name='mpesa_callback'),
     path('stripe-public-key/', get_stripe_public_key, name='stripe-public-key'),
+    path('mpesa-public-key/', get_mpesa_public_key, name='mpesa-public-key'),
 ] 

@@ -1,5 +1,21 @@
 from django.contrib import admin
 from .models import Customer,Category,Product,Order,Cart,OrderItem,CartItem,CoverImages,MpesaTransaction
+from .utils.email_utils import send_email
+from .forms import EmailMessageForm
+from django.core.mail import EmailMessage
+
+def send_email_action(modeladmin, request, queryset):
+    form = EmailMessageForm(request.POST)
+    if form.is_valid():
+        subject = form.cleaned_data['subject']
+        body = form.cleaned_data['body']
+        
+        for customer in queryset:
+            message = f"Dear {customer.username},\n\n{body}"
+            email = EmailMessage(subject, message, to=[customer.email])
+            email.send()
+
+send_email_action.short_description = "Send Email"
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'category', 'image', 'discount_percentage']

@@ -71,14 +71,22 @@ const TabBar = ({
                 <p>MPESA</p>
                 <input
                   type="radio"
+                  id="mpesaOption"
                   value="mpesa"
                   checked={selectedOption === 'mpesa'}
                   onChange={handleOptionChange}
                 />
                 <img src={MpesaImage} alt="M-Pesa" className="paymentIcon" />
               </label>
+              {selectedOption === 'mpesa' && (
+              <div className="mpesa-details">
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <input id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" />
+                <label htmlFor="amount">Amount</label>
+                <input id="amount" name="amount" placeholder="Enter the amount" />
+              </div>
+              )}
             </div>
-         
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         </div>

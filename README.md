@@ -45,6 +45,14 @@
 ## Docker Environment
 Run `Docker compose build` to build a new image and `Docker compose up`  to open up the virtulized container version of the project. Navigate to  development server at `localhost://0.0.0.0:8000/` to open up the project.
 
+## Dumping Data
+To populate data into your docker database use dumps/dumpfile.sql
+<ul>
+1.Transfer the dump file (local_dumpfile.sql) to the Docker container where PostgreSQL is running. You can use docker cp command:
+    docker cp local_dumpfile.sql postgres_container:/path/to/local_dumpfile.sql
+2. Restore the data from the dump file into the Docker PostgreSQL database.
+    docker exec -i postgres_container psql -U postgres -d mydatabase < dumps/dumpfile.sql
+</ul>
 ## Development server
 Run `npm start` for a development server. Navigate to `http://localhost:3000/`. The application will automatically reload if you change any of the source files.
 

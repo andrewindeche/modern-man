@@ -22,6 +22,12 @@
 button {
     grid-column: span 2;
   }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
 body {
     font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
@@ -34,14 +40,12 @@ body {
     height:50%;
     background-size: cover;
     background-position: center;
-    overflow: none;
 }
 #carouselImage {
     border: black solid 3px;
     width:38em;
     height:22em;
 }
-
 .cart {
     border: #BC2B2B 3px solid;
     padding: 4px;
@@ -155,6 +159,9 @@ body {
 }
 #email {
     font-size: 9px;
+}
+.Error{
+    width:50%
 }
 .favorite{
     border: #17A2B8 solid 1.5px;
@@ -333,6 +340,11 @@ input::placeholder:hover{
     transform: translateY(-1%);
     animation: slideIn 0.8s forwards;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.mpesa-details{
+    display:flex;
+    flex-direction: column;
+    padding:1em
 }
 .nav-tabs{
     width: 48%;
@@ -751,12 +763,59 @@ p.title{
   }
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
-    .notificationbar {
-        width:70%;
+    html{
+        overflow: scroll;
+    }
+    .categories{
+        display: flex;
+        flex-direction: row;
+    }
+    .categories button{
+        width: 70%;
+        font-size: 8px;
+    }
+    .carousel{
+        margin:1em;
+        display: flex;
+        flex-direction: row;
+    }
+    #carouselImage{
+        width: 45%;
+        height: auto;
+    }
+    .container img{
+        width: 100%
+    }
+    .checkout, .checkout-container{
+        position: absolute;
+        left:10px;
+        width:80%;
+        font-size: 8px;
+    }
+    .Modal{
+        width: 80%;
         height: 50%;
+        font-size:6px;
+        position:absolute;
+        left:18px;
+        top:30px
+    }
+    .modalheader h2{
+        font-size: small;
+    }
+    .notificationbar {
+        width:98%;
+        height: 70%;
+        margin-bottom: 7em;
     }
     .notificationbar p {
         font-size: x-small; 
+    }
+    .ondiscount{
+        display:none;
+    }
+    #posterImage{
+        width:30%
     }
     .shoes{
         display: none;
@@ -768,19 +827,40 @@ p.title{
         font-size: 10px
     }
     .searchbar h3{
+        position: absolute;
         font-weight: bolder;
-        margin: 0;
-        position: relative;
-        width:30%;
-        font-size:7px;
+        top:15px;
+        width:80%;
+        font-size:18px;
+        padding: 2em;
+        margin: 1 3em;
+        text-align: center;
+    }
+    .search-form{
+        position: absolute;
+        padding: 0.5em;
+        top: 50px;
+        right: 4px;
     }
     .search-input{
-        width: 180px;
-        height: 20px;
-        padding-left: 40px;
+        width: 280px;
+        height: 45px;
+        margin: 2em
     }
     .search-input::placeholder{
         font-size:8px;
         font-weight: bolder;
+    }
+    .searchresultsimages{
+        width:90%;
+        font-size: 2px;
+        height:auto
+    }
+    .user-icons{
+        position:absolute;
+        right: 16px;
+    }
+    .user-icons svg{
+        width:0.8em
     }
  }

@@ -158,6 +158,9 @@ class MpesaChargeView(generics.GenericAPIView):
 
 def get_stripe_public_key(request):
     return JsonResponse({'publicKey': settings.STRIPE_PUBLISHABLE_KEY})
+
+def get_mpesa_public_key(request):
+    return JsonResponse({'publicKey': settings.MPESA_CONSUMER_KEY})
     
 @csrf_exempt
 def mpesa_callback(request):
