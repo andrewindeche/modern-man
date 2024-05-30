@@ -786,9 +786,15 @@ p.title{
     .container img{
         width: 100%
     }
+    .checkout, .checkout-container{
+        position: absolute;
+        left:10px;
+        width:80%;
+        font-size: 8px;
+    }
     .Modal{
         width: 80%;
-        height: 30%;
+        height: 50%;
         font-size:6px;
         position:absolute;
         left:18px;
