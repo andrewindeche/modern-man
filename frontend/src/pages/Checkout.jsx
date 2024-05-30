@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Elements, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
+import { initiateMpesaPayment } from '../store/mpesaSlice';
 import MpesaImage from '../images/mpesa.webp';
 import VisaImage from '../images/visa.webp';
 import MastercardImage from '../images/mastercard.webp';
@@ -36,16 +37,21 @@ const Checkout = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !elements) {
-      return;
+    if (selectedOption === 'mpesa') {
+      const phoneNumber = event.target.phoneNumber.value;
+      const amount = event.target.amount.value;
+      dispatch(initiateMpesaPayment({ phone_number: phoneNumber, amount }));
+    } else if (selectedOption === 'card') {
+      if (!stripe || !elements) {
+        return;
+      }
+      dispatch(processPayment({ stripe, elements, selectedOption }));
     }
-    dispatch(processPayment({ stripe, elements, selectedOption }));
+
+    if (stripeStatus === 'loading' || !stripePublicKey) {
+      return <div>Loading...</div>;
+    }
   };
-
-  if (stripeStatus === 'loading' || !stripePublicKey) {
-    return <div>Loading...</div>;
-  }
-
   const stripePromise = loadStripe(stripePublicKey);
   return (
     <>
