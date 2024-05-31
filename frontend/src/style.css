@@ -786,22 +786,27 @@ p.title{
     .container img{
         width: 100%
     }
-    .checkout, .checkout-container{
-        position: absolute;
-        left:10px;
-        width:80%;
-        font-size: 8px;
-    }
     .Modal{
         width: 80%;
         height: 50%;
         font-size:6px;
         position:absolute;
         left:18px;
-        top:30px
+        top:30px;
+        display: grid;
+        grid-template-rows: 1fr 3fr 1fr;
+    }
+    .modalheader{
+        display:flex;
+        flex-direction: column;
     }
     .modalheader h2{
         font-size: small;
+        width:100%
+    }
+    .modalicons{
+        padding: 2em 2em;
+        font-size: 10px;
     }
     .notificationbar {
         width:98%;
@@ -855,6 +860,9 @@ p.title{
         width:90%;
         font-size: 2px;
         height:auto
+    }
+    .topheaderstar{
+        margin: 1px 2em;
     }
     .user-icons{
         position:absolute;
