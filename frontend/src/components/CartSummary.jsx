@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const CartSummary = () => (
-  <div className="checkout">
+const CartSummary = ({ mobileView }) => (
+  <div className={`checkout ${mobileView ? '' : 'd-none d-md-block'}`}>
     <div className="checkout-container">
       <div className="checkoutdetails">
         <div className="cartdetails">
@@ -43,4 +44,13 @@ const CartSummary = () => (
     </div>
   </div>
 );
+
+CartSummary.propTypes = {
+  mobileView: PropTypes.bool,
+};
+
+CartSummary.defaultProps = {
+  mobileView: false,
+};
+
 export default CartSummary;

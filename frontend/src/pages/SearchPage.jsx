@@ -54,7 +54,7 @@ const SearchPage = () => {
           </span>
           )}
           <img src={item.image} alt={item.name} />
-          <p>{item.name}</p>
+          <p className="itemname">{item.name}</p>
           {[...Array(5)].map((_, i) => (
             <FontAwesomeIcon
               // eslint-disable-next-line react/no-array-index-key
