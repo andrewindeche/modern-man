@@ -13,6 +13,7 @@ import SearchBar from '../components/SearchBar';
 import NavButtons from '../components/NavButtons';
 import CartSummary from '../components/CartSummary';
 import TabBar from '../components/TabBar';
+import Footer from '../components/Footer';
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ const Checkout = () => {
         />
       </Elements>
       <CartSummary />
+      <Footer />
     </>
   );
 };
