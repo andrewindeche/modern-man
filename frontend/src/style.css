@@ -823,13 +823,11 @@ p.title{
         align-items: center; 
         justify-content: space-around;
         position:absolute;
-        left: 1%;
         padding-left:1em;
-        top:42%;
         width: 80%;
         height: 50%;
         font-size: 10px;
-        margin:0 20px
+        margin:0 17px
     }
     .checkoutitem{
         font-size: 8px;
