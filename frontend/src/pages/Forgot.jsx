@@ -4,7 +4,7 @@ const Forgot = () => (
   <div className="forgotPasswordForm">
     <form>
       <p>Forgot Password? Generate New password</p>
-      <span className="nameLabel">
+      <span className="nameLabel" id="forgotinput">
         <div className="input-group">
           <label htmlFor="fullName">Enter Your Name</label>
           <input type="text" id="fullName" name="fullName" placeholder="Enter your Name" required />
@@ -14,7 +14,7 @@ const Forgot = () => (
           <input type="password" id="password" name="password" placeholder="Enter New Password" required />
         </div>
       </span>
-      <button type="submit">Reset Password</button>
+      <button id="forgotButton" type="submit">Reset Password</button>
     </form>
   </div>
 );

@@ -176,14 +176,11 @@ body {
     border: black solid 2px;
     margin: 0.5em 6em;
 }
-
-.footer {
-    background-color: #000;
-    color: white;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    height:30%;
+.forgotinput{
+    padding-left: 10px;
+}
+.formBody{
+    
 }
 .grandtotal{
     font-size: 10px;
@@ -617,10 +614,22 @@ p.title{
     color: green;
     cursor: pointer
 } 
+#sign-link{
+    display: flex;
+    flex-direction: row;
+    font-weight: bolder;
+    gap:4em;
+    margin:3em 8em;
+    align-items: center;
+}
 .signupnow {
     color:#BC2B2B;
     padding-left:4px;
     font-size:14px
+}
+.signupnow:hover{
+    color:#17A2B8;
+    font-size: 16px
 }
 
 .shoppingcarticon:hover {
@@ -838,15 +847,58 @@ p.title{
     .checkoutamount button{
         width:600px;
     }
+    .contactLabel{
+        width:10%;
+        margin:1px 0.5px;
+    }
     .container img{
         width: 100%
     }
     .footer{
         display:none
     }
+    #forgotButton{
+        width:60%;
+        font-size: x-small;
+        right:2em;
+    }
+    .forgotPasswordForm p{
+        font-size: 10px;
+        width:100%;
+    }
+    .formBody{
+        display:flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    #fullName, #password{
+        width:13em;
+        font-size: 10px;
+    }
     .grandtotal{
         width:200px;
-        margin:1px 12em
+        margin:1px 12em;
+    }
+    .input-group{
+        margin-right: 2em;
+    }
+    .input-group input{
+        width:150px;
+    }
+    .inputGroupFooter label{
+        display: flex;
+        flex-direction: row;
+        gap:2em
+    }
+    .loginForm{
+        font-size:6px;
+        display: grid;
+        margin-left: 2em; 
+        margin-right: 4em;
+    }
+    .loginForm p{
+        font-size: small;
+        width:70%
     }
     .Modal{
         width: 80%;
@@ -928,6 +980,14 @@ p.title{
         font-size: 3px;
         height: 120vh; 
         padding:2em
+    }
+    #sign-link{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+    }
+    .signupnow{
+        font-size:8px;
     }
     .topheaderstar{
         margin: 1px 2em;
