@@ -46,11 +46,8 @@ const CartSummary = ({ mobileView }) => (
 );
 
 CartSummary.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   mobileView: PropTypes.bool,
-};
-
-CartSummary.defaultProps = {
-  mobileView: false,
 };
 
 export default CartSummary;
