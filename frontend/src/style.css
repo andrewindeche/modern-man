@@ -179,9 +179,7 @@ body {
 .forgotinput{
     padding-left: 10px;
 }
-.formBody{
-    
-}
+
 .grandtotal{
     font-size: 10px;
     font-weight: bolder;
@@ -502,13 +500,24 @@ p.title{
 .radio.selected{
     border: #BC2B2B solid 2px;
 }
-.registrationForm, .loginForm, .forgotPasswordForm {
+ .loginForm, .forgotPasswordForm {
     border: black solid 4px;
     margin: 4% 20%;
     display: grid;
     padding: 20px;
     width: 70%;
     grid-template-columns: 1fr;
+    gap: 10px;
+    font-size: 12px;
+}
+.registrationForm{
+    border: black solid 4px;
+    margin: 4% 20%;
+    flex-direction: column;
+    padding: 20px;
+    padding: 20px;
+    width: 70%;
+    display: flex;
     gap: 10px;
     font-size: 12px;
 }
@@ -858,13 +867,36 @@ p.title{
         display:none
     }
     #forgotButton{
-        width:60%;
-        font-size: x-small;
-        right:2em;
+        width:20%;
+        font-size: 7px;
+    }
+    #forgot-input{
+        font-size: 7px;
+    }
+    .forgotPasswordForm{
+        margin-left: 2em; 
+        margin-right: 4em;
+        width:70%;
+    }
+    .registration{
+        display: flex;
+        flex-direction: column;
+    }
+    .registrationForm{
+        width:70%;
+        padding: 10px;
+        gap: 10px;
+    }
+    .registrationForm p{
+        font-size: 12px;
+        width: 30%
     }
     .forgotPasswordForm p{
         font-size: 10px;
-        width:100%;
+        width:70%;
+    }
+    #registrationInputs{
+        margin-left: -3em;
     }
     .formBody{
         display:flex;
@@ -878,6 +910,9 @@ p.title{
     .grandtotal{
         width:200px;
         margin:1px 12em;
+    }
+    #registrationInputs input{
+        width: 100px;  
     }
     .input-group{
         margin-right: 2em;
@@ -941,14 +976,35 @@ p.title{
     #posterImage{
         width:30%
     }
-    .shoes{
-        display: none;
-    }
     .notificationbar button {
         transform: translateX(1%);
         width: 30%;
         height:80%;
         font-size: 10px
+    }
+    .registrationForm {
+        display:flex;
+        flex-direction: row;
+        width: 100%;
+        padding:10px 10px;
+        gap:10px;
+        height:65%;
+        font-size:7px;
+        position: absolute;
+        margin-left: 2em; 
+        margin-right: 3em;
+    }
+    .registrationForm p{
+        width:70%;
+        margin-bottom: 10px;
+    }
+    #registrationFormBody{
+        font-weight: bolder;
+    }
+    #registrationInputs{
+        display: grid;
+        grid-template-rows: 6(1fr);
+        gap:2px
     }
     .searchbar h3{
         position: absolute;
@@ -980,6 +1036,9 @@ p.title{
         font-size: 3px;
         height: 120vh; 
         padding:2em
+    }
+    .shoes{
+        display: none;
     }
     #sign-link{
         display: flex;
