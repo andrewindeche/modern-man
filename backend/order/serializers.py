@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Cart, Order, CoverImages, MpesaTransaction
+from .models import Product, Cart, Order, CoverImages, MpesaTransaction,CartItem
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -23,7 +23,23 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = '__all__'
+        
+class AddToCartSerializer(serializers.Serializer):
+    product_id = serializers.IntegerField()
+    quantity = serializers.IntegerField(default=1)
 
+    def validate_product_id(self, value):
+        try:
+            Product.objects.get(id=value)
+        except Product.DoesNotExist:
+            raise serializers.ValidationError("Product not found")
+        return value
+
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = ['product', 'quantity', 'subtotal']
+        
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order

@@ -1,27 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CartSummary = ({ mobileView }) => (
+const CartSummary = ({ cartItems, mobileView }) => (
   <div className={`checkout ${mobileView ? '' : 'd-none d-md-block'}`}>
     <div className="checkout-container">
       <div className="checkoutdetails">
         <div className="cartdetails">
           <h4>Cart Summary</h4>
-          <span className="checkoutitem">
-            <img alt="tuxedo" />
-            <p>2 * Black Full Italian Men's Tuxedo</p>
-            <p className="amount">$2000</p>
-          </span>
-          <span className="checkoutitem">
-            <img alt="tuxedo" />
-            <p>1 * Grey full Official Men's Suit</p>
-            <p className="amount">$1500</p>
-          </span>
-          <span className="checkoutitem">
-            <img alt="tuxedo" />
-            <p>1 * White full Official Men's Suit</p>
-            <p className="amount">$1800</p>
-          </span>
+          {cartItems.map((item, index) => (
+            <span key={index} className="checkoutitem">
+              <img src={item.image} alt={item.name} />
+              <p>
+                {item.quantity}
+                {' '}
+                *
+                {item.name}
+              </p>
+              <p className="amount">
+                $
+                {item.price * item.quantity}
+              </p>
+            </span>
+          ))}
         </div>
         <div className="grandtotal">
           <span className="checkoutamount">

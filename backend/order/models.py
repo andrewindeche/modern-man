@@ -1,9 +1,8 @@
 import uuid
 from django.contrib.auth.models import AbstractUser
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 from django_filters import rest_framework as filters
 import requests
@@ -161,14 +160,14 @@ class Cart(models.Model):
         return f"{self.user.username}'s Cart"
     
     @transaction.atomic
-    def add_product(self, product):
+    def add_product(self, product,quantity=1):
         cart_item, created = CartItem.objects.get_or_create(cart=self, product=product)
         if not created:
-            cart_item.quantity += 1
+            cart_item.quantity += quantity
             cart_item.save()
         else:
-            cart_item.quantity = 1
-            cart_item.subtotal = product.price
+            cart_item.quantity = quantity
+            cart_item.subtotal = product.price * quantity
             cart_item.save()
 
     @transaction.atomic

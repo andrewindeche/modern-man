@@ -19,8 +19,6 @@ const Checkout = () => {
   const stripePublicKey = useSelector((state) => state.stripe.publicKey);
   const stripeStatus = useSelector((state) => state.stripe.status);
   const selectedOption = useSelector((state) => state.payment.selectedOption);
-  const paymentStatus = useSelector((state) => state.payment.status);
-  const paymentError = useSelector((state) => state.payment.error);
 
   const stripe = useStripe();
   const elements = useElements();
