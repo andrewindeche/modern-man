@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { fetchProducts } from '../store/productsSlice';
@@ -15,6 +15,7 @@ const useQuery = () => new URLSearchParams(useLocation().search);
 
 const SearchPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const products = useSelector((state) => state.products);
   const discount = useSelector((state) => state.discount);
   const search = useSelector((state) => state.search);
@@ -22,6 +23,7 @@ const SearchPage = () => {
   const discounted = query.get('discounted') === 'true';
   const category = query.get('category') || '';
   const searchQuery = query.get('query') || '';
+  const error = query.get('error');
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
@@ -36,13 +38,21 @@ const SearchPage = () => {
     }
   }, [dispatch, searchQuery, category, discounted]);
 
+  useEffect(() => {
+    if (searchQuery === '' && error === 'empty') {
+      navigate('/searchpage?error=empty');
+    }
+  }, [searchQuery, error, navigate]);
+
   const { results: searchItems, loading: searchLoading, error: searchError } = search;
-  const { items = [], loading, error } = discounted ? discount : products;
+  const { items = [], loading, error: fetchError } = discounted ? discount : products;
+
   const handleItemClick = (item, event) => {
     const rect = event.target.getBoundingClientRect();
     setModalPosition({ top: rect.top + window.scrollY, left: rect.left + window.scrollX });
     setSelectedItem(item);
   };
+
   const renderItems = (items) => (
     items.map((item, index) => (
       <div key={index} className="image" onClick={(event) => handleItemClick(item, event)}>
@@ -73,35 +83,57 @@ const SearchPage = () => {
     ))
   );
 
+  const renderContent = () => {
+    if (searchQuery === '' && error === 'empty') {
+      return <p>Please enter a search.</p>;
+    }
+    if (searchQuery) {
+      switch (error) {
+        case 'noresults':
+          return (
+            <p>
+              No search result found for
+              {' '}
+              {searchQuery}
+              .
+            </p>
+          );
+        default:
+          if (searchLoading) {
+            return <p>Loading...</p>;
+          } if (searchError) {
+            return (
+              <p>
+                Error:
+                {' '}
+                {searchError}
+              </p>
+            );
+          }
+          return renderItems(searchItems);
+      }
+    } else if (loading) {
+      return <p>Loading...</p>;
+    } else if (fetchError) {
+      return (
+        <p>
+          Error:
+          {' '}
+          {fetchError}
+        </p>
+      );
+    } else {
+      return renderItems(items);
+    }
+  };
+
   return (
     <>
       <NotificationBar />
       <NavButtons />
       <SearchBar />
       <div className="searchresultsimages">
-        {searchQuery ? (
-          searchLoading ? (
-            <p>Loading...</p>
-          ) : searchError ? (
-            <p>
-              Error:
-              {searchError}
-            </p>
-          ) : (
-            renderItems(searchItems)
-          )
-        ) : (
-          loading ? (
-            <p>Loading...</p>
-          ) : error ? (
-            <p>
-              Error:
-              {error}
-            </p>
-          ) : (
-            renderItems(items)
-          )
-        )}
+        {renderContent()}
         <span className="tooltip-text">View More</span>
       </div>
       {selectedItem && (

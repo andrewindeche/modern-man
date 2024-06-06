@@ -4,10 +4,11 @@ from django.utils import timezone
 from rest_framework.response import Response
 from .utils.utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Product, Order, Cart, CoverImages, VerificationCode,ProductDiscountFilter
-from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer,EmailSerializer, VerifyCodeSerializer, ChargeSerializer, MpesaTransactionSerializer
+from .models import Product, Order, Cart, CartItem, CoverImages, VerificationCode,ProductDiscountFilter
+from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer,EmailSerializer, VerifyCodeSerializer, ChargeSerializer, MpesaTransactionSerializer, AddToCartSerializer, CartItemSerializer
 from .utils.mpesa_utils import lipa_na_mpesa_online 
 from rest_framework import filters
+from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 import stripe
 from django.conf import settings
@@ -101,6 +102,33 @@ class VerifyCodeView(generics.GenericAPIView):
 class CartCreateAPIView(generics.CreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+class AddToCartView(generics.GenericAPIView):
+    serializer_class = AddToCartSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            product_id = serializer.validated_data['product_id']
+            quantity = serializer.validated_data['quantity']
+
+            try:
+                product = Product.objects.get(id=product_id)
+                cart, created = Cart.objects.get_or_create(user=request.user)
+                cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+                if created:
+                    cart_item.quantity = quantity
+                else:
+                    cart_item.quantity += quantity
+                cart_item.subtotal = cart_item.quantity * product.price
+                cart_item.save()
+                return Response({'message': 'Item added to cart'}, status=status.HTTP_200_OK)
+            except Product.DoesNotExist:
+                return Response({'error': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OrderCreateAPIView(generics.CreateAPIView):
     queryset = Order.objects.all()

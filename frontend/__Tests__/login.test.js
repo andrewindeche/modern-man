@@ -1,9 +1,16 @@
 import React from 'react';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Login from 'pages/Login.jsx';
-import renderer from 'react-test-renderer';
-describe("login page",() =>{
-  it('renders the login page', () => {
-    const tree = renderer.create(<Login />).toJSON();
-    expect(tree).toMatchSnapshot();
-  })
-})
+
+describe('Forgot component', () => {
+  it('renders without crashing', () => {
+    const { getByText } = render(
+      <Router>
+        <Login />
+      </Router>
+    );
+    expect(getByText(/Log into your Account?/i)).toBeInTheDocument();
+  });
+});

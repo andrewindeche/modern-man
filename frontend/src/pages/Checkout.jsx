@@ -13,15 +13,12 @@ import SearchBar from '../components/SearchBar';
 import NavButtons from '../components/NavButtons';
 import CartSummary from '../components/CartSummary';
 import TabBar from '../components/TabBar';
-import Footer from '../components/Footer';
 
 const Checkout = () => {
   const dispatch = useDispatch();
   const stripePublicKey = useSelector((state) => state.stripe.publicKey);
   const stripeStatus = useSelector((state) => state.stripe.status);
   const selectedOption = useSelector((state) => state.payment.selectedOption);
-  const paymentStatus = useSelector((state) => state.payment.status);
-  const paymentError = useSelector((state) => state.payment.error);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -70,7 +67,6 @@ const Checkout = () => {
         />
       </Elements>
       <CartSummary />
-      <Footer />
     </>
   );
 };
