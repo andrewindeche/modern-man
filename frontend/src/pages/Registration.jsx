@@ -9,14 +9,14 @@ const Registration = () => (
   <div className="registrationForm">
     <form>
       <Link to="/">
-          <FontAwesomeIcon icon={faHome} className="home-icon" />
-          <span className="tooltip-text">Go To Home</span>
-    </Link>
+        <FontAwesomeIcon icon={faHome} className="home-icon" />
+        <span className="tooltip-text">Go To Home</span>
+      </Link>
       <p>Registration: Create User Account</p>
       <div id="registrationFormBody">
         <span className="nameLabel">
           <div className="input-group" id="registrationInputs">
-          <label>Full Name</label>
+            <label>Full Name</label>
             <input type="text" name="fullName" placeholder="Enter your Name" required />
           </div>
           <div className="input-group" id="registrationInputs">

@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const CartSummary = ({ cartItems, mobileView }) => {
+const CartSummary = ({ mobileView }) => {
+  const cartItems = useSelector((state) => state.cart.items);
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
   return (
     <div className={`checkout ${mobileView ? '' : 'd-none d-md-block'}`}>
       <div className="checkout-container">
@@ -16,6 +19,7 @@ const CartSummary = ({ cartItems, mobileView }) => {
                   {item.quantity}
                   {' '}
                   *
+                  {' '}
                   {item.name}
                 </p>
                 <p className="amount">

@@ -9,7 +9,7 @@ export const processPayment = createAsyncThunk(
       const cardElement = elements.getElement(CardElement);
       try {
         const { token } = await stripe.createToken(cardElement);
-        const response = await axios.post('/api/stripe/charge', {
+        const response = await axios.post('http://127.0.0.1:8000/api/stripe/charge', {
           token: token.id,
           amount: 1000,
         });

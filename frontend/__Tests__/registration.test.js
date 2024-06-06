@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import '@testing-library/jest-dom/extend-expect'; // Import jest-dom matchers
+import '@testing-library/jest-dom';
 import Registration from 'pages/Registration';
 
 describe("registration page", () => {
@@ -12,6 +12,6 @@ describe("registration page", () => {
       </Router>
     );
 
-    expect(getByText(/Log into your Account?/i)).toBeInTheDocument();
+    expect(getByText(/Registration: Create User Account/i)).toBeInTheDocument();
   })
 });
