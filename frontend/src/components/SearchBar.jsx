@@ -9,18 +9,34 @@ import { updateQuery, searchProducts } from '../store/searchSlice';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+    setErrorMessage('');
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateQuery(searchTerm));
-    dispatch(searchProducts(searchTerm));
-    navigate(`/searchpage?query=${encodeURIComponent(searchTerm)}`);
+    if (searchTerm.trim() === '') {
+      navigate(`/searchpage?query=${encodeURIComponent(searchTerm)}&error=empty`);
+    } else {
+      dispatch(updateQuery(searchTerm));
+      dispatch(searchProducts(searchTerm))
+        .unwrap()
+        .then((result) => {
+          if (result.length === 0) {
+            navigate(`/searchpage?query=${encodeURIComponent(searchTerm)}&error=noresults`);
+          } else {
+            navigate(`/searchpage?query=${encodeURIComponent(searchTerm)}`);
+          }
+        })
+        .catch(() => {
+          navigate(`/searchpage?query=${encodeURIComponent(searchTerm)}&error=noresults`);
+        });
+    }
   };
 
   return (

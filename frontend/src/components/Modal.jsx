@@ -5,12 +5,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../store/cartSlice';
+import { addToCartThunk } from '../store/cartSlice';
 
 // eslint-disable-next-line react/prop-types
 const ModalContent = ({ item, onClose }) => {
   const dispatch = useDispatch();
-
   if (!item) return null;
 
   // eslint-disable-next-line react/prop-types
@@ -19,7 +18,13 @@ const ModalContent = ({ item, onClose }) => {
     name, image, price, description, average_rating,
   } = item;
   const handleAddToCart = () => {
-    addToCart(item);
+    dispatch(addToCartThunk(item))
+      .then(() => {
+        alert('Item added to cart successfully');
+      })
+      .catch((error) => {
+        alert('Error adding item to cart:', error);
+      });
   };
   return (
     <div className="Modal">
@@ -68,6 +73,5 @@ const ModalContent = ({ item, onClose }) => {
 ModalContent.propTypes = {
   item: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
-  addToCart: PropTypes.func.isRequired,
 };
 export default ModalContent;

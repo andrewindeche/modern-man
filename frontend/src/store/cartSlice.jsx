@@ -16,7 +16,7 @@ export const addToCartThunk = createAsyncThunk(
         return rejectWithValue(errorData);
       }
       const data = await response.json();
-      return { item, data }; // Return both the item and the response data
+      return { item, data };
     } catch (error) {
       return rejectWithValue(error.message);
     }
