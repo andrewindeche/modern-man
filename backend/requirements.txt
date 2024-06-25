@@ -19,4 +19,4 @@ django-redis==5.4.0
 django-mpesa==2.0.14
 stripe==9.8.0
 python-decouple==3.8
-urllib3==2.2.1
+urllib3==2.2.2
