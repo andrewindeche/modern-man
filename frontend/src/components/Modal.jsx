@@ -71,7 +71,6 @@ const ModalContent = ({ item, onClose }) => {
 };
 
 ModalContent.propTypes = {
-  item: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 export default ModalContent;

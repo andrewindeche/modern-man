@@ -114,12 +114,12 @@ const TabBar = ({
           </Tab.Pane>
           {isMobile && (
             <Tab.Pane eventKey="Cart Summary">
-              <CartSummary mobileView /> {/* Render CartSummary here */}
+              <CartSummary mobileView />
             </Tab.Pane>
           )}
         </Tab.Content>
       </Tab.Container>
-      {!isMobile && <CartSummary />} 
+      {!isMobile && <CartSummary />}
     </>
   );
 };
