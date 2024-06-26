@@ -366,6 +366,9 @@ input::placeholder:hover{
     margin: 0.1em;
     animation: fadeInOut 4s linear infinite;
 }
+#notificationbartext{
+    font-size: 12px;
+}
 .notificationbar p {
     color:white;
     font-weight:bolder; 
@@ -764,6 +767,9 @@ p.title{
     opacity: 0;
     transition: opacity 0.3s;
     font-family: "Rock Salt", cursive;
+}
+.user{
+    width:60%;
 }
 .user .heart .shopping {
     margin-left: 10px; 

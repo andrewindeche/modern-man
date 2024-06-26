@@ -42,7 +42,7 @@ const NotificationBar = () => {
       {discountedProducts.length > 0 && !loading && !error && (
       <>
         <img src={discountedProducts[currentIndex].image} alt="My Shoes" className="shoes" />
-        <p>
+        <p id="notificationbartext">
           Get
           {' '}
           {discountedProducts[currentIndex].discount_percentage}
