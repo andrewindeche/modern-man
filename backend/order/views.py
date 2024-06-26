@@ -167,7 +167,7 @@ class SearchSuggestionsView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         query = request.GET.get('query', '')
         if query:
-            suggestions = Product.objects.filter(name__icontains=query)[:10]
+            suggestions = Product.objects.filter(name__istartswith=query).order_by('name')[:10]
             serializer = self.get_serializer(suggestions, many=True)
             return Response(serializer.data)
         return Response([])
