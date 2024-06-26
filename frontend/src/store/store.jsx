@@ -7,7 +7,7 @@ import stripeReducer from './stripeSlice';
 import paymentReducer from './paymentSlice';
 import mpesaReducer from './mpesaSlice';
 import cartReducer from './cartSlice';
-import suggestionsReducer from './suggestionsSlice'
+import suggestionsReducer from './suggestionsSlice';
 
 const store = configureStore({
   reducer: {
@@ -19,7 +19,7 @@ const store = configureStore({
     payment: paymentReducer,
     mpesa: mpesaReducer,
     cart: cartReducer,
-    suggesttions: suggestionsReducer,
+    suggestions: suggestionsReducer,
   },
 });
 

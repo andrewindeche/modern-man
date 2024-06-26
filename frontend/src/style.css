@@ -669,9 +669,54 @@ p.title{
     width: 10%;
     color: gray;
 }
-  .star.active {
+.star.active {
     color: #BC2B2B;
 }
+.searchbar {
+    position: relative;
+  }
+  
+  .search-form {
+    position: relative;
+  }
+  
+  .suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .suggestion-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .suggestion-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .suggestion-name {
+    flex: 1;
+  }
+    
 .tabcontainer{
     border: #000 solid 2px;
 }

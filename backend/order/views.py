@@ -160,7 +160,18 @@ class StripeChargeView(generics.GenericAPIView):
             return Response({'charge': charge}, status=status.HTTP_200_OK)
         except stripe.error.StripeError as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
+        
+class SearchSuggestionsView(generics.GenericAPIView):
+    serializer_class = ProductSerializer
+    
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('query', '')
+        if query:
+            suggestions = Product.objects.filter(name__icontains=query)[:10]
+            serializer = self.get_serializer(suggestions, many=True)
+            return Response(serializer.data)
+        return Response([])
+    
 class MpesaChargeView(generics.GenericAPIView):
     serializer_class = MpesaTransactionSerializer
 
