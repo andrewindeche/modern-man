@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView
+from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView,RegisterView
 from .views import CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView 
 from .views import VerifyCodeView,DiscountedProductListAPIView,ProductSearchView,SearchSuggestionsView
 from .views import StripeChargeView,MpesaChargeView,mpesa_callback,get_stripe_public_key,get_mpesa_public_key
@@ -15,6 +15,7 @@ urlpatterns = [
     path('products/<str:category>/', ProductListCreateAPIView.as_view(), name='product_list_by_category'),
     path('products/<int:pk>/', ProductDetailAPIView.as_view(), name='product-detail'),
     path('discounted-products/', DiscountedProductListAPIView.as_view(), name='discounted-products'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('search/', ProductSearchView.as_view(), name='product-search'),
     path('cart/add/', CartCreateAPIView.as_view(), name='cart-create'),
     path('cart/checkout/', OrderCreateAPIView.as_view(), name='order-create'),

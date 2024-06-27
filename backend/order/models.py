@@ -37,6 +37,8 @@ class Customer(AbstractUser):
     products = models.ManyToManyField('Product', related_name='customers')
     verification_code = models.CharField(_('Verification Code'), max_length=6, blank=True, null=True)
     
+    objects = CustomerManager()
+    
     PAYMENT_METHOD_CHOICES = (
         ('visa', 'Visa'),
         ('mpesa', 'M-Pesa'),
@@ -54,8 +56,6 @@ class Customer(AbstractUser):
         verbose_name=_('user permissions'),
         blank=True,
     )
-    
-    objects = CustomerManager()
 
     def add_order(self, order):
         self.orders.add(order)

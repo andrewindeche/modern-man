@@ -1,9 +1,8 @@
+// Login.jsx
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  faHome,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { loginUser, verifyCode, resetError } from '../store/userSlice';
 
@@ -31,7 +30,11 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isVerifying) {
-      dispatch(verifyCode({ email: formData.email, code: formData.code }));
+      dispatch(verifyCode({ email: formData.email, code: formData.code }))
+        .unwrap()
+        .catch((err) => {
+          console.error('Verification failed:', err);
+        });
     } else {
       dispatch(loginUser({ email: formData.email, password: formData.password }))
         .unwrap()
@@ -46,7 +49,7 @@ const Login = () => {
 
   return (
     <div className="loginForm">
-      <Link to="/checkout">
+      <Link to="/">
         <FontAwesomeIcon icon={faHome} className="home-icon" />
         <span className="tooltip-text">Go To Home</span>
       </Link>
@@ -55,10 +58,30 @@ const Login = () => {
         {error && <p className="error">{error}</p>}
         <div className="formBody">
           {!isVerifying ? (
-            <div className="input-group">
-              <label>Email</label>
-              <input type="text" name="fullName" placeholder="Enter your Email" required onChange={handleChange} />
-            </div>
+            <>
+              <div className="input-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="input-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter your Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </>
           ) : (
             <div className="input-group">
               <label>Verification Code</label>
@@ -66,15 +89,12 @@ const Login = () => {
                 type="text"
                 name="code"
                 placeholder="Enter your Verification Code"
-                required
+                value={formData.code}
                 onChange={handleChange}
+                required
               />
             </div>
           )}
-          <div className="input-group">
-            <label>Password</label>
-            <input className="password" type="text" name="email" placeholder="Enter your Password" required />
-          </div>
           <div id="sign-link">
             <label>
               Forgot Password?
@@ -90,17 +110,14 @@ const Login = () => {
                 </Link>
               </label>
             )}
-            <label>
-              Not a member?
-              <Link to="/registration">
-                <div className="signupnow">Sign Up Now</div>
-              </Link>
-            </label>
           </div>
-          <button type="submit" disabled={loading}>{isVerifying ? 'Verify' : 'Login'}</button>
+          <button type="submit" disabled={loading}>
+            {isVerifying ? 'Verify' : 'Login'}
+          </button>
         </div>
       </form>
     </div>
   );
 };
+
 export default Login;

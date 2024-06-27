@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  faHome,
-} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { registerUser, resetError } from '../store/userSlice';
 
 const Registration = () => {
@@ -12,8 +10,10 @@ const Registration = () => {
     username: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    confirm_password: '',
   });
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.user);
@@ -28,20 +28,27 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== formData.confirm_password) {
       alert('Passwords do not match');
       return;
     }
-    dispatch(registerUser(formData)).then(() => {
-      if (!loading && !error) {
-        alert('Registration successful. A verification code has been sent to your email.');
-        navigate('/login');
-      }
-    });
+    dispatch(registerUser({
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      confirm_password: formData.confirm_password,
+    }))
+      .then(() => {
+        if (!loading && !error) {
+          alert('Registration successful.');
+          navigate('/login');
+        }
+      });
   };
+
   return (
     <div className="registrationForm">
-      <form onSubmit={handleSubmit}>
+      <form method="post" action="/api/register/" onSubmit={handleSubmit}>
         <Link to="/checkout">
           <FontAwesomeIcon icon={faHome} className="home-icon" />
           <span className="tooltip-text">Go To Home</span>
@@ -49,40 +56,41 @@ const Registration = () => {
         <p>Registration: Create User Account</p>
         {error && <p className="error">{error}</p>}
         <div id="registrationFormBody">
-          <span className="nameLabel">
-            <div className="input-group" id="registrationInputs">
-              <label>Full Name</label>
-              <input type="text" name="fullName" placeholder="Enter your Name" required onChange={handleChange} />
+          <div className="input-group" id="registrationInputs">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter your Username" required onChange={handleChange} />
+          </div>
+          <div className="input-group" id="registrationInputs">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your Email" required onChange={handleChange} />
+          </div>
+          <div className="input-group" id="registrationInputs">
+            <label>Password</label>
+            <div className="password-container">
+              <input type={passwordVisible ? 'text' : 'password'} name="password" placeholder="Enter your Password" required onChange={handleChange} />
+              <FontAwesomeIcon
+                icon={passwordVisible ? faEyeSlash : faEye}
+                onClick={() => setPasswordVisible(!passwordVisible)}
+                className="password-toggle-icon"
+              />
             </div>
-            <div className="input-group" id="registrationInputs">
-              <label>User Name</label>
-              <input type="text" name="userName" placeholder="Enter your User Name" required onChange={handleChange} />
+          </div>
+          <div className="input-group" id="registrationInputs">
+            <label>Confirm Password</label>
+            <div className="password-container">
+              <input type={confirmPasswordVisible ? 'text' : 'password'} name="confirm_password" placeholder="Confirm your Password" required onChange={handleChange} />
+              <FontAwesomeIcon
+                icon={confirmPasswordVisible ? faEyeSlash : faEye}
+                onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                className="password-toggle-icon"
+              />
             </div>
-          </span>
-          <span className="contactLabel">
-            <div className="input-group" id="registrationInputs">
-              <label>Email</label>
-              <input type="text" name="email" placeholder="Enter your Email" required onChange={handleChange} />
-            </div>
-            <div className="input-group" id="registrationInputs">
-              <label>Phone Number</label>
-              <input type="text" name="phoneNumber" placeholder="Enter your Phone Number" required onChange={handleChange} />
-            </div>
-          </span>
-          <span className="passwordLabel">
-            <div className="input-group" id="registrationInputs">
-              <label>Password</label>
-              <input type="text" name="password" placeholder="Enter your Password" required onChange={handleChange} />
-            </div>
-            <div className="input-group" id="registrationInputs">
-              <label>Confirm Password</label>
-              <input type="text" name="confirmPassword" placeholder="Confirm your Password" required onChange={handleChange} />
-            </div>
-          </span>
+          </div>
           <button type="submit">Register</button>
         </div>
       </form>
     </div>
-);
+  );
 }
+
 export default Registration;

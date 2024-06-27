@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from .utils.utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Product, Order, Cart, CartItem, CoverImages, VerificationCode,ProductDiscountFilter
-from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer,EmailSerializer, VerifyCodeSerializer, ChargeSerializer, MpesaTransactionSerializer, AddToCartSerializer, CartItemSerializer
+from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer,RegisterSerializer
+from .serializers import CoverImagesSerializer,EmailSerializer, VerifyCodeSerializer, ChargeSerializer, MpesaTransactionSerializer, AddToCartSerializer, CartItemSerializer
 from .utils.mpesa_utils import lipa_na_mpesa_online 
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated
@@ -196,6 +197,16 @@ class MpesaChargeView(generics.GenericAPIView):
                 serializer.save(status='Failed')
 
             return Response(response, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class RegisterView(generics.GenericAPIView):
+    serializer_class = RegisterSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['POST'])
