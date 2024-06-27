@@ -15,8 +15,11 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from .utils.mpesa_utils import process_mpesa_callback
+from django.core.mail import send_mail
+from .serializers import EmailSerializer
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -194,6 +197,24 @@ class MpesaChargeView(generics.GenericAPIView):
 
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+def send_email(request):
+    if request.method == 'POST':
+        serializer = EmailSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                send_mail(serializer.validated_data['subject'],
+                          serializer.validated_data['text'],
+                          'sender@example.com',
+                          [serializer.validated_data['to']])
+                return Response({'message': 'Email sent successfully'}, status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Only POST requests are allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 def get_stripe_public_key(request):
     return JsonResponse({'publicKey': settings.STRIPE_PUBLISHABLE_KEY})

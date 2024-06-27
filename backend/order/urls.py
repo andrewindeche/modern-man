@@ -1,9 +1,10 @@
 from django.urls import path, include
-from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView 
+from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView
 from .views import CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView 
 from .views import VerifyCodeView,DiscountedProductListAPIView,ProductSearchView,SearchSuggestionsView
 from .views import StripeChargeView,MpesaChargeView,mpesa_callback,get_stripe_public_key,get_mpesa_public_key
 from rest_framework.routers import DefaultRouter
+from . import views
 
 router = DefaultRouter()
 router.register(r'images', CoverImagesViewSet)
@@ -26,4 +27,5 @@ urlpatterns = [
     path('stripe-public-key/', get_stripe_public_key, name='stripe-public-key'),
     path('mpesa-public-key/', get_mpesa_public_key, name='mpesa-public-key'),
     path('suggestions/', SearchSuggestionsView.as_view(), name='search_suggestions'),
+    path('send-email/', views.send_email, name='send_email'),
 ] 

@@ -1,5 +1,5 @@
 import uuid
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models, transaction
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -11,7 +11,22 @@ import datetime
 import base64
 from django.conf import settings
 
+class CustomerManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
+    def create_superuser(self, username, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(username, email, password, **extra_fields)
+    
 class Customer(AbstractUser):
     name = models.CharField(_('Name'), max_length=150)
     email = models.EmailField(_('Email address'), unique=True)
@@ -20,6 +35,7 @@ class Customer(AbstractUser):
     country = models.CharField(_('Country'), max_length=100, blank=True)
     favorites = models.ManyToManyField('Product', related_name='favorited_by', blank=True)
     products = models.ManyToManyField('Product', related_name='customers')
+    verification_code = models.CharField(_('Verification Code'), max_length=6, blank=True, null=True)
     
     PAYMENT_METHOD_CHOICES = (
         ('visa', 'Visa'),
@@ -38,6 +54,8 @@ class Customer(AbstractUser):
         verbose_name=_('user permissions'),
         blank=True,
     )
+    
+    objects = CustomerManager()
 
     def add_order(self, order):
         self.orders.add(order)
