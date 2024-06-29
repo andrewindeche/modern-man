@@ -9,6 +9,7 @@ import Forgot from './pages/Forgot';
 import SearchPage from './pages/SearchPage';
 import Checkout from './pages/Checkout';
 import ErrorPage from './pages/ErrorPage';
+import FavoritedPage from './pages/FavoritedPage';
 import { AuthProvider } from './components/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -23,6 +24,10 @@ const App = () => (
       <Route
         path="/checkout"
         element={<ProtectedRoute><Checkout /></ProtectedRoute>}
+      />
+      <Route
+        path="/favorite"
+        element={<ProtectedRoute><FavoritedPage /></ProtectedRoute>}
       />
       <Route path="*" element={<ErrorPage />} />
     </Routes>

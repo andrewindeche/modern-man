@@ -8,6 +8,7 @@ import paymentReducer from './paymentSlice';
 import mpesaReducer from './mpesaSlice';
 import cartReducer from './cartSlice';
 import suggestionsReducer from './suggestionsSlice';
+import FavoriteReducer from './favoriteSlice';
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     mpesa: mpesaReducer,
     cart: cartReducer,
     suggestions: suggestionsReducer,
+    favorite: FavoriteReducer,
   },
 });
 

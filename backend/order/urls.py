@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView,RegisterView
+from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView,RegisterView,FavoriteListView
 from .views import CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView 
 from .views import VerifyCodeView,DiscountedProductListAPIView,ProductSearchView,SearchSuggestionsView
 from .views import StripeChargeView,MpesaChargeView,mpesa_callback,get_stripe_public_key,get_mpesa_public_key
@@ -29,4 +29,5 @@ urlpatterns = [
     path('mpesa-public-key/', get_mpesa_public_key, name='mpesa-public-key'),
     path('suggestions/', SearchSuggestionsView.as_view(), name='search_suggestions'),
     path('send-email/', views.send_email, name='send_email'),
+    path('favorites/', FavoriteListView.as_view(), name='favorite_list'),
 ] 

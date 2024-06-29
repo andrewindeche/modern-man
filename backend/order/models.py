@@ -80,6 +80,15 @@ class Customer(AbstractUser):
                 cart_item.save()
         except ObjectDoesNotExist:
             raise ValueError("The product does not exist.")
+        
+    def favorite_product(self, product):
+        self.favorites.add(product)
+    
+    def unfavorite_product(self, product):
+        self.favorites.remove(product)
+    
+    def is_product_favorited(self, product):
+        return self.favorites.filter(id=product.id).exists()
     
 class Category(models.Model):
     CATEGORY_CHOICES = [

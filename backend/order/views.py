@@ -1,5 +1,6 @@
 import random
 from rest_framework import generics, viewsets,status
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from rest_framework.response import Response
 from .utils.utils import send_verification_email
@@ -12,6 +13,7 @@ from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 import stripe
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -35,6 +37,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
             queryset = queryset.filter(category__name=category_name)
         return queryset
 
+
 class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -55,6 +58,14 @@ class DiscountedProductListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return Product.objects.filter(discount_percentage__gt=0)
+    
+class FavoriteListView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.favorites.all()
         
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
@@ -80,6 +91,7 @@ class DoubleAuthView(generics.GenericAPIView):
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         return Response({"detail": "Verification code sent"}, status=status.HTTP_200_OK)
+    
 
 class VerifyCodeView(generics.GenericAPIView):
     serializer_class = VerifyCodeSerializer
