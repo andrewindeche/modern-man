@@ -24,14 +24,14 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
-  async (credentials, { rejectWithValue }) => {
+  async ({ email, code }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BASE_API_URL}token/`, credentials);
+      const response = await axios.post(`${BASE_API_URL}token/`, { email, code });
       const token = response.data.access;
-      await axios.post(`${BASE_API_URL}second-step-auth/`, { email: credentials.email });
+      localStorage.setItem('token', token);
       return { token };
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response ? error.response.data : error.message);
     }
   },
 );

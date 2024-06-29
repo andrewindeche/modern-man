@@ -28,7 +28,7 @@ class CustomerManager(BaseUserManager):
         return self.create_user(username, email, password, **extra_fields)
     
 class Customer(AbstractUser):
-    name = models.CharField(_('Name'), max_length=150)
+    username = models.CharField(_('Name'), max_length=150, unique=True)
     email = models.EmailField(_('Email address'), unique=True)
     location = models.CharField(_('Location'), max_length=255, blank=True)
     city = models.CharField(_('City'), max_length=100, blank=True)
