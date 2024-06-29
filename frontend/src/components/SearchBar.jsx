@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faSearch, faUser, faHeart, faShoppingCart, faHome,
+  faSearch, faHeart, faShoppingCart, faHome,
 } from '@fortawesome/free-solid-svg-icons';
 import { updateQuery, searchProducts } from '../store/searchSlice';
 import { fetchSuggestions, clearSuggestions } from '../store/suggestionsSlice';
@@ -88,8 +88,10 @@ const SearchBar = () => {
         )}
       </form>
       <div className="user-icons">
-        <FontAwesomeIcon icon={faShoppingCart} className="shopping" />
-        <span className="tooltip-text">Checkout</span>
+        <Link to="/checkout">
+          <FontAwesomeIcon icon={faShoppingCart} id="shopping" />
+          <span className="tooltip-text">Checkout</span>
+        </Link>
         <FontAwesomeIcon icon={faHeart} className="heart" />
         <span className="tooltip-text">Favorite</span>
       </div>

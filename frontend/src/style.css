@@ -614,6 +614,11 @@ p.title{
     border: brown solid 2px;
     transform: translateX(20em);
 }
+#shopping{
+    color:rgba(0, 0, 0, 0.85);
+    width:0.7em;
+    margin:12px
+}
 .shoppingcarticon, .windowclose, .favorite {
     width:3em;
     gap: 10px;
@@ -677,12 +682,15 @@ p.title{
 }
 .searchbar {
     position: relative;
-  }
+}
   
-  .search-form {
+.search-form {
     position: relative;
-  }
-  
+}
+
+#shopping:hover{
+    color:#fff
+}
   .suggestions {
     position: absolute;
     top: 100%;
@@ -771,6 +779,7 @@ p.title{
 .user{
     width:60%;
 }
+
 .user .heart .shopping {
     margin-left: 10px; 
 }
