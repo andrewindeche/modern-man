@@ -35,7 +35,6 @@ class Customer(AbstractUser):
     country = models.CharField(_('Country'), max_length=100, blank=True)
     favorites = models.ManyToManyField('Product', related_name='favorited_by', blank=True)
     products = models.ManyToManyField('Product', related_name='customers')
-    verification_code = models.CharField(_('Verification Code'), max_length=6, blank=True, null=True)
     
     objects = CustomerManager()
     
@@ -208,13 +207,6 @@ class Cart(models.Model):
         for item in self.cartitem_set.all():
             OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, subtotal=item.subtotal)
         self.cartitem_set.all().delete()
-class VerificationCode(models.Model):
-    email = models.EmailField(unique=True)
-    code = models.CharField(max_length=6)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def is_expired(self):
-        return (timezone.now() - self.created_at).total_seconds() > 300
     
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

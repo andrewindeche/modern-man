@@ -1,19 +1,16 @@
 import random
 from rest_framework import generics, viewsets,status
-from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from rest_framework.response import Response
-from .utils.utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Product, Order, Cart, CartItem, CoverImages, VerificationCode,ProductDiscountFilter
-from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer,RegisterSerializer
-from .serializers import CoverImagesSerializer,EmailSerializer, VerifyCodeSerializer, ChargeSerializer, MpesaTransactionSerializer, AddToCartSerializer, CartItemSerializer
+from .models import Product, Order, Cart, CartItem, CoverImages,ProductDiscountFilter, Customer
+from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer,RegisterSerializer, FavoriteCountSerializer
+from .serializers import CoverImagesSerializer,EmailSerializer, ChargeSerializer, MpesaTransactionSerializer, AddToCartSerializer
 from .utils.mpesa_utils import lipa_na_mpesa_online 
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 import stripe
-from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -66,54 +63,22 @@ class FavoriteListView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return user.favorites.all()
+    
+class FavoriteCountView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = FavoriteCountSerializer
+
+    def get_queryset(self):
+        return Customer.objects.filter(id=self.request.user.id).annotate(count=Count('favorites'))
+
+    def list(self, request, *args, **kwargs):
+        user = self.get_queryset().first()
+        count = user.count if user else 0
+        serializer = self.get_serializer({'count': count})
+        return Response(serializer.data)
         
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
-
-class DoubleAuthView(generics.GenericAPIView):
-    serializer_class = EmailSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data['email']
-        
-        verification_code = str(random.randint(100000, 999999))
-        
-        VerificationCode.objects.update_or_create(
-            email=email,
-            defaults={'code': verification_code, 'created_at': timezone.now()}
-        )
-        
-        try:
-            send_verification_email(email, verification_code)
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-        return Response({"detail": "Verification code sent"}, status=status.HTTP_200_OK)
-    
-
-class VerifyCodeView(generics.GenericAPIView):
-    serializer_class = VerifyCodeSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data['email']
-        code = serializer.validated_data['code']
-        
-        try:
-            verification_code = VerificationCode.objects.get(email=email)
-        except VerificationCode.DoesNotExist:
-            return Response({"error": "Verification code not found"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        if verification_code.is_expired():
-            return Response({"error": "Verification code expired"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        if verification_code.code != code:
-            return Response({"error": "Invalid verification code"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        return Response({"detail": "Second step authentication passed"}, status=status.HTTP_200_OK)
 
 class CartCreateAPIView(generics.CreateAPIView):
     queryset = Cart.objects.all()

@@ -36,13 +36,16 @@ const Registration = () => {
       username: formData.username,
       email: formData.email,
       password: formData.password,
-      confirm_password: formData.confirm_password,
     }))
+      .unwrap()
       .then(() => {
         if (!loading && !error) {
           alert('Registration successful.');
           navigate('/login');
         }
+      })
+      .catch((err) => {
+        console.error('Registration failed:', err);
       });
   };
 

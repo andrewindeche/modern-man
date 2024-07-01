@@ -21,7 +21,7 @@ const store = configureStore({
     mpesa: mpesaReducer,
     cart: cartReducer,
     suggestions: suggestionsReducer,
-    favorite: FavoriteReducer,
+    favorites: FavoriteReducer,
   },
 });
 

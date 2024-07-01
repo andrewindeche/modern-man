@@ -27,6 +27,9 @@ class CartSerializer(serializers.ModelSerializer):
         model = Cart
         fields = '__all__'
         
+class FavoriteCountSerializer(serializers.Serializer):
+    count = serializers.IntegerField()
+        
 class EmailSerializer(serializers.Serializer):
     to = serializers.EmailField()
     subject = serializers.CharField(max_length=255)
@@ -91,6 +94,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
         token['email'] = user.email
+        token['password'] = user.password
         return token
 
 class EmailSerializer(serializers.Serializer):
@@ -98,6 +102,7 @@ class EmailSerializer(serializers.Serializer):
 
 class VerifyCodeSerializer(serializers.Serializer):
     email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
     code = serializers.CharField(max_length=6)
     
 class ChargeSerializer(serializers.Serializer):

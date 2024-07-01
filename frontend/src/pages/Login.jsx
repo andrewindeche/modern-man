@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { loginUser, verifyCode, resetError } from '../store/userSlice';
+import { loginUser, resetError } from '../store/userSlice';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '', code: '' });
-  const [isVerifying, setIsVerifying] = useState(false);
+  const [formData, setFormData] = useState({ username: '', password: '' });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error, isAuthenticated } = useSelector((state) => state.user);
@@ -29,22 +28,11 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isVerifying) {
-      dispatch(verifyCode({ email: formData.email, code: formData.code }))
-        .unwrap()
-        .catch((err) => {
-          console.error('Verification failed:', err);
-        });
-    } else {
-      dispatch(loginUser({ email: formData.email, password: formData.password }))
-        .unwrap()
-        .then(() => {
-          setIsVerifying(true);
-        })
-        .catch((err) => {
-          console.error('Login failed:', err);
-        });
-    }
+    dispatch(loginUser({ username: formData.username, password: formData.password }))
+      .unwrap()
+      .catch((err) => {
+        console.error('Login failed:', err);
+      });
   };
 
   return (
@@ -54,65 +42,33 @@ const Login = () => {
         <span className="tooltip-text">Go To Home</span>
       </Link>
       <form onSubmit={handleSubmit}>
-        <p>{isVerifying ? 'Verification: Enter Code' : 'Login: Log into your Account'}</p>
+        <p>Login: Log into your Account</p>
         {error && <p className="error">{error}</p>}
         <div className="formBody">
-          {!isVerifying ? (
-            <>
-              <div className="input-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="input-group">
-                <label>Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Enter your Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </>
-          ) : (
-            <div className="input-group">
-              <label>Verification Code</label>
-              <input
-                type="text"
-                name="code"
-                placeholder="Enter your Verification Code"
-                value={formData.code}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          )}
-          <div id="sign-link">
-            <label>
-              Forgot Password?
-              <Link to="/forgot">
-                <div className="signupnow">Reset Password</div>
-              </Link>
-            </label>
-            {!isVerifying && (
-              <label>
-                Not a member?
-                <Link to="/registration">
-                  <div className="signupnow">Sign Up Now</div>
-                </Link>
-              </label>
-            )}
+          <div className="input-group">
+            <label>Username</label>
+            <input
+              type="username"
+              name="username"
+              placeholder="Enter your Username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
           </div>
           <button type="submit" disabled={loading}>
-            {isVerifying ? 'Verify' : 'Login'}
+            Login
           </button>
         </div>
       </form>

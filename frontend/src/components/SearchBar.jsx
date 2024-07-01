@@ -7,13 +7,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { updateQuery, searchProducts } from '../store/searchSlice';
 import { fetchSuggestions, clearSuggestions } from '../store/suggestionsSlice';
+import { fetchFavoriteCountThunk } from '../store/favoriteSlice';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isFavoriteClicked, setIsFavoriteClicked] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const suggestions = useSelector((state) => state.suggestions.suggestions) || [];
+  const favoriteCount = useSelector((state) => state.favorites.count);
 
   useEffect(() => {
     if (searchTerm.trim()) {
@@ -24,6 +27,12 @@ const SearchBar = () => {
       setShowDropdown(false);
     }
   }, [searchTerm, dispatch]);
+
+  useEffect(() => {
+    if (isFavoriteClicked) {
+      dispatch(fetchFavoriteCountThunk());
+    }
+  }, [isFavoriteClicked, dispatch]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -55,6 +64,10 @@ const SearchBar = () => {
     setSearchTerm(suggestion.name);
     setShowDropdown(false);
     navigate(`/searchpage?query=${encodeURIComponent(suggestion.name)}`);
+  };
+
+  const handleFavoriteClick = () => {
+    setIsFavoriteClicked(true);
   };
 
   const sortedSuggestions = [...suggestions].sort((a, b) => a.name.localeCompare(b.name));
@@ -92,7 +105,9 @@ const SearchBar = () => {
           <FontAwesomeIcon icon={faShoppingCart} id="shopping" />
           <span className="tooltip-text">Checkout</span>
         </Link>
-        <FontAwesomeIcon icon={faHeart} className="heart" />
+        <FontAwesomeIcon icon={faHeart} className="heart" onClick={handleFavoriteClick} />
+        <span className="favorite-count">{favoriteCount}</span>
+        {favoriteCount > 0 && isFavoriteClicked && <span className="favorite-count">{favoriteCount}</span>}
         <span className="tooltip-text">Favorite</span>
       </div>
     </div>

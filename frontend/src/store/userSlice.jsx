@@ -24,26 +24,14 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
-  async ({ email, code }, { rejectWithValue }) => {
+  async ({ username, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BASE_API_URL}token/`, { email, code });
+      const response = await axios.post(`${BASE_API_URL}token/`, { username, password });
       const token = response.data.access;
       localStorage.setItem('token', token);
       return { token };
     } catch (error) {
       return rejectWithValue(error.response ? error.response.data : error.message);
-    }
-  },
-);
-
-export const verifyCode = createAsyncThunk(
-  'user/verifyCode',
-  async ({ email, code }, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(`${BASE_API_URL}verify-code/`, { email, code });
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -83,18 +71,6 @@ const userSlice = createSlice({
         state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload ? action.payload.error : action.error.message;
-      })
-      .addCase(verifyCode.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(verifyCode.fulfilled, (state) => {
-        state.loading = false;
-        state.isAuthenticated = true;
-      })
-      .addCase(verifyCode.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload ? action.payload.error : action.error.message;
       });

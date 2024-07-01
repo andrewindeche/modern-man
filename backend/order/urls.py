@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import CoverImagesViewSet,ProductListCreateAPIView, ProductDetailAPIView,RegisterView,FavoriteListView
-from .views import CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, DoubleAuthView 
-from .views import VerifyCodeView,DiscountedProductListAPIView,ProductSearchView,SearchSuggestionsView
+from .views import CartCreateAPIView, OrderCreateAPIView,CustomTokenObtainPairView, FavoriteCountView 
+from .views import DiscountedProductListAPIView,ProductSearchView,SearchSuggestionsView,CustomTokenObtainPairView
 from .views import StripeChargeView,MpesaChargeView,mpesa_callback,get_stripe_public_key,get_mpesa_public_key
 from rest_framework.routers import DefaultRouter
 from . import views
@@ -20,8 +20,6 @@ urlpatterns = [
     path('cart/add/', CartCreateAPIView.as_view(), name='cart-create'),
     path('cart/checkout/', OrderCreateAPIView.as_view(), name='order-create'),
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('second-step-auth/', DoubleAuthView.as_view(), name='second_step_auth'),
-    path('verify-code/', VerifyCodeView.as_view(), name='verify_code'),
     path('stripe/', StripeChargeView.as_view(), name='stripe_charge'),
     path('mpesa/', MpesaChargeView.as_view(), name='mpesa_charge'),
     path('mpesa/callback/', mpesa_callback, name='mpesa_callback'),
@@ -30,4 +28,6 @@ urlpatterns = [
     path('suggestions/', SearchSuggestionsView.as_view(), name='search_suggestions'),
     path('send-email/', views.send_email, name='send_email'),
     path('favorites/', FavoriteListView.as_view(), name='favorite_list'),
+    path('favorites/count/', FavoriteCountView.as_view(), name='favorite_count'),
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'), 
 ] 
