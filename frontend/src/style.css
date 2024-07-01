@@ -165,6 +165,22 @@ body {
     border: #17A2B8 solid 1.5px;
     color: #17A2B8;
  }
+ .favorite-icon-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .favorite-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #BC2B2B;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8em;
+  }
+  
  .favorite:hover {
     background-color: #17A2B8;
     color: white;
@@ -365,6 +381,9 @@ input::placeholder:hover{
     justify-content: space-around;
     margin: 0.1em;
     animation: fadeInOut 4s linear infinite;
+}
+#notificationbartext{
+    font-size: 12px;
 }
 .notificationbar p {
     color:white;
@@ -611,6 +630,11 @@ p.title{
     border: brown solid 2px;
     transform: translateX(20em);
 }
+#shopping,#user{
+    color:rgba(0, 0, 0, 0.85);
+    width:0.7em;
+    margin:12px
+}
 .shoppingcarticon, .windowclose, .favorite {
     width:3em;
     gap: 10px;
@@ -669,9 +693,57 @@ p.title{
     width: 10%;
     color: gray;
 }
-  .star.active {
+.star.active {
     color: #BC2B2B;
 }
+.searchbar {
+    position: relative;
+}
+  
+.search-form {
+    position: relative;
+}
+
+#shopping:hover{
+    color:#fff
+}
+  .suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .suggestion-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .suggestion-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .suggestion-name {
+    flex: 1;
+  }
+    
 .tabcontainer{
     border: #000 solid 2px;
 }
@@ -720,6 +792,10 @@ p.title{
     transition: opacity 0.3s;
     font-family: "Rock Salt", cursive;
 }
+.user{
+    width:60%;
+}
+
 .user .heart .shopping {
     margin-left: 10px; 
 }
@@ -748,6 +824,58 @@ p.title{
     border: #BC2B2B solid 2px;
     color: white;
 }
+.user-icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center; 
+  }
+  
+  .welcome-text {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .user-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 120%; 
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 150px; 
+  }
+  
+  .user-dropdown a, .user-dropdown button {
+    padding: 10px;
+    text-align: left;
+    border: none;
+    background: none;
+    width: 100%;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .user-dropdown a:hover, .user-dropdown button:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .user-dropdown button {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .user-dropdown button:hover {
+    background-color: #f1f1f1;
+  }
 
 .windowclose{
     border: #BC2B2B solid 1.5px;

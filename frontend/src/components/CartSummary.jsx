@@ -12,8 +12,8 @@ const CartSummary = ({ mobileView }) => {
         <div className="checkoutdetails">
           <div className="cartdetails">
             <h4>Cart Summary</h4>
-            {cartItems.map((item, index) => (
-              <span key={index} className="checkoutitem">
+            {cartItems.map((item) => (
+              <span key={item.id} className="checkoutitem">
                 <img src={item.image} alt={item.name} />
                 <p>
                   {item.quantity}

@@ -168,6 +168,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 APPEND_SLASH = True
+AUTH_USER_MODEL = 'order.Customer'
 
 #Payment Intergrations
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')

@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const DJANGO_AUTH_API_URL = 'http://127.0.0.1:8000/api/token/';
-const SECOND_STEP_API_URL = 'http://127.0.0.1:8000/api/second-step-auth/';
-const VERIFY_CODE_API_URL = 'http://127.0.0.1:8000/api/verify-code/';
+const BASE_API_URL = 'http://127.0.0.1:8000/api/';
 
 const initialState = {
   isAuthenticated: false,
@@ -12,30 +10,40 @@ const initialState = {
   error: null,
 };
 
+export const registerUser = createAsyncThunk(
+  'user/registerUser',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${BASE_API_URL}register/`, userData);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 export const loginUser = createAsyncThunk(
   'user/loginUser',
-  async (credentials) => {
+  async ({ username, password }, { rejectWithValue }) => {
     try {
-      const djangoResponse = await axios.post(DJANGO_AUTH_API_URL, credentials);
-      const token = djangoResponse.data.access;
-
-      await axios.post(SECOND_STEP_API_URL, { email: credentials.email });
-
+      const response = await axios.post(`${BASE_API_URL}token/`, { username, password });
+      const token = response.data.access;
+      localStorage.setItem('token', token);
       return { token };
     } catch (error) {
-      throw error.response ? error.response.data.error : error.message;
+      return rejectWithValue(error.response ? error.response.data : error.message);
     }
   },
 );
 
 export const verifyCode = createAsyncThunk(
   'user/verifyCode',
-  async ({ email, code }) => {
+  async ({ username, code }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(VERIFY_CODE_API_URL, { email, code });
+      const response = await axios.post(`${BASE_API_URL}verify-code/`, { username, code });
       return response.data;
     } catch (error) {
-      throw error.response ? error.response.data.error : error.message;
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -43,9 +51,29 @@ export const verifyCode = createAsyncThunk(
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    logoutUser(state) {
+      state.isAuthenticated = false;
+      state.token = null;
+      state.user = null;
+    },
+    resetError(state) {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload ? action.payload.error : action.error.message;
+      })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -53,10 +81,13 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
+        state.isAuthenticated = true;
+        console.log('Login fulfilled', state);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload ? action.payload.error : action.error.message;
+        console.error('Login rejected', action.payload);
       })
       .addCase(verifyCode.pending, (state) => {
         state.loading = true;
@@ -68,9 +99,11 @@ const userSlice = createSlice({
       })
       .addCase(verifyCode.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload ? action.payload.error : action.error.message;
       });
   },
 });
+
+export const { logoutUser, resetError } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,5 +1,5 @@
 import uuid
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models, transaction
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -11,15 +11,32 @@ import datetime
 import base64
 from django.conf import settings
 
+class CustomerManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
+    def create_superuser(self, username, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(username, email, password, **extra_fields)
+    
 class Customer(AbstractUser):
-    name = models.CharField(_('Name'), max_length=150)
+    username = models.CharField(_('Name'), max_length=150, unique=True)
     email = models.EmailField(_('Email address'), unique=True)
     location = models.CharField(_('Location'), max_length=255, blank=True)
     city = models.CharField(_('City'), max_length=100, blank=True)
     country = models.CharField(_('Country'), max_length=100, blank=True)
     favorites = models.ManyToManyField('Product', related_name='favorited_by', blank=True)
     products = models.ManyToManyField('Product', related_name='customers')
+    
+    objects = CustomerManager()
     
     PAYMENT_METHOD_CHOICES = (
         ('visa', 'Visa'),
@@ -62,6 +79,15 @@ class Customer(AbstractUser):
                 cart_item.save()
         except ObjectDoesNotExist:
             raise ValueError("The product does not exist.")
+        
+    def favorite_product(self, product):
+        self.favorites.add(product)
+    
+    def unfavorite_product(self, product):
+        self.favorites.remove(product)
+    
+    def is_product_favorited(self, product):
+        return self.favorites.filter(id=product.id).exists()
     
 class Category(models.Model):
     CATEGORY_CHOICES = [
@@ -181,13 +207,6 @@ class Cart(models.Model):
         for item in self.cartitem_set.all():
             OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, subtotal=item.subtotal)
         self.cartitem_set.all().delete()
-class VerificationCode(models.Model):
-    email = models.EmailField(unique=True)
-    code = models.CharField(max_length=6)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def is_expired(self):
-        return (timezone.now() - self.created_at).total_seconds() > 300
     
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

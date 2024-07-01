@@ -1,25 +1,50 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faSearch, faUser, faHeart, faShoppingCart, faHome,
+  faSearch, faHeart, faShoppingCart, faHome,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { updateQuery, searchProducts } from '../store/searchSlice';
+import { fetchSuggestions, clearSuggestions } from '../store/suggestionsSlice';
+import { fetchFavoriteCountThunk } from '../store/favoriteSlice';
+import { logoutUser } from '../store/userSlice';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [isFavoriteClicked, setIsFavoriteClicked] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const suggestions = useSelector((state) => state.suggestions.suggestions) || [];
+  const favoriteCount = useSelector((state) => state.favorites.count);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+  useEffect(() => {
+    if (searchTerm.trim()) {
+      dispatch(fetchSuggestions(searchTerm));
+      setShowDropdown(true);
+    } else {
+      dispatch(clearSuggestions());
+      setShowDropdown(false);
+    }
+  }, [searchTerm, dispatch]);
+
+  useEffect(() => {
+    if (isFavoriteClicked) {
+      dispatch(fetchFavoriteCountThunk());
+    }
+  }, [isFavoriteClicked, dispatch]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    setErrorMessage('');
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    setShowDropdown(false);
     if (searchTerm.trim() === '') {
       navigate(`/searchpage?query=${encodeURIComponent(searchTerm)}&error=empty`);
     } else {
@@ -39,6 +64,23 @@ const SearchBar = () => {
     }
   };
 
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion.name);
+    setShowDropdown(false);
+    navigate(`/searchpage?query=${encodeURIComponent(suggestion.name)}`);
+  };
+
+  const handleFavoriteClick = () => {
+    setIsFavoriteClicked(true);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate('/');
+  };
+
+  const sortedSuggestions = [...suggestions].sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <div className="searchbar">
       <h3>Modern Man</h3>
@@ -54,14 +96,42 @@ const SearchBar = () => {
           className="search-input"
           value={searchTerm}
           onChange={handleSearchChange}
+          onFocus={() => setShowDropdown(true)}
         />
+        {showDropdown && sortedSuggestions.length > 0 && (
+          <ul className="suggestions">
+            {sortedSuggestions.map((item) => (
+              <li key={item.id} className="suggestion-item" onClick={() => handleSuggestionClick(item)}>
+                <img src={item.image} alt={item.name} className="suggestion-image" />
+                <span className="suggestion-name">{item.name}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </form>
       <div className="user-icons">
-        <FontAwesomeIcon icon={faUser} className="user" />
-        <span className="tooltip-text">User Profile</span>
-        <FontAwesomeIcon icon={faShoppingCart} className="shopping" />
-        <span className="tooltip-text">Checkout</span>
-        <FontAwesomeIcon icon={faHeart} className="heart" />
+        {isAuthenticated && (
+        <div
+          className="user-icon"
+          onMouseEnter={() => setShowUserDropdown(true)}
+          onMouseLeave={() => setShowUserDropdown(false)}
+        >
+          <FontAwesomeIcon icon={faUser} id="user" />
+          {showUserDropdown && (
+          <div className="user-dropdown">
+            <Link to="/profile">Profile</Link>
+            <button type="button" onClick={handleLogout}>Logout</button>
+          </div>
+          )}
+        </div>
+        )}
+        <Link to="/checkout">
+          <FontAwesomeIcon icon={faShoppingCart} id="shopping" />
+          <span className="tooltip-text">Checkout</span>
+        </Link>
+        <FontAwesomeIcon icon={faHeart} className="heart" onClick={handleFavoriteClick} />
+        <span className="favorite-count">{favoriteCount}</span>
+        {favoriteCount > 0 && isFavoriteClicked && <span className="favorite-count">{favoriteCount}</span>}
         <span className="tooltip-text">Favorite</span>
       </div>
     </div>

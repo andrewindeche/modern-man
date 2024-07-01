@@ -2,10 +2,10 @@ import random
 from rest_framework import generics, viewsets,status
 from django.utils import timezone
 from rest_framework.response import Response
-from .utils.utils import send_verification_email
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .models import Product, Order, Cart, CartItem, CoverImages, VerificationCode,ProductDiscountFilter
-from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer, CoverImagesSerializer,EmailSerializer, VerifyCodeSerializer, ChargeSerializer, MpesaTransactionSerializer, AddToCartSerializer, CartItemSerializer
+from .models import Product, Order, Cart, CartItem, CoverImages,ProductDiscountFilter, Customer
+from .serializers import ProductSerializer, CustomTokenObtainPairSerializer, CartSerializer, OrderSerializer,RegisterSerializer, FavoriteCountSerializer
+from .serializers import CoverImagesSerializer,EmailSerializer, ChargeSerializer, MpesaTransactionSerializer, AddToCartSerializer
 from .utils.mpesa_utils import lipa_na_mpesa_online 
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated
@@ -15,8 +15,11 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from .utils.mpesa_utils import process_mpesa_callback
+from django.core.mail import send_mail
+from .serializers import EmailSerializer
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -30,6 +33,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         if category_name is not None:
             queryset = queryset.filter(category__name=category_name)
         return queryset
+
 
 class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
@@ -51,53 +55,30 @@ class DiscountedProductListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return Product.objects.filter(discount_percentage__gt=0)
+    
+class FavoriteListView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.favorites.all()
+    
+class FavoriteCountView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = FavoriteCountSerializer
+
+    def get_queryset(self):
+        return Customer.objects.filter(id=self.request.user.id).annotate(count=Count('favorites'))
+
+    def list(self, request, *args, **kwargs):
+        user = self.get_queryset().first()
+        count = user.count if user else 0
+        serializer = self.get_serializer({'count': count})
+        return Response(serializer.data)
         
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
-
-class DoubleAuthView(generics.GenericAPIView):
-    serializer_class = EmailSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data['email']
-        
-        verification_code = str(random.randint(100000, 999999))
-        
-        VerificationCode.objects.update_or_create(
-            email=email,
-            defaults={'code': verification_code, 'created_at': timezone.now()}
-        )
-        
-        try:
-            send_verification_email(email, verification_code)
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-        return Response({"detail": "Verification code sent"}, status=status.HTTP_200_OK)
-
-class VerifyCodeView(generics.GenericAPIView):
-    serializer_class = VerifyCodeSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data['email']
-        code = serializer.validated_data['code']
-        
-        try:
-            verification_code = VerificationCode.objects.get(email=email)
-        except VerificationCode.DoesNotExist:
-            return Response({"error": "Verification code not found"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        if verification_code.is_expired():
-            return Response({"error": "Verification code expired"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        if verification_code.code != code:
-            return Response({"error": "Invalid verification code"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        return Response({"detail": "Second step authentication passed"}, status=status.HTTP_200_OK)
 
 class CartCreateAPIView(generics.CreateAPIView):
     queryset = Cart.objects.all()
@@ -160,7 +141,18 @@ class StripeChargeView(generics.GenericAPIView):
             return Response({'charge': charge}, status=status.HTTP_200_OK)
         except stripe.error.StripeError as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
+        
+class SearchSuggestionsView(generics.GenericAPIView):
+    serializer_class = ProductSerializer
+    
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('query', '')
+        if query:
+            suggestions = Product.objects.filter(name__istartswith=query).order_by('name')[:10]
+            serializer = self.get_serializer(suggestions, many=True)
+            return Response(serializer.data)
+        return Response([])
+    
 class MpesaChargeView(generics.GenericAPIView):
     serializer_class = MpesaTransactionSerializer
 
@@ -183,6 +175,34 @@ class MpesaChargeView(generics.GenericAPIView):
 
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class RegisterView(generics.GenericAPIView):
+    serializer_class = RegisterSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+def send_email(request):
+    if request.method == 'POST':
+        serializer = EmailSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                send_mail(serializer.validated_data['subject'],
+                          serializer.validated_data['text'],
+                          'sender@example.com',
+                          [serializer.validated_data['to']])
+                return Response({'message': 'Email sent successfully'}, status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Only POST requests are allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 def get_stripe_public_key(request):
     return JsonResponse({'publicKey': settings.STRIPE_PUBLISHABLE_KEY})
