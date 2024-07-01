@@ -36,6 +36,7 @@ const Registration = () => {
       username: formData.username,
       email: formData.email,
       password: formData.password,
+      confirm_password: formData.confirm_password,
     }))
       .unwrap()
       .then(() => {
@@ -94,6 +95,6 @@ const Registration = () => {
       </form>
     </div>
   );
-}
+};
 
 export default Registration;

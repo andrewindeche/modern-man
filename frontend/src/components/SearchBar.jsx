@@ -4,10 +4,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch, faHeart, faShoppingCart, faHome,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { updateQuery, searchProducts } from '../store/searchSlice';
 import { fetchSuggestions, clearSuggestions } from '../store/suggestionsSlice';
 import { fetchFavoriteCountThunk } from '../store/favoriteSlice';
+import { logoutUser } from '../store/userSlice';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,6 +19,8 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const suggestions = useSelector((state) => state.suggestions.suggestions) || [];
   const favoriteCount = useSelector((state) => state.favorites.count);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   useEffect(() => {
     if (searchTerm.trim()) {
@@ -70,6 +74,11 @@ const SearchBar = () => {
     setIsFavoriteClicked(true);
   };
 
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate('/');
+  };
+
   const sortedSuggestions = [...suggestions].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
@@ -101,6 +110,21 @@ const SearchBar = () => {
         )}
       </form>
       <div className="user-icons">
+        {isAuthenticated && (
+        <div
+          className="user-icon"
+          onMouseEnter={() => setShowUserDropdown(true)}
+          onMouseLeave={() => setShowUserDropdown(false)}
+        >
+          <FontAwesomeIcon icon={faUser} id="user" />
+          {showUserDropdown && (
+          <div className="user-dropdown">
+            <Link to="/profile">Profile</Link>
+            <button type="button" onClick={handleLogout}>Logout</button>
+          </div>
+          )}
+        </div>
+        )}
         <Link to="/checkout">
           <FontAwesomeIcon icon={faShoppingCart} id="shopping" />
           <span className="tooltip-text">Checkout</span>

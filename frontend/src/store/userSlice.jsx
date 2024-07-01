@@ -36,6 +36,18 @@ export const loginUser = createAsyncThunk(
   },
 );
 
+export const verifyCode = createAsyncThunk(
+  'user/verifyCode',
+  async ({ username, code }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${BASE_API_URL}verify-code/`, { username, code });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -69,8 +81,23 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
+        state.isAuthenticated = true;
+        console.log('Login fulfilled', state);
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload ? action.payload.error : action.error.message;
+        console.error('Login rejected', action.payload);
+      })
+      .addCase(verifyCode.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyCode.fulfilled, (state) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+      })
+      .addCase(verifyCode.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload ? action.payload.error : action.error.message;
       });

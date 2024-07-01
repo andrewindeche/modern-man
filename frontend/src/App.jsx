@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Routes, Router, Route, Navigate,
+  Routes, Route, Navigate,
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
