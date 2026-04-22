@@ -3,10 +3,22 @@ import axios from 'axios';
 
 const BASE_API_URL = 'http://127.0.0.1:8000/api/';
 
+const loadUserFromStorage = () => {
+  const token = localStorage.getItem('token');
+  const user = localStorage.getItem('user');
+  return {
+    isAuthenticated: !!token,
+    token: token,
+    user: user ? JSON.parse(user) : null,
+  };
+};
+
+const savedUser = loadUserFromStorage();
+
 const initialState = {
-  isAuthenticated: false,
-  token: null,
-  user: null,
+  isAuthenticated: savedUser.isAuthenticated,
+  token: savedUser.token,
+  user: savedUser.user,
   loading: false,
   error: null,
 };
@@ -33,6 +45,7 @@ export const loginUser = createAsyncThunk(
       
       localStorage.setItem('token', access);
       localStorage.setItem('refresh_token', refresh);
+      localStorage.setItem('user', JSON.stringify(user || { username }));
       
       return { 
         token: access, 
@@ -55,6 +68,7 @@ const userSlice = createSlice({
       state.user = null;
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user');
     },
     resetError(state) {
       state.error = null;
