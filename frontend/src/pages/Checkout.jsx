@@ -22,10 +22,22 @@ const Checkout = () => {
     dispatch(setSelectedOption(option));
   };
 
+  const formatPhoneNumber = (num) => {
+    // Convert to 254 format
+    let phoneNum = num.replace(/\D/g, '');
+    if (phoneNum.startsWith('0')) {
+      phoneNum = '254' + phoneNum.substring(1);
+    } else if (phoneNum.startsWith('7')) {
+      phoneNum = '254' + phoneNum;
+    }
+    return phoneNum;
+  };
+
   const handleMpesaSubmit = (e) => {
     e.preventDefault();
     setProcessing(true);
-    dispatch(initiateMpesaPayment({ phone_number: phone, amount: total }))
+    const formattedPhone = formatPhoneNumber(phone);
+    dispatch(initiateMpesaPayment({ phone_number: formattedPhone, amount: total }))
       .finally(() => setProcessing(false));
   };
 
@@ -91,12 +103,12 @@ const Checkout = () => {
                 <label>Enter M-Pesa Phone Number</label>
                 <input
                   type="tel"
-                  placeholder="e.g. 254712345678"
+                  placeholder="e.g. 0712345678 or 254712345678"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required
                 />
-                <p className="form-hint">Enter the phone number registered with M-Pesa</p>
+                <p className="form-hint">Use your Safaricom number registered with M-Pesa</p>
               </div>
               <button type="submit" className="pay-btn" disabled={processing || !phone}>
                 {processing ? 'Processing...' : `Pay KES ${grandTotal.toLocaleString()}`}
