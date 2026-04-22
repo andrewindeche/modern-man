@@ -2,25 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEnvelope, faLock, faEye, faEyeSlash, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { registerUser, resetError } from '../store/userSlice';
 
 const Registration = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
+    phone: '',
     password: '',
     confirm_password: '',
   });
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error, isAuthenticated } = useSelector((state) => state.user);
 
-  useEffect(() => () => {
+  useEffect(() => {
     dispatch(resetError());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,7 +36,6 @@ const Registration = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirm_password) {
-      alert('Passwords do not match');
       return;
     }
     dispatch(registerUser({
@@ -40,59 +46,125 @@ const Registration = () => {
     }))
       .unwrap()
       .then(() => {
-        if (!loading && !error) {
-          alert('Registration successful.');
-          navigate('/login');
-        }
+        navigate('/login');
       })
-      .catch((err) => {
-        console.error('Registration failed:', err);
-      });
+      .catch(() => {});
   };
 
   return (
-    <div className="registrationForm">
-      <form method="post" action="/api/register/" onSubmit={handleSubmit}>
-        <Link to="/checkout">
-          <FontAwesomeIcon icon={faHome} className="home-icon" />
-          <span className="tooltip-text">Go To Home</span>
+    <div className="auth-page">
+      <div className="auth-container">
+        <Link to="/" className="auth-logo">
+          <span className="logo-text">Modern</span>
+          <span className="logo-accent">Man</span>
         </Link>
-        <p>Registration: Create User Account</p>
-        {error && <p className="error">{error}</p>}
-        <div id="registrationFormBody">
-          <div className="input-group" id="registrationInputs">
-            <label>Username</label>
-            <input type="text" name="username" placeholder="Enter your Username" required onChange={handleChange} />
-          </div>
-          <div className="input-group" id="registrationInputs">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Enter your Email" required onChange={handleChange} />
-          </div>
-          <div className="input-group" id="registrationInputs">
-            <label>Password</label>
-            <div className="password-container">
-              <input type={passwordVisible ? 'text' : 'password'} name="password" placeholder="Enter your Password" required onChange={handleChange} />
-              <FontAwesomeIcon
-                icon={passwordVisible ? faEyeSlash : faEye}
-                onClick={() => setPasswordVisible(!passwordVisible)}
-                className="password-toggle-icon"
-              />
+        
+        <div className="auth-card">
+          <h2>Create Account</h2>
+          <p className="auth-subtitle">Join us and start shopping</p>
+          
+          {error && <div className="auth-error">{error}</div>}
+          
+          <form onSubmit={handleSubmit} className="auth-form">
+            <div className="form-group">
+              <label>Username</label>
+              <div className="input-wrapper">
+                <FontAwesomeIcon icon={faUser} className="input-icon" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Choose a username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <div className="input-group" id="registrationInputs">
-            <label>Confirm Password</label>
-            <div className="password-container">
-              <input type={confirmPasswordVisible ? 'text' : 'password'} name="confirm_password" placeholder="Confirm your Password" required onChange={handleChange} />
-              <FontAwesomeIcon
-                icon={confirmPasswordVisible ? faEyeSlash : faEye}
-                onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-                className="password-toggle-icon"
-              />
+            
+            <div className="form-group">
+              <label>Email</label>
+              <div className="input-wrapper">
+                <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <button type="submit">Register</button>
+            
+            <div className="form-group">
+              <label>Phone</label>
+              <div className="input-wrapper">
+                <FontAwesomeIcon icon={faPhone} className="input-icon" />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Enter your phone number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <label>Password</label>
+              <div className="input-wrapper">
+                <FontAwesomeIcon icon={faLock} className="input-icon" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Create a password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                </button>
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <label>Confirm Password</label>
+              <div className="input-wrapper">
+                <FontAwesomeIcon icon={faLock} className="input-icon" />
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  name="confirm_password"
+                  placeholder="Confirm your password"
+                  value={formData.confirm_password}
+                  onChange={handleChange}
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                </button>
+              </div>
+            </div>
+            
+            <button type="submit" className="auth-btn" disabled={loading}>
+              {loading ? 'Creating account...' : 'Create Account'}
+            </button>
+          </form>
+          
+          <p className="auth-footer">
+            Already have an account?{' '}
+            <Link to="/login">Sign in</Link>
+          </p>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
