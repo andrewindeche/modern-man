@@ -117,16 +117,30 @@ class MpesaTransactionSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True, min_length=8)
     confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
         model = Customer
-        fields = ('username', 'email',  'password', 'confirm_password')
+        fields = ('username', 'email', 'password', 'confirm_password')
+
+    def validate_username(self, value):
+        if Customer.objects.filter(username__iexact=value).exists():
+            raise serializers.ValidationError("Username already exists")
+        return value
+
+    def validate_email(self, value):
+        if Customer.objects.filter(email__iexact=value).exists():
+            raise serializers.ValidationError("Email already registered")
+        return value
 
     def validate(self, data):
         if data['password'] != data['confirm_password']:
-            raise serializers.ValidationError("Passwords do not match")
+            raise serializers.ValidationError({"confirm_password": "Passwords do not match"})
+        
+        if len(data['password']) < 8:
+            raise serializers.ValidationError({"password": "Password must be at least 8 characters"})
+        
         return data
 
     def create(self, validated_data):

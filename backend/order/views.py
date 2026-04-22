@@ -80,6 +80,27 @@ class FavoriteCountView(generics.ListAPIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            tokens = serializer.validated_data
+            return Response({
+                'message': 'Login successful',
+                'access': tokens['access'],
+                'refresh': tokens['refresh'],
+                'user': {
+                    'id': request.user.id,
+                    'username': request.user.username,
+                    'email': request.user.email
+                }
+            })
+        
+        username = request.data.get('username', '')
+        return Response({
+            'error': 'Invalid credentials',
+            'details': 'Username or password is incorrect'
+        }, status=status.HTTP_401_UNAUTHORIZED)
+
 class CartCreateAPIView(generics.CreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
@@ -182,9 +203,25 @@ class RegisterView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            user = serializer.save()
+            return Response({
+                'message': 'User registered successfully',
+                'user': {
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email
+                }
+            }, status=status.HTTP_201_CREATED)
+        
+        errors = serializer.errors
+        error_messages = []
+        for field, messages in errors.items():
+            error_messages.append(f"{field}: {', '.join(messages)}")
+        
+        return Response({
+            'error': 'Registration failed',
+            'details': error_messages
+        }, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['POST'])
 def send_email(request):
