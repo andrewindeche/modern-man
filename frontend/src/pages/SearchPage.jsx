@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { fetchProducts } from '../store/productsSlice';
@@ -8,7 +8,6 @@ import { fetchDiscountedProducts } from '../store/discountsSlice';
 import { searchProducts, updateQuery } from '../store/searchSlice';
 import NotificationBar from '../components/NotificationBar';
 import SearchBar from '../components/SearchBar';
-import NavButtons from '../components/NavButtons';
 import ModalContent from '../components/Modal';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
@@ -53,91 +52,73 @@ const SearchPage = () => {
     setSelectedItem(item);
   };
 
+  const getPageTitle = () => {
+    if (searchQuery) return `Search: "${searchQuery}"`;
+    if (discounted) return 'Discounted Products';
+    if (category) return category.charAt(0).toUpperCase() + category.slice(1);
+    return 'All Products';
+  };
+
   const renderItems = (items) => (
-    items.map((item, index) => (
-      <div key={index} className="image" onClick={(event) => handleItemClick(item, event)}>
-        <div className="container">
-          {item.discount_percentage > 0 && (
-          <span className="ondiscount">
-            {item.discount_percentage}
-            %
-          </span>
-          )}
-          <img src={item.image} alt={item.name} />
-          <p className="itemname">{item.name}</p>
-          {[...Array(5)].map((_, i) => (
-            <FontAwesomeIcon
-              // eslint-disable-next-line react/no-array-index-key
-              key={i}
-              icon={faStar}
-              className={`star ${i < item.average_rating ? 'active' : ''}`}
-              size="2x"
-            />
-          ))}
-          <p id="price">
-            $
-            {item.discounted_price}
-          </p>
+    <div className="products-grid">
+      {items.map((item) => (
+        <div key={item.id} className="product-card" onClick={(event) => handleItemClick(item, event)}>
+          <div className="product-img-wrap">
+            <img src={item.image} alt={item.name} />
+            {item.discount_percentage > 0 && (
+              <span className="product-badge">-{item.discount_percentage}%</span>
+            )}
+          </div>
+          <div className="product-info">
+            <h3>{item.name}</h3>
+            <div className="product-rating">
+              {[...Array(5)].map((_, i) => (
+                <FontAwesomeIcon
+                  key={i}
+                  icon={faStar}
+                  className={`star ${i < item.average_rating ? 'active' : ''}`}
+                />
+              ))}
+              <span>({item.reviews_count || 0})</span>
+            </div>
+            <p className="product-price">
+              KES {item.discounted_price || item.price}
+              {item.discounted_price && (
+                <span className="original-price">KES {item.price}</span>
+              )}
+            </p>
+          </div>
         </div>
-      </div>
-    ))
+      ))}
+    </div>
   );
 
   const renderContent = () => {
     if (searchQuery === '' && error === 'empty') {
-      return <p>Please enter a search.</p>;
+      return <p className="empty-message">Please enter a search term.</p>;
     }
     if (searchQuery) {
-      switch (error) {
-        case 'noresults':
-          return (
-            <p>
-              No search result found for
-              {' '}
-              {searchQuery}
-              .
-            </p>
-          );
-        default:
-          if (searchLoading) {
-            return <p>Loading...</p>;
-          } if (searchError) {
-            return (
-              <p>
-                Error:
-                {' '}
-                {searchError}
-              </p>
-            );
-          }
-          return renderItems(searchItems);
-      }
-    } else if (loading) {
-      return <p>Loading...</p>;
-    } else if (fetchError) {
-      return (
-        <p>
-          Error:
-          {' '}
-          {fetchError}
-        </p>
-      );
-    } else {
-      return renderItems(items);
+      if (searchLoading) return <p className="loading-message">Loading...</p>;
+      if (searchError) return <p className="error-message">Error: {searchError}</p>;
+      if (!searchItems || searchItems.length === 0) return <p className="empty-message">No results found for "{searchQuery}"</p>;
+      return renderItems(searchItems);
     }
+    if (loading) return <p className="loading-message">Loading...</p>;
+    if (fetchError) return <p className="error-message">Error: {fetchError}</p>;
+    if (!items || items.length === 0) return <p className="empty-message">No products available</p>;
+    return renderItems(items);
   };
 
   return (
     <>
       <NotificationBar />
-      <NavButtons />
       <SearchBar />
-      <div className="searchresultsimages">
+      <section className="search-results">
+        <h1 className="page-title">{getPageTitle()}</h1>
         {renderContent()}
-        <span className="tooltip-text">View More</span>
-      </div>
+      </section>
       {selectedItem && (
-        <div className="modal-background" onClick={() => setSelectedItem(null)}>
+        <div className="modal-overlay" onClick={() => setSelectedItem(null)}>
           <ModalContent item={selectedItem} onClose={() => setSelectedItem(null)} position={modalPosition} />
         </div>
       )}
