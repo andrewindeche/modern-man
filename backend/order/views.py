@@ -84,18 +84,19 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             tokens = serializer.validated_data
+            user = serializer.user
+            
             return Response({
                 'message': 'Login successful',
                 'access': tokens['access'],
                 'refresh': tokens['refresh'],
                 'user': {
-                    'id': request.user.id,
-                    'username': request.user.username,
-                    'email': request.user.email
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email
                 }
             })
         
-        username = request.data.get('username', '')
         return Response({
             'error': 'Invalid credentials',
             'details': 'Username or password is incorrect'
