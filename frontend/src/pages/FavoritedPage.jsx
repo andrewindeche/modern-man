@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faHeart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { fetchFavoritesThunk } from '../store/favoriteSlice';
 import ModalContent from '../components/Modal';
 
 const FavoritedPage = () => {
-  const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
-  useEffect(() => {
-    dispatch(fetchFavoritesThunk());
-  }, [dispatch]);
-
-  const { items = [], loading, error } = favorites;
+  const items = favorites.items || [];
 
   const handleItemClick = (item, event) => {
-    const rect = event.target.getBoundingClientRect();
-    setModalPosition({ top: rect.top + window.scrollY, left: rect.left + window.scrollX });
     setSelectedItem(item);
   };
 
@@ -41,7 +33,7 @@ const FavoritedPage = () => {
                 <FontAwesomeIcon
                   key={i}
                   icon={faStar}
-                  className={`star ${i < item.average_rating ? 'active' : ''}`}
+                  className={`star ${i < (item.average_rating || 0) ? 'active' : ''}`}
                 />
               ))}
             </div>
@@ -66,11 +58,7 @@ const FavoritedPage = () => {
       <h1 className="page-title">My Favorites</h1>
       
       <div className="favorites-content">
-        {loading ? (
-          <p className="loading-message">Loading...</p>
-        ) : error ? (
-          <p className="error-message">Error: {error}</p>
-        ) : items.length === 0 ? (
+        {items.length === 0 ? (
           <div className="empty-favorites">
             <FontAwesomeIcon icon={faHeart} className="empty-icon" />
             <h2>No favorites yet</h2>
