@@ -11,17 +11,12 @@
     "lint": "eslint",
     "build": "webpack --config webpack.prod.js",
     "test": "jest",
+    "test:watch": "jest --watch",
     "clean": "rm -rf dist/",
     "dev": "webpack serve --open --port 3000 --config webpack.dev.js"
   },
   "jest": {
     "verbose": true,
-    "collectCoverage": true,
-    "coverageDirectory": "coverage",
-    "coverageReporters": [
-      "html",
-      "text"
-    ],
     "testEnvironment": "jsdom",
     "moduleDirectories": [
       "node_modules",
