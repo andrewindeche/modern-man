@@ -28,6 +28,17 @@ const favoriteSlice = createSlice({
     error: null,
   },
   reducers: {
+    addFavorite: (state, action) => {
+      const exists = state.items.find((item) => item.id === action.payload.id);
+      if (!exists) {
+        state.items.push(action.payload);
+        state.count = state.items.length;
+      }
+    },
+    removeFavorite: (state, action) => {
+      state.items = state.items.filter((item) => item.id !== action.payload.id);
+      state.count = state.items.length;
+    },
     incrementCount(state) {
       state.count += 1;
     },
@@ -64,5 +75,5 @@ const favoriteSlice = createSlice({
   },
 });
 
-export const { incrementCount, resetCount } = favoriteSlice.actions;
+export const { addFavorite, removeFavorite, incrementCount, resetCount } = favoriteSlice.actions;
 export default favoriteSlice.reducer;
