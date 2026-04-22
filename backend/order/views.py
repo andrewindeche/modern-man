@@ -152,6 +152,7 @@ class StripeChargeView(generics.GenericAPIView):
         amount = serializer.validated_data['amount']
         currency = serializer.validated_data['currency']
         description = serializer.validated_data.get('description', 'A Django charge')
+        phone_number = serializer.validated_data.get('phone_number')
 
         try:
             charge = stripe.Charge.create(
@@ -160,8 +161,22 @@ class StripeChargeView(generics.GenericAPIView):
                 description=description,
                 source=stripe_token,
             )
+            # Send SMS notification if phone provided
+            if phone_number:
+                try:
+                    from .utils.sms_utils import send_payment_sms
+                    send_payment_sms(phone_number, amount, 'Success')
+                except Exception as e:
+                    print(f"SMS sending failed: {e}")
             return Response({'charge': charge}, status=status.HTTP_200_OK)
         except stripe.error.StripeError as e:
+            # Send failure SMS if phone provided
+            if phone_number:
+                try:
+                    from .utils.sms_utils import send_payment_sms
+                    send_payment_sms(phone_number, amount, 'Failed')
+                except Exception as e:
+                    print(f"SMS sending failed: {e}")
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
 class SearchSuggestionsView(generics.GenericAPIView):
@@ -191,9 +206,21 @@ class MpesaChargeView(generics.GenericAPIView):
 
             # Save transaction in the database
             if response.get('ResponseCode') == '0':  # assuming '0' is success
-                serializer.save(status='Success')
+                transaction = serializer.save(status='Success')
+                # Send SMS notification
+                try:
+                    from .utils.sms_utils import send_payment_sms
+                    send_payment_sms(phone_number, amount, 'Success')
+                except Exception as e:
+                    print(f"SMS sending failed: {e}")
             else:
-                serializer.save(status='Failed')
+                transaction = serializer.save(status='Failed')
+                # Send failure SMS
+                try:
+                    from .utils.sms_utils import send_payment_sms
+                    send_payment_sms(phone_number, amount, 'Failed')
+                except Exception as e:
+                    print(f"SMS sending failed: {e}")
 
             return Response(response, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

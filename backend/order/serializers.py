@@ -110,8 +110,11 @@ class ChargeSerializer(serializers.Serializer):
     amount = serializers.IntegerField()
     currency = serializers.CharField(max_length=3, default='usd')
     description = serializers.CharField(max_length=255, required=False)
+    phone_number = serializers.CharField(max_length=20, required=False)
     
 class MpesaTransactionSerializer(serializers.ModelSerializer):
+    phone_number = serializers.CharField(max_length=20, required=False)
+    
     class Meta:
         model = MpesaTransaction
         fields = '__all__'

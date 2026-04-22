@@ -1083,6 +1083,30 @@ img { max-width: 100%; height: auto; }
   padding: 2rem;
 }
 
+.checkout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.back-home {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.back-home:hover {
+  background: var(--primary);
+  color: white;
+}
+
 .checkout-layout {
   display: grid;
   grid-template-columns: 1fr 400px;

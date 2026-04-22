@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faShoppingBag, faMoneyBillWave, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faShoppingBag, faMoneyBillWave, faMobileAlt, faArrowLeft, faHome } from '@fortawesome/free-solid-svg-icons';
 import { initiateMpesaPayment } from '../store/mpesaSlice';
 import { setSelectedOption } from '../store/paymentSlice';
-import MpesaImage from '../images/mpesa.webp';
 import VisaImage from '../images/visa.webp';
 import MastercardImage from '../images/mastercard.webp';
 
@@ -47,6 +46,12 @@ const Checkout = () => {
 
   return (
     <div className="checkout-page">
+      <div className="checkout-header">
+        <Link to="/" className="back-home">
+          <FontAwesomeIcon icon={faArrowLeft} />
+          <span>Continue Shopping</span>
+        </Link>
+      </div>
       <div className="checkout-layout">
         <div className="checkout-form-section">
           <h2 className="checkout-title">Checkout</h2>
