@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faShoppingBag, faMoneyBillWave } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faShoppingBag, faMoneyBillWave, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
 import { initiateMpesaPayment } from '../store/mpesaSlice';
 import { setSelectedOption } from '../store/paymentSlice';
+import MpesaImage from '../images/mpesa.webp';
+import VisaImage from '../images/visa.webp';
+import MastercardImage from '../images/mastercard.webp';
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -57,7 +60,7 @@ const Checkout = () => {
                 className={`payment-option ${selectedOption === 'mpesa' ? 'selected' : ''}`}
                 onClick={() => handleOptionChange('mpesa')}
               >
-                <img src={MpesaImage} alt="M-Pesa" />
+                <FontAwesomeIcon icon={faMobileAlt} className="payment-icon" />
                 <span>M-Pesa</span>
                 {selectedOption === 'mpesa' && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
               </button>
@@ -67,7 +70,10 @@ const Checkout = () => {
                 className={`payment-option ${selectedOption === 'card' ? 'selected' : ''}`}
                 onClick={() => handleOptionChange('card')}
               >
-                <FontAwesomeIcon icon={faMoneyBillWave} className="payment-icon" />
+                <div className="card-logos">
+                  <img src={VisaImage} alt="Visa" className="card-img" />
+                  <img src={MastercardImage} alt="Mastercard" className="card-img" />
+                </div>
                 <span>Card</span>
                 {selectedOption === 'card' && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
               </button>
