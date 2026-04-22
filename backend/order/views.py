@@ -60,22 +60,26 @@ class DiscountedProductListAPIView(generics.ListAPIView):
     
 class FavoriteListView(generics.ListAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
-
+    
     def get_queryset(self):
-        user = self.request.user
-        return user.favorites.all()
+        if self.request.user.is_authenticated:
+            return self.request.user.favorites.all()
+        return Product.objects.none()
     
 class FavoriteCountView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = FavoriteCountSerializer
 
     def get_queryset(self):
-        return Customer.objects.filter(id=self.request.user.id).annotate(count=Count('favorites'))
+        if self.request.user.is_authenticated:
+            return Customer.objects.filter(id=self.request.user.id).annotate(count=Count('favorites'))
+        return Customer.objects.none()
 
     def list(self, request, *args, **kwargs):
-        user = self.get_queryset().first()
-        count = user.count if user else 0
+        if request.user.is_authenticated:
+            user = self.get_queryset().first()
+            count = user.count if user else 0
+        else:
+            count = 0
         serializer = self.get_serializer({'count': count})
         return Response(serializer.data)
         
