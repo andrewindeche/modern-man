@@ -251,55 +251,44 @@ img { max-width: 100%; height: auto; }
 
 /* ===== CATEGORY NAV ===== */
 .category-nav {
-  padding: 1rem 2rem;
+  padding: 1.25rem 2rem;
   background: var(--background-white);
   border-bottom: 1px solid var(--border-light);
 }
 
 .category-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
 .category-card {
   position: relative;
-  display: block;
-  height: 160px;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: var(--transition);
-}
-
-.category-card:hover { transform: translateY(-4px); }
-
-.category-image {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: var(--transition);
-}
-
-.category-card:hover .category-image { transform: scale(1.08); }
-
-.category-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: 1.25rem;
+  min-width: 140px;
+  height: 50px;
+  background: var(--primary);
+  border-radius: var(--radius-md);
+  padding: 0 1.5rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.category-card:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
 }
 
 .category-name {
   color: white;
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* ===== PROMO BANNER ===== */
@@ -745,13 +734,17 @@ img { max-width: 100%; height: auto; }
   }
 
   .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.625rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 
-  .category-card { height: 120px; }
+  .category-card {
+    min-width: 100px;
+    height: 42px;
+    padding: 0 1rem;
+  }
 
-  .category-name { font-size: 0.8rem; }
+  .category-name { font-size: 0.75rem; }
 
   .cover-image { height: 220px; border-radius: var(--radius-lg); }
 
