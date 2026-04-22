@@ -4,18 +4,21 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch, faHeart, faShoppingCart, faHome,
-  faUser, faBars, faTimes
+  faUser
 } from '@fortawesome/free-solid-svg-icons';
 import { updateQuery, searchProducts } from '../store/searchSlice';
 import { fetchSuggestions, clearSuggestions } from '../store/suggestionsSlice';
 import { fetchFavoriteCountThunk } from '../store/favoriteSlice';
 import { logoutUser } from '../store/userSlice';
+import suitsImage from '../images/suits.webp';
+import shirtsImage from '../images/shirts.webp';
+import neckwearImage from '../images/neckwear.webp';
+import shoes from '../images/shoes1.webp';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFavoriteClicked, setIsFavoriteClicked] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const suggestions = useSelector((state) => state.suggestions.suggestions) || [];
@@ -85,11 +88,16 @@ const SearchBar = () => {
   return (
     <header className="header">
       <div className="header-main">
-        <div className="header-left">
-          <Link to="/" className="logo">
-            <span className="logo-text">Modern</span>
-            <span className="logo-accent">Man</span>
-          </Link>
+        <Link to="/" className="logo">
+          <span className="logo-text">Modern</span>
+          <span className="logo-accent">Man</span>
+        </Link>
+
+        <div className="category-nav-inline">
+          <Link to="/searchpage?category=suits" className="cat-btn" style={{ backgroundImage: `url(${suitsImage})` }}>Suits</Link>
+          <Link to="/searchpage?category=shirts" className="cat-btn" style={{ backgroundImage: `url(${shirtsImage})` }}>Shirts</Link>
+          <Link to="/searchpage?category=neckwear" className="cat-btn" style={{ backgroundImage: `url(${neckwearImage})` }}>Accessories</Link>
+          <Link to="/searchpage?category=shoes" className="cat-btn" style={{ backgroundImage: `url(${shoes})` }}>Shoes</Link>
         </div>
 
         <div className="header-center">
@@ -98,23 +106,13 @@ const SearchBar = () => {
               <FontAwesomeIcon icon={faSearch} className="search-icon" />
               <input
                 type="text"
-                placeholder="Search suits, shirts, shoes..."
+                placeholder="Search..."
                 className="search-input"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 onFocus={() => setShowDropdown(true)}
               />
             </div>
-            {showDropdown && sortedSuggestions.length > 0 && (
-              <ul className="suggestions">
-                {sortedSuggestions.map((item) => (
-                  <li key={item.id} className="suggestion-item" onClick={() => handleSuggestionClick(item)}>
-                    <img src={item.image} alt={item.name} className="suggestion-image" />
-                    <span className="suggestion-name">{item.name}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
           </form>
         </div>
 
@@ -122,16 +120,13 @@ const SearchBar = () => {
           <Link to="/" className="nav-icon" title="Home">
             <FontAwesomeIcon icon={faHome} />
           </Link>
-          
           <Link to="/checkout" className="nav-icon cart-icon" title="Cart">
             <FontAwesomeIcon icon={faShoppingCart} />
             {favoriteCount > 0 && <span className="cart-badge">{favoriteCount}</span>}
           </Link>
-          
           <Link to="/favorite" className="nav-icon" title="Favorites" onClick={handleFavoriteClick}>
             <FontAwesomeIcon icon={faHeart} />
           </Link>
-          
           <div
             className="nav-icon user-icon"
             onMouseEnter={() => setShowUserDropdown(true)}
@@ -151,25 +146,8 @@ const SearchBar = () => {
               </div>
             )}
           </div>
-
-          <button 
-            type="button" 
-            className="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <FontAwesomeIcon icon={mobileMenuOpen ? faTimes : faBars} />
-          </button>
         </div>
       </div>
-
-      {mobileMenuOpen && (
-        <nav className="mobile-nav">
-          <Link to="/searchpage?category=suits" onClick={() => setMobileMenuOpen(false)}>Suits</Link>
-          <Link to="/searchpage?category=shirts" onClick={() => setMobileMenuOpen(false)}>Shirts</Link>
-          <Link to="/searchpage?category=neckwear" onClick={() => setMobileMenuOpen(false)}>Accessories</Link>
-          <Link to="/searchpage?category=shoes" onClick={() => setMobileMenuOpen(false)}>Shoes</Link>
-        </nav>
-      )}
     </header>
   );
 };
