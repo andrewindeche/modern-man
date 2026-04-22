@@ -31,7 +31,7 @@ const ModalContent = ({ item, onClose }) => {
   
   const handleToggleFavorite = () => {
     if (isFavorite) {
-      dispatch(removeFavorite({ id }));
+      dispatch(removeFavorite({ id: item.id }));
     } else {
       dispatch(addFavorite(item));
     }

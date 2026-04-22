@@ -38,10 +38,32 @@ const saveFavoritesToStorage = (items) => {
 const favoriteSlice = createSlice({
   name: 'favorites',
   initialState: {
-    count: 0,
+    count: loadFavoritesFromStorage().length,
     items: loadFavoritesFromStorage(),
     loading: false,
     error: null,
+  },
+  reducers: {
+    addFavorite: (state, action) => {
+      const exists = state.items.find((item) => item.id === action.payload.id);
+      if (!exists && action.payload) {
+        state.items.push(action.payload);
+        state.count = state.items.length;
+        saveFavoritesToStorage(state.items);
+      }
+    },
+    removeFavorite: (state, action) => {
+      const id = action.payload?.id || action.payload;
+      state.items = state.items.filter((item) => item.id !== id);
+      state.count = state.items.length;
+      saveFavoritesToStorage(state.items);
+    },
+    incrementCount(state) {
+      state.count += 1;
+    },
+    resetCount(state) {
+      state.count = 0;
+    },
   },
   reducers: {
     addFavorite: (state, action) => {

@@ -8,13 +8,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { updateQuery, searchProducts } from '../store/searchSlice';
 import { fetchSuggestions, clearSuggestions } from '../store/suggestionsSlice';
-import { fetchFavoriteCountThunk } from '../store/favoriteSlice';
 import { logoutUser } from '../store/userSlice';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [isFavoriteClicked, setIsFavoriteClicked] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const suggestions = useSelector((state) => state.suggestions.suggestions) || [];
@@ -31,12 +29,6 @@ const SearchBar = () => {
       setShowDropdown(false);
     }
   }, [searchTerm, dispatch]);
-
-  useEffect(() => {
-    if (isFavoriteClicked) {
-      dispatch(fetchFavoriteCountThunk());
-    }
-  }, [isFavoriteClicked, dispatch]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
