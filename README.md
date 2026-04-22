@@ -62,7 +62,7 @@ Run `npm start` for a development server. Navigate to `http://localhost:3000/`. 
 Run `npm run start` for a production server, after building the project and generating neccesary statis files. Navigate to `http://localhost:3000/`. The application will automatically reload if you change any of the source files.
 
 <p><b>Django</b></p>
-Run `pipenv shell` to run python virtual environment with pipenv then `pip install -r backend/requirements.txt` and finally `python3 manage.py runserver` so as to run the django server and start the app. Navigate to server at http://127.0.0.1:8000/. for admin dashboard navigate to http://127.0.0.1:8000/admin
+Run `pipenv shell` to run python virtual environment with pipenv then `pip install -r backend/requirements.txt`, create an env, and finally `python3 manage.py runserver` so as to run the django server and start the app. Navigate to server at http://127.0.0.1:8000/. for admin dashboard navigate to http://127.0.0.1:8000/admin
 
 ## Code scaffolding
 
