@@ -3,10 +3,17 @@ import axios from 'axios';
 
 export const fetchFavoritesThunk = createAsyncThunk('favorites/fetch', async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/favorites/');
+    const token = localStorage.getItem('token');
+    const response = await axios.get('http://127.0.0.1:8000/api/favorites/', {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
     return response.data;
   } catch (error) {
-    return rejectWithValue(error.response.data);
+    // If unauthorized, return empty array (user not logged in)
+    if (error.response?.status === 401) {
+      return [];
+    }
+    return rejectWithValue(error.response?.data || error.message);
   }
 });
 
@@ -19,11 +26,20 @@ export const fetchFavoriteCountThunk = createAsyncThunk('favorites/fetchCount', 
   }
 });
 
+const loadFavoritesFromStorage = () => {
+  const stored = localStorage.getItem('favorites');
+  return stored ? JSON.parse(stored) : [];
+};
+
+const saveFavoritesToStorage = (items) => {
+  localStorage.setItem('favorites', JSON.stringify(items));
+};
+
 const favoriteSlice = createSlice({
   name: 'favorites',
   initialState: {
     count: 0,
-    items: [],
+    items: loadFavoritesFromStorage(),
     loading: false,
     error: null,
   },
@@ -33,11 +49,13 @@ const favoriteSlice = createSlice({
       if (!exists) {
         state.items.push(action.payload);
         state.count = state.items.length;
+        saveFavoritesToStorage(state.items);
       }
     },
     removeFavorite: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
       state.count = state.items.length;
+      saveFavoritesToStorage(state.items);
     },
     incrementCount(state) {
       state.count += 1;
