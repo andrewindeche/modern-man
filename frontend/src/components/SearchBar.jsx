@@ -10,10 +10,6 @@ import { updateQuery, searchProducts } from '../store/searchSlice';
 import { fetchSuggestions, clearSuggestions } from '../store/suggestionsSlice';
 import { fetchFavoriteCountThunk } from '../store/favoriteSlice';
 import { logoutUser } from '../store/userSlice';
-import suitsImage from '../images/suits.webp';
-import shirtsImage from '../images/shirts.webp';
-import neckwearImage from '../images/neckwear.webp';
-import shoes from '../images/shoes1.webp';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -92,13 +88,6 @@ const SearchBar = () => {
           <span className="logo-text">Modern</span>
           <span className="logo-accent">Man</span>
         </Link>
-
-        <div className="category-nav-inline">
-          <Link to="/searchpage?category=suits" className="cat-btn" style={{ backgroundImage: `url(${suitsImage})` }}>Suits</Link>
-          <Link to="/searchpage?category=shirts" className="cat-btn" style={{ backgroundImage: `url(${shirtsImage})` }}>Shirts</Link>
-          <Link to="/searchpage?category=neckwear" className="cat-btn" style={{ backgroundImage: `url(${neckwearImage})` }}>Accessories</Link>
-          <Link to="/searchpage?category=shoes" className="cat-btn" style={{ backgroundImage: `url(${shoes})` }}>Shoes</Link>
-        </div>
 
         <div className="header-center">
           <form className="search-form" onSubmit={handleSearchSubmit}>
