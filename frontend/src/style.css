@@ -62,16 +62,18 @@ img { max-width: 100%; height: auto; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.875rem 2rem;
+  padding: 0.75rem 2rem;
   max-width: 1600px;
   margin: 0 auto;
+  gap: 1.5rem;
 }
 
 .logo {
   display: flex;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.5px;
+  white-space: nowrap;
 }
 
 .logo-text { color: var(--primary); }
@@ -104,9 +106,15 @@ img { max-width: 100%; height: auto; }
   border: 3px solid var(--primary);
   border-radius: 50px;
   font-size: 1rem;
-  background: var(--background-white);
+  background: #fff;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(188, 43, 43, 0.15);
+  height: 48px;
+}
+
+.search-wrapper input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 4px 15px rgba(188, 43, 43, 0.25);
 }
 
 .search-wrapper input::placeholder {

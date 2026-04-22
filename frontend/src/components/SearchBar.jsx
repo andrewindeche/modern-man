@@ -94,7 +94,7 @@ const SearchBar = () => {
 
         <div className="header-center">
           <form className="search-form" onSubmit={handleSearchSubmit}>
-            <div className="search-input-wrapper">
+            <div className="search-wrapper">
               <FontAwesomeIcon icon={faSearch} className="search-icon" />
               <input
                 type="text"
