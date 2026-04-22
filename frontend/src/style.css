@@ -1354,6 +1354,91 @@ img { max-width: 100%; height: auto; }
   margin-bottom: 1.5rem;
 }
 
+/* ===== FAVORITES PAGE ===== */
+.favorites-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.favorites-page .page-header {
+  margin-bottom: 1.5rem;
+}
+
+.favorites-page .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.favorites-page .back-link:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.favorites-page .page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: var(--primary);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.favorites-content {
+  min-height: 400px;
+}
+
+.favorites-page .products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.empty-favorites {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-favorites .empty-icon {
+  font-size: 4rem;
+  color: var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.empty-favorites h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-favorites p {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+}
+
+.browse-btn {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.browse-btn:hover {
+  background: var(--primary-dark);
+}
+
 /* ===== MODAL ===== */
 .modal-overlay {
   position: fixed;

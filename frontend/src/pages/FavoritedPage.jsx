@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faHeart, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { fetchFavoritesThunk } from '../store/favoriteSlice';
-import NotificationBar from '../components/NotificationBar';
-import SearchBar from '../components/SearchBar';
-import NavButtons from '../components/NavButtons';
 import ModalContent from '../components/Modal';
 
 const FavoritedPage = () => {
@@ -27,57 +25,69 @@ const FavoritedPage = () => {
   };
 
   const renderItems = (items) => (
-    items.map((item, index) => (
-      <div key={index} className="image" onClick={(event) => handleItemClick(item, event)}>
-        <div className="container">
-          {item.discount_percentage > 0 && (
-          <span className="ondiscount">
-            {item.discount_percentage}
-            %
-          </span>
-          )}
-          <img src={item.image} alt={item.name} />
-          <p className="itemname">{item.name}</p>
-          {[...Array(5)].map((_, i) => (
-            <FontAwesomeIcon
-              key={i}
-              icon={faStar}
-              className={`star ${i < item.average_rating ? 'active' : ''}`}
-              size="2x"
-            />
-          ))}
-          <p id="price">
-            $
-            {item.discounted_price || item.price}
-          </p>
+    <div className="products-grid">
+      {items.map((item) => (
+        <div key={item.id} className="product-card" onClick={(event) => handleItemClick(item, event)}>
+          <div className="product-img-wrap">
+            <img src={item.image} alt={item.name} />
+            {item.discount_percentage > 0 && (
+              <span className="product-badge">-{item.discount_percentage}%</span>
+            )}
+          </div>
+          <div className="product-info">
+            <h3>{item.name}</h3>
+            <div className="product-rating">
+              {[...Array(5)].map((_, i) => (
+                <FontAwesomeIcon
+                  key={i}
+                  icon={faStar}
+                  className={`star ${i < item.average_rating ? 'active' : ''}`}
+                />
+              ))}
+            </div>
+            <p className="product-price">
+              KES {item.discounted_price || item.price}
+            </p>
+          </div>
         </div>
-      </div>
-    ))
+      ))}
+    </div>
   );
 
   return (
-    <>
-      <NotificationBar />
-      <NavButtons />
-      <SearchBar />
-      <div className="searchresultsimages">
+    <div className="favorites-page">
+      <div className="page-header">
+        <Link to="/" className="back-link">
+          <FontAwesomeIcon icon={faArrowLeft} />
+          <span>Continue Shopping</span>
+        </Link>
+      </div>
+      
+      <h1 className="page-title">My Favorites</h1>
+      
+      <div className="favorites-content">
         {loading ? (
-          <p>Loading...</p>
+          <p className="loading-message">Loading...</p>
         ) : error ? (
-          <p>Error: {error}</p>
+          <p className="error-message">Error: {error}</p>
         ) : items.length === 0 ? (
-          <p>No favorited items.</p>
+          <div className="empty-favorites">
+            <FontAwesomeIcon icon={faHeart} className="empty-icon" />
+            <h2>No favorites yet</h2>
+            <p>Start adding items to your favorites!</p>
+            <Link to="/" className="browse-btn">Browse Products</Link>
+          </div>
         ) : (
           renderItems(items)
         )}
-        <span className="tooltip-text">View More</span>
       </div>
+      
       {selectedItem && (
-        <div className="modal-background" onClick={() => setSelectedItem(null)}>
+        <div className="modal-overlay" onClick={() => setSelectedItem(null)}>
           <ModalContent item={selectedItem} onClose={() => setSelectedItem(null)} position={modalPosition} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
