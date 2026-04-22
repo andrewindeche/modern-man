@@ -13,6 +13,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
+import uuid
+from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 import json
 from rest_framework.decorators import api_view
@@ -153,6 +155,18 @@ class StripeChargeView(generics.GenericAPIView):
         currency = serializer.validated_data['currency']
         description = serializer.validated_data.get('description', 'A Django charge')
         phone_number = serializer.validated_data.get('phone_number')
+        
+        # Create idempotency key
+        idempotency_key = f"stripe_{stripe_token}_{amount}"
+        
+        # Check for duplicate request
+        if cache.get(idempotency_key):
+            return Response({
+                'error': 'Duplicate request',
+                'message': 'This transaction was already processed'
+            }, status=status.HTTP_409_CONFLICT)
+        
+        cache.set(idempotency_key, True, 300)  # 5 minutes TTL
 
         try:
             charge = stripe.Charge.create(
@@ -160,6 +174,7 @@ class StripeChargeView(generics.GenericAPIView):
                 currency=currency,
                 description=description,
                 source=stripe_token,
+                idempotency_key=idempotency_key,
             )
             # Send SMS notification if phone provided
             if phone_number:
@@ -200,12 +215,25 @@ class MpesaChargeView(generics.GenericAPIView):
             amount = serializer.validated_data.get('amount')
             account_reference = serializer.validated_data.get('account_reference', 'Test123')
             transaction_desc = serializer.validated_data.get('transaction_desc', 'Payment for XYZ')
+            
+            # Create idempotency key
+            idempotency_key = f"mpesa_{phone_number}_{amount}_{int(timezone.now().timestamp())}"
+            
+            # Check for duplicate request (allow retry within 60 seconds)
+            if cache.get(idempotency_key):
+                return Response({
+                    'error': 'Duplicate request',
+                    'message': 'A similar transaction is being processed. Please wait.'
+                }, status=status.HTTP_409_CONFLICT)
+            
+            # Set cache to prevent duplicates
+            cache.set(idempotency_key, True, 60)  # 60 seconds TTL
 
             # Initiate the M-Pesa transaction
             response = lipa_na_mpesa_online(phone_number, amount, account_reference, transaction_desc)
 
-            # Save transaction in the database
-            if response.get('ResponseCode') == '0':  # assuming '0' is success
+            # Check response and save transaction
+            if response.get('ResponseCode') == '0':
                 transaction = serializer.save(status='Success')
                 # Send SMS notification
                 try:
@@ -214,8 +242,13 @@ class MpesaChargeView(generics.GenericAPIView):
                 except Exception as e:
                     print(f"SMS sending failed: {e}")
             else:
+                error_code = response.get('errorCode', 'Unknown')
+                if error_code == '500':  # Duplicate transaction
+                    return Response({
+                        'error': 'Duplicate transaction',
+                        'message': 'This transaction was already initiated'
+                    }, status=status.HTTP_409_CONFLICT)
                 transaction = serializer.save(status='Failed')
-                # Send failure SMS
                 try:
                     from .utils.sms_utils import send_payment_sms
                     send_payment_sms(phone_number, amount, 'Failed')
