@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDiscountedProducts } from '../store/discountsSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTag, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const NotificationBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { items: discountedProducts, loading, error } = useSelector((state) => state.discount);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
     dispatch(fetchDiscountedProducts());
   }, [dispatch]);
 
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (discountedProducts.length > 0) {
       const interval = setInterval(() => {
@@ -27,37 +29,29 @@ const NotificationBar = () => {
     navigate('/searchpage?discounted=true');
   };
 
+  if (dismissed || (!loading && !error && discountedProducts.length === 0)) {
+    return null;
+  }
+
   return (
-    <div className="notificationbar">
-      {loading && (
-      <p>Loading...</p>
-      )}
-      {error && !loading && (
-      <p>
-        Error:
-        {' '}
-        {error}
-      </p>
-      )}
-      {discountedProducts.length > 0 && !loading && !error && (
-      <>
-        <img src={discountedProducts[currentIndex].image} alt="My Shoes" className="shoes" />
-        <p id="notificationbartext">
-          Get
-          {' '}
-          {discountedProducts[currentIndex].discount_percentage}
-          % off on
-          {' '}
-          {discountedProducts[currentIndex].name}
-        </p>
-        <button type="button" id="notificationbutton" onClick={handleLearnMoreClick}>Learn More</button>
-      </>
-      )}
-      {!loading && !error && discountedProducts.length === 0 && (
-      <p>No discount available</p>
+    <div className="promo-banner">
+      {!loading && !error && discountedProducts.length > 0 && (
+        <>
+          <span className="promo-icon">
+            <FontAwesomeIcon icon={faTag} />
+          </span>
+          <span className="promo-text">
+            Get <strong>{discountedProducts[currentIndex].discount_percentage}% off</strong> on {discountedProducts[currentIndex].name}
+          </span>
+          <button type="button" className="promo-btn" onClick={handleLearnMoreClick}>
+            Shop Now
+          </button>
+          <button type="button" className="promo-close" onClick={() => setDismissed(true)}>
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+        </>
       )}
     </div>
-
   );
 };
 

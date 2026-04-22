@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSearch, faHeart, faShoppingCart, faHome,
-  faUser,
+  faUser, faBars, faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { updateQuery, searchProducts } from '../store/searchSlice';
 import { fetchSuggestions, clearSuggestions } from '../store/suggestionsSlice';
@@ -15,6 +15,7 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [isFavoriteClicked, setIsFavoriteClicked] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const suggestions = useSelector((state) => state.suggestions.suggestions) || [];
@@ -82,59 +83,94 @@ const SearchBar = () => {
   const sortedSuggestions = [...suggestions].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <div className="searchbar">
-      <h3>Modern Man</h3>
-      <Link to="/">
-        <FontAwesomeIcon icon={faHome} className="home-icon" />
-        <span className="tooltip-text">Go To Home</span>
-      </Link>
-      <form className="search-form" onSubmit={handleSearchSubmit}>
-        <FontAwesomeIcon icon={faSearch} className="search-icon" />
-        <input
-          type="text"
-          placeholder="Search for Men's Wear and Accessories"
-          className="search-input"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          onFocus={() => setShowDropdown(true)}
-        />
-        {showDropdown && sortedSuggestions.length > 0 && (
-          <ul className="suggestions">
-            {sortedSuggestions.map((item) => (
-              <li key={item.id} className="suggestion-item" onClick={() => handleSuggestionClick(item)}>
-                <img src={item.image} alt={item.name} className="suggestion-image" />
-                <span className="suggestion-name">{item.name}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </form>
-      <div className="user-icons">
-        {isAuthenticated && (
-        <div
-          className="user-icon"
-          onMouseEnter={() => setShowUserDropdown(true)}
-          onMouseLeave={() => setShowUserDropdown(false)}
-        >
-          <FontAwesomeIcon icon={faUser} id="user" />
-          {showUserDropdown && (
-          <div className="user-dropdown">
-            <Link to="/profile">Profile</Link>
-            <button type="button" onClick={handleLogout}>Logout</button>
-          </div>
-          )}
+    <header className="header">
+      <div className="header-main">
+        <div className="header-left">
+          <Link to="/" className="logo">
+            <span className="logo-text">Modern</span>
+            <span className="logo-accent">Man</span>
+          </Link>
         </div>
-        )}
-        <Link to="/checkout">
-          <FontAwesomeIcon icon={faShoppingCart} id="shopping" />
-          <span className="tooltip-text">Checkout</span>
-        </Link>
-        <FontAwesomeIcon icon={faHeart} className="heart" onClick={handleFavoriteClick} />
-        <span className="favorite-count">{favoriteCount}</span>
-        {favoriteCount > 0 && isFavoriteClicked && <span className="favorite-count">{favoriteCount}</span>}
-        <span className="tooltip-text">Favorite</span>
+
+        <div className="header-center">
+          <form className="search-form" onSubmit={handleSearchSubmit}>
+            <div className="search-input-wrapper">
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search suits, shirts, shoes..."
+                className="search-input"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                onFocus={() => setShowDropdown(true)}
+              />
+            </div>
+            {showDropdown && sortedSuggestions.length > 0 && (
+              <ul className="suggestions">
+                {sortedSuggestions.map((item) => (
+                  <li key={item.id} className="suggestion-item" onClick={() => handleSuggestionClick(item)}>
+                    <img src={item.image} alt={item.name} className="suggestion-image" />
+                    <span className="suggestion-name">{item.name}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </form>
+        </div>
+
+        <div className="header-right">
+          <Link to="/" className="nav-icon" title="Home">
+            <FontAwesomeIcon icon={faHome} />
+          </Link>
+          
+          <Link to="/checkout" className="nav-icon cart-icon" title="Cart">
+            <FontAwesomeIcon icon={faShoppingCart} />
+            {favoriteCount > 0 && <span className="cart-badge">{favoriteCount}</span>}
+          </Link>
+          
+          <Link to="/favorite" className="nav-icon" title="Favorites" onClick={handleFavoriteClick}>
+            <FontAwesomeIcon icon={faHeart} />
+          </Link>
+          
+          <div
+            className="nav-icon user-icon"
+            onMouseEnter={() => setShowUserDropdown(true)}
+            onMouseLeave={() => setShowUserDropdown(false)}
+          >
+            <FontAwesomeIcon icon={faUser} />
+            {showUserDropdown && (
+              <div className="user-dropdown">
+                {isAuthenticated ? (
+                  <>
+                    <Link to="/profile">My Profile</Link>
+                    <button type="button" onClick={handleLogout}>Logout</button>
+                  </>
+                ) : (
+                  <Link to="/login">Sign In</Link>
+                )}
+              </div>
+            )}
+          </div>
+
+          <button 
+            type="button" 
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <FontAwesomeIcon icon={mobileMenuOpen ? faTimes : faBars} />
+          </button>
+        </div>
       </div>
-    </div>
+
+      {mobileMenuOpen && (
+        <nav className="mobile-nav">
+          <Link to="/searchpage?category=suits" onClick={() => setMobileMenuOpen(false)}>Suits</Link>
+          <Link to="/searchpage?category=shirts" onClick={() => setMobileMenuOpen(false)}>Shirts</Link>
+          <Link to="/searchpage?category=neckwear" onClick={() => setMobileMenuOpen(false)}>Accessories</Link>
+          <Link to="/searchpage?category=shoes" onClick={() => setMobileMenuOpen(false)}>Shoes</Link>
+        </nav>
+      )}
+    </header>
   );
 };
 

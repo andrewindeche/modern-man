@@ -6,20 +6,34 @@ import neckwearImage from '../images/neckwear.webp';
 import shoes from '../images/shoes1.webp';
 
 const NavButtons = () => (
-  <div className="categories">
-    <Link to="/searchpage?category=suits">
-      <button className="suits-image" type="button" style={{ backgroundImage: `url(${suitsImage})` }}>Suits</button>
-    </Link>
-    <Link to="/searchpage?category=shirts">
-      <button className="shirts-image" type="button" style={{ backgroundImage: `url(${shirtsImage})` }}>Shirts</button>
-    </Link>
-    <Link to="/searchpage?category=neckwear">
-      <button className="neck-wear" type="button" style={{ backgroundImage: `url(${neckwearImage})` }}>Neck wear & Accessories</button>
-    </Link>
-    <Link to="/searchpage?category=shoes">
-      <button className="shoes-image" type="button" style={{ backgroundImage: `url(${shoes})` }}>Shoes</button>
-    </Link>
-  </div>
+  <nav className="category-nav">
+    <div className="category-grid">
+      <Link to="/searchpage?category=suits" className="category-card">
+        <div className="category-image" style={{ backgroundImage: `url(${suitsImage})` }} />
+        <div className="category-overlay">
+          <span className="category-name">Suits</span>
+        </div>
+      </Link>
+      <Link to="/searchpage?category=shirts" className="category-card">
+        <div className="category-image" style={{ backgroundImage: `url(${shirtsImage})` }} />
+        <div className="category-overlay">
+          <span className="category-name">Shirts</span>
+        </div>
+      </Link>
+      <Link to="/searchpage?category=neckwear" className="category-card">
+        <div className="category-image" style={{ backgroundImage: `url(${neckwearImage})` }} />
+        <div className="category-overlay">
+          <span className="category-name">Accessories</span>
+        </div>
+      </Link>
+      <Link to="/searchpage?category=shoes" className="category-card">
+        <div className="category-image" style={{ backgroundImage: `url(${shoes})` }} />
+        <div className="category-overlay">
+          <span className="category-name">Shoes</span>
+        </div>
+      </Link>
+    </div>
+  </nav>
 );
 
 export default NavButtons;
