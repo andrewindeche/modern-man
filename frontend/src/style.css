@@ -79,8 +79,8 @@ img { max-width: 100%; height: auto; }
 
 .header-center {
   flex: 1;
-  max-width: 600px;
-  margin: 0 2rem;
+  max-width: 650px;
+  margin: 0 2.5rem;
 }
 
 .search-wrapper {
@@ -93,18 +93,24 @@ img { max-width: 100%; height: auto; }
   left: 1.25rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-muted);
-  font-size: 1.1rem;
+  color: var(--primary);
+  font-size: 1.2rem;
+  z-index: 1;
 }
 
 .search-wrapper input {
   width: 100%;
-  padding: 0.875rem 1.25rem 0.875rem 3.25rem;
-  border: 2px solid var(--primary);
-  border-radius: var(--radius-full);
+  padding: 0.9rem 1.25rem 0.9rem 3.25rem;
+  border: 3px solid var(--primary);
+  border-radius: 50px;
   font-size: 1rem;
   background: var(--background-white);
-  transition: var(--transition);
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(188, 43, 43, 0.15);
+}
+
+.search-wrapper input::placeholder {
+  color: var(--text-muted);
 }
 
 .search-wrapper input:focus {
